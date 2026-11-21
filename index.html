@@ -4375,7 +4375,10 @@ function toggleSleep() {
     return afterAction();
   }
   if (s.energy > 85 && !isNight()) { say(pick(LINES.notSleepy)); sfx.tap(); return; }
-  s.asleep = true; addLove(1); care(); track('sleep');
+  // 재웠다 깨웠다를 반복해서 애정도·재우기 횟수를 올리지 못하게: 6시간에 한 번만 센다
+  const now = Date.now(), counts = now - (s.lastSleepLove || 0) >= 6 * HOUR;
+  s.asleep = true; care();
+  if (counts) { s.lastSleepLove = now; addLove(1); track('sleep'); }
   say(pick(LINES.sleep), 2600); sfx.tap(); afterAction();
 }
 
