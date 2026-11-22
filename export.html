@@ -72,9 +72,15 @@ if (!save) {
   $('sLove').textContent = num(save.love);
   $('sCoins').textContent = num(save.coins);
   $('sAlbum').textContent = (Array.isArray(album) ? album.length : 0) + '장';
-  const backup = JSON.stringify({ format: 'kyuppi-web-backup', v: 1, at: new Date().toISOString(), data });
+  // 큐삐가 카톡으로 배운 대화 묶음도 같이 (게임 페이지에 들어 있는 암호화된 그대로. 비밀번호는 넣지 않는다)
+  let backup = JSON.stringify({ format: 'kyuppi-web-backup', v: 1, at: new Date().toISOString(), data });
+  const ready = fetch('index.html', { cache: 'no-store' }).then(r => r.text()).then(html => {
+    const m = html.match(/^const CHATDB = (\{.*\});$/m);
+    if (m) { JSON.parse(m[1]); data['kyuppi-chatdb'] = m[1]; backup = JSON.stringify({ format: 'kyuppi-web-backup', v: 1, at: new Date().toISOString(), data }); }
+  }).catch(() => { /* 대화 묶음 없이도 저장은 된다 (앱이 웹에서 다시 받아 온다) */ });
   const msg = t => { $('msg').textContent = t; };
-  $('saveBtn').onclick = () => {
+  $('saveBtn').onclick = async () => {
+    await ready;
     const d = new Date(), pad = n => String(n).padStart(2, '0');
     const name = `kyuppi-backup-${d.getFullYear()}${pad(d.getMonth() + 1)}${pad(d.getDate())}.json`;
     const url = URL.createObjectURL(new Blob([backup], { type: 'application/json' }));
@@ -83,10 +89,11 @@ if (!save) {
     msg(name + '으로 저장했어');
   };
   $('copyBtn').onclick = async () => {
+    await ready;
     try { await navigator.clipboard.writeText(backup); msg('복사했어. 앱에서 붙여넣어 줘'); }
     catch (e) { msg('복사가 안 돼. "파일로 저장하기"를 써 줘'); }
   };
-  if (backup.length > 800000) { $('copyBtn').hidden = true; } // 사진이 많으면 클립보드에 안 들어가서 파일만
+  ready.then(() => { if (backup.length > 800000) $('copyBtn').hidden = true; }); // 사진이 많으면 클립보드에 안 들어가서 파일만
 }
 </script>
 </body>
