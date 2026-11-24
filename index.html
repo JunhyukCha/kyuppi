@@ -474,7 +474,11 @@ img.px { image-rendering: pixelated; image-rendering: crisp-edges; }
   opacity: 0; transition: opacity .2s; pointer-events: none; z-index: 20; width: max-content; max-width: 90%; word-break: keep-all; text-align: center;
 }
 body:has(.sheet-back.show) .toast { bottom: auto; top: calc(env(safe-area-inset-top) + 14px); }
-.toast.show { opacity: 1; }
+.toast.show { opacity: 1; pointer-events: auto; cursor: pointer; }
+.toast-log { list-style: none; margin: 0 0 12px; padding: 0; display: flex; flex-direction: column; gap: 6px; }
+.toast-log li { background: #fff; border-radius: 12px; padding: 9px 12px; box-shadow: 0 2px 0 #eadfd2; font-size: 14px; line-height: 1.5; display: flex; gap: 10px; justify-content: space-between; align-items: baseline; word-break: keep-all; }
+.toast-log li small { color: var(--ink-soft); white-space: nowrap; font-size: 11px; }
+.toast-log li.empty { justify-content: center; color: var(--ink-soft); }
 
 @media (prefers-reduced-motion: reduce) {
   .bell.ring img, .sheet, .dance-btn.ready img { animation: none; }
@@ -762,6 +766,7 @@ body:has(.sheet-back.show) .toast { bottom: auto; top: calc(env(safe-area-inset-
     <div class="row"><label for="nameInput">이름</label><div class="name-edit"><input id="nameInput" maxlength="8" autocomplete="off" enterkeyhint="done"><button class="text-btn" id="nameSave">바꾸기</button></div></div>
     <div class="row" id="catNameRow" hidden><label for="catNameInput">고양이 이름</label><div class="name-edit"><input id="catNameInput" maxlength="6" autocomplete="off" enterkeyhint="done"><button class="text-btn" id="catNameSave">바꾸기</button></div></div>
     <div class="row"><span>소리</span><button class="switch" role="switch" id="swSound" aria-checked="true" aria-label="소리"></button></div>
+    <div class="row"><div>지난 알림<p>금방 사라진 알림을 다시 볼 수 있어.</p></div><button class="text-btn" id="toastLogBtn">보기</button></div>
     <div class="row"><div>벨 알림 채널<p>준혁이 폰의 ntfy 앱에서 <span id="topicName"></span> 채널을 구독하면 벨 알림을 받아.</p></div></div>
     <div class="row"><div>처음부터 다시 키우기<p id="resetHint">지금까지의 기록이 모두 지워져.</p></div><button class="text-btn danger" id="resetBtn">초기화</button></div>
     <div class="debug" id="debug">
@@ -774,11 +779,19 @@ body:has(.sheet-back.show) .toast { bottom: auto; top: calc(env(safe-area-inset-
   </div>
 </div>
 
+<div class="sheet-back" id="toastLogBack">
+  <div class="sheet" role="dialog" aria-modal="true" aria-labelledby="toastLogTitle">
+    <h2 id="toastLogTitle">지난 알림</h2>
+    <ul class="toast-log" id="toastLogList"></ul>
+    <button class="close" data-close>닫기</button>
+  </div>
+</div>
+
 <div class="toast" id="toast" role="status" aria-live="polite"></div>
 
 <script>
 window.KyuppiWeb = (() => {
-  const EXTRA = {"exercise":["하나 둘! 하나 둘!","헉헉..","줄넘기 시작!"],"exerciseDone":["개운하다!","땀 났다..|씻어야겠다"],"exerciseSlim":["살 빠진 것 같아!!","몸이 가벼워졌다 히히"],"exerciseNo":["힘들어서 못 하겠어..","배고파서 힘이 없어.."],"fatTalk":["요즘 살찐 것 같아..|운동해야 하나","배가 나왔어..","간식 좀 줄여야겠다.."],"thinTalk":["배고파서 살 빠졌어..","요즘 너무 못 먹었어.."],"walkEnd":["산책 재밌었다!","{cat} 엄청 신났어 히히","다리 아프다.. 그래도 좋아"],"workGo":["헉 나 일하러 가야 돼..?|알겠어 다녀올게","쟈기가 시키니까 간다..!","으.. 일하기 싫어|그래도 다녀올게!","돈 벌어 올게 히히","나만 일해..? 쟈기도 일해!","다녀오겠습니다!|기다려 줘"],"workBack":["다녀왔어!!","나 왔다!! 힘들었어..","퇴근이다!! 히히","쟈기 나 왔어! 칭찬해 줘"],"workEarly":["벌써 와도 돼? 신난다 히히","조기 퇴근이다!!","헤헤 일찍 왔다"],"workTired":["너무 피곤해서 못 가..|좀 쉬고 갈래","배고파서 일 못 해..|밥부터 줘","기운이 없어..|조금만 쉬고"],"workLimit":["오늘은 일 많이 했어..|이제 쉴래","오늘은 그만!|내일 또 할게"],"workSick":["아파서 못 가..","몸이 안 좋아..|오늘은 쉴래"],"touchHeadMany":["머리 닳겠다 히히","쓰담쓰담 너무 좋아.."],"touchEye":["앗 눈!!","눈 찌르지 마!","앗 따가워 히히"],"touchCheek":["말랑말랑?","볼 콕! 히히","내 볼 말랑하지?"],"touchCheekMany":["볼 터진다!!","그만 찔러! 흥","볼에 구멍 나겠어"],"touchFive":["짝!","하이파이브!","나이스! 히히"],"touchFiveMany":["하이파이브 장인!","우리 손발 척척이다 히히"],"touchFeet":["발 간지러워!! 히히","거긴 안 돼 히히","발바닥은 반칙이야!"],"touchFeetMany":["그만!! 발차기 뻥!","간지러워서 못 참아!! 뻥!"],"moodAsk":["쟈기 오늘 기분 어때?","쟈기 오늘 하루 어땠어?","오늘 기분 알려 줘!"],"moodGreat":["나도 덩달아 신난다!!","최고다!! 오늘 같이 놀자 히히","쟈기 기분 좋으면 나도 좋아!"],"moodGood":["다행이다 히히","좋은 하루였구나!","헤헤 나도 좋아"],"moodSoso":["그런 날도 있지..|내가 웃겨 줄게","음.. 그냥 그런 날이구나|잠깐만!"],"moodSoso2":["꿀꿀! 웃었지? 히히","돼지코! 이제 좀 웃겨?"],"moodBad":["무슨 일 있었어?|내가 옆에 있을게","오늘 속상했구나..|내가 꼭 안아 줄게"],"moodHard":["오늘 많이 힘들었구나..|이리 와. 꼭 안아 줄게","쟈기 고생 많았어..|노래 불러 줄게"],"moodBad2":["오늘은 푹 쉬어. 내가 있잖아","쟈기는 잘하고 있어","맛있는 거 먹고 일찍 자자"],"moodNext":["어제 힘들었잖아..|오늘은 좀 괜찮아?","쟈기 오늘은 기분 괜찮아?|어제 걱정했어"],"fakeStart":["아야.. 나 아파..","머리가.. 아파..","쟈기.. 나 아픈 것 같아..","끙.. 아파.."],"fakeMed":["약은 싫어!!|...사실 안 아파 히히","으악 약 싫어!|헤헤 사실 꾀병이었어"],"fakePet":["헤헤 사실 안 아팠지롱","들켰다.. 심심해서 그랬어","쟈기 걱정했어? 헤헤 미안"],"fakeTemp":["어.. 정상이네..?|헤헤 들켰다","36.5도.. 꾀병인 거 들켰다 히히"],"fakeEnd":["아무도 안 속네.. 흥","꾀병 부려도 안 봐 주네.."],"tempOk":["나 건강해!","열 없지? 히히"],"hideStart":["내가 뭐 숨겼게~|방 어딘가에 있어. 찾아 봐!","숨바꼭질 하자!|내가 숨긴 거 찾아 봐","쉿.. 뭐 하나 숨겼어 히히|찾아 봐!"],"hideFound":["찾았다!! 어떻게 알았어?","헉 벌써 찾았어?!","역시 쟈기 눈 좋다 히히"],"hideReveal":["여기 있었지롱!","못 찾았지? 히히 여기!"],"sRamen":["앗.. 들켰다..|배고파서 몰래..","쉿! 비밀이야..|라면 한 입만.."],"sWish":["11시 11분이다!|소원 빌어야지..","소원 빌었어!|비밀이야 히히"],"sStars":["별 예쁘다..","쟈기도 지금 하늘 보고 있을까?"],"sSnack":["앗! 간식 먹는 거 들켰다","3시는 간식 시간이야 히히"],"sMidnight":["자정이다!|오늘도 수고했어","날짜 바뀌었다!|오늘도 같이 있자"],"sRain":["비 오는 소리 좋다~","비 오는 날엔 흔들흔들 히히"],"sStretch":["으아아~ 기지개!","잘 잤다~ 쭈욱"],"sParty":["불금이다!!","금요일 밤은 신나야지 히히"],"sMirror":["오늘도 귀엽네 나..","거울아 거울아.. 누가 제일 귀엽니?"],"sPetTalk":["{cat}야, 우리 쟈기 몰래 간식 먹을까?","{cat}야 쟈기 좋아해? 나도 히히"],"sConfess":["..좋아해.|아 아니! 연습이야!!","사..사랑.. 아니 아무것도 아니야!"],"sGrowl":["꼬르륵.. 들었어?","배에서 소리 났다..|점심 먹자"],"sleepTalk":["음냐.. {x}..","{x}.. 더 줘..","음.. {x} 좋아..","zzz.. {x}.."],"dreamTell":["꿈 꿨는데!!|{x} 나왔어","어젯밤 꿈에 {x} 나왔다 히히","꿈에서 {x} 봤어!|그려 놨어"],"monCheer":["월요일이다!|이번 주도 힘내!","쟈기 월요일 화이팅!|도시락 챙겨 놨어"],"friNight":["불금이다!!|영화 보러 갈래?","금요일 밤이다 히히|오늘 영화관 가자"],"brunchStart":["일요일엔 브런치지!|와플 구워 줄게","주말 아침이다!|맛있는 거 해 줄게"],"brunchDone":["짠! 브런치 완성!","같이 먹자 히히"],"styleLove":["이 옷 완전 내 스타일!!","이거 너무 좋아!! 빙글빙글","쟈기 내 취향 잘 안다 히히"],"styleHate":["음.. 이건 좀..","이 옷은 나랑 안 맞는 것 같아..","다른 거 입을래.."],"tooHot":["더워..|여름에 이건 좀..","땀 나.. 시원한 거 입고 싶어"],"tooCold":["추워..|겨울에 이건 좀..","덜덜.. 따뜻한 거 입혀 줘"],"craftShow":["짠! 내가 {x} 만들었어","쟈기 없을 때 {x} 만들었다!","이거 봐!! 내가 만든 {x} 히히"],"hobbyUp":["요즘 {x} 실력 늘었지?","{x} 점점 잘하게 돼 히히"],"guitarSong":["쟈기 생각하면서 만든 노래야","어때? 내가 만든 노래 히히"],"battLow":["폰 배터리 {x}%야!|충전해 줘","배터리 얼마 없어..|나 꺼지면 안 돼"],"battCharge":["폰도 밥 먹는다 냠냠","충전 시작! 폰 배부르겠다 히히"],"artTiny":["음.. 이건 뭐야?|추상화야? 히히","점 몇 개..? 그래도 고마워!"],"artLove":["하트다!!|고마워 히히","하트 그림이다! 나도 하트!"],"artMe":["이거 나야?!|완전 닮았어","나 이렇게 귀여워? 히히"],"artUs":["우리 둘이다!!|평생 간직할래","쟈기랑 나다 히히|벽에 걸어야지"],"artFood":["{x}다!|보니까 먹고 싶어","{x} 그림이다! 배고파진다 히히"],"artPet":["{cat}다!! 똑같아","{cat} 그림이다 히히"],"artNature":["예쁘다..|같이 보러 가고 싶어","그림 속 같은 데 가 보고 싶다"],"artColor":["우와 알록달록하다!!","색이 진짜 예뻐!"],"artAny":["우와 선물이야? 고마워!!","쟈기가 그린 거야? 최고야!"],"oneYear":["1년 전 오늘 기억나?","작년 오늘 일기 봤어 히히"],"diaryMe":["일기 읽었어? 히히","나도 쟈기 글 읽었어!"],"stepDrink":["{x}걸음이나 걸었네!|이거 마시면서 다녀","많이 걸었다!|시원한 거 마셔"],"stepMassage":["만 보 넘었어?!|다리 아프겠다.. 주물러 줄게","{x}걸음이나 걸었어?|이리 와 봐, 다리 주물러 줄게"],"stepFoot":["{x}걸음..! 발 퉁퉁 부었겠다|발 주물러 줄게","오늘 너무 많이 걸었어..|종아리 꾹꾹 해 줄게"],"stepMassageDone":["시원하지? 히히","이제 좀 괜찮아?","오늘 진짜 고생했어"],"stepRest":["{x}걸음?! 만보기 고장 난 거 아니야?|오늘은 푹 쉬어","오늘 너무 무리했어..|따뜻하게 씻고 일찍 자"],"giftSent":["선물 보냈다! 좋아하겠지?","택배 출발~ 히히"],"giftGot":["선물 왔다!!","택배다!! 뭐 들었을까?"],"stepWalk":["오늘 많이 걸었네!|같이 산책한 걸로 칠게","쟈기 오늘 엄청 걸었다!|나도 같이 걸은 기분이야"]};
+  const EXTRA = {"exercise":["하나 둘! 하나 둘!","헉헉..","줄넘기 시작!"],"exerciseDone":["개운하다!","땀 났다..|씻어야겠다"],"exerciseSlim":["살 빠진 것 같아!!","몸이 가벼워졌다 히히"],"exerciseNo":["힘들어서 못 하겠어..","배고파서 힘이 없어.."],"fatTalk":["요즘 살찐 것 같아..|운동해야 하나","배가 나왔어..","간식 좀 줄여야겠다.."],"thinTalk":["배고파서 살 빠졌어..","요즘 너무 못 먹었어.."],"walkEnd":["산책 재밌었다!","{cat} 엄청 신났어 히히","다리 아프다.. 그래도 좋아"],"workGo":["헉 나 일하러 가야 돼..?|알겠어 다녀올게","쟈기가 시키니까 간다..!","으.. 일하기 싫어|그래도 다녀올게!","돈 벌어 올게 히히","나만 일해..? 쟈기도 일해!","다녀오겠습니다!|기다려 줘"],"workBack":["다녀왔어!!","나 왔다!! 힘들었어..","퇴근이다!! 히히","쟈기 나 왔어! 칭찬해 줘"],"workEarly":["벌써 와도 돼? 신난다 히히","조기 퇴근이다!!","헤헤 일찍 왔다"],"workTired":["너무 피곤해서 못 가..|좀 쉬고 갈래","배고파서 일 못 해..|밥부터 줘","기운이 없어..|조금만 쉬고"],"workLimit":["오늘은 일 많이 했어..|이제 쉴래","오늘은 그만!|내일 또 할게"],"workSick":["아파서 못 가..","몸이 안 좋아..|오늘은 쉴래"],"touchHeadMany":["머리 닳겠다 히히","쓰담쓰담 너무 좋아.."],"touchEye":["앗 눈!!","눈 찌르지 마!","앗 따가워 히히"],"touchCheek":["말랑말랑?","볼 콕! 히히","내 볼 말랑하지?"],"touchCheekMany":["볼 터진다!!","그만 찔러! 흥","볼에 구멍 나겠어"],"touchFive":["짝!","하이파이브!","나이스! 히히"],"touchFiveMany":["하이파이브 장인!","우리 손발 척척이다 히히"],"touchFeet":["발 간지러워!! 히히","거긴 안 돼 히히","발바닥은 반칙이야!"],"touchFeetMany":["그만!! 발차기 뻥!","간지러워서 못 참아!! 뻥!"],"moodAsk":["쟈기 오늘 기분 어때?","쟈기 오늘 하루 어땠어?","오늘 기분 알려 줘!"],"moodGreat":["나도 덩달아 신난다!!","최고다!! 오늘 같이 놀자 히히","쟈기 기분 좋으면 나도 좋아!"],"moodGood":["다행이다 히히","좋은 하루였구나!","헤헤 나도 좋아"],"moodSoso":["그런 날도 있지..|내가 웃겨 줄게","음.. 그냥 그런 날이구나|잠깐만!"],"moodSoso2":["꿀꿀! 웃었지? 히히","돼지코! 이제 좀 웃겨?"],"moodBad":["무슨 일 있었어?|내가 옆에 있을게","오늘 속상했구나..|내가 꼭 안아 줄게"],"moodHard":["오늘 많이 힘들었구나..|이리 와. 꼭 안아 줄게","쟈기 고생 많았어..|노래 불러 줄게"],"moodBad2":["오늘은 푹 쉬어. 내가 있잖아","쟈기는 잘하고 있어","맛있는 거 먹고 일찍 자자"],"moodNext":["어제 힘들었잖아..|오늘은 좀 괜찮아?","쟈기 오늘은 기분 괜찮아?|어제 걱정했어"],"fakeStart":["아야.. 나 아파..","머리가.. 아파..","쟈기.. 나 아픈 것 같아..","끙.. 아파.."],"fakeMed":["약은 싫어!!|...사실 안 아파 히히","으악 약 싫어!|헤헤 사실 꾀병이었어"],"fakePet":["헤헤 사실 안 아팠지롱","들켰다.. 심심해서 그랬어","쟈기 걱정했어? 헤헤 미안"],"fakeTemp":["어.. 정상이네..?|헤헤 들켰다","36.5도.. 꾀병인 거 들켰다 히히"],"fakeEnd":["아무도 안 속네.. 흥","꾀병 부려도 안 봐 주네.."],"tempOk":["나 건강해!","열 없지? 히히"],"hideStart":["내가 뭐 숨겼게~|방 어딘가에 있어. 찾아 봐!","숨바꼭질 하자!|내가 숨긴 거 찾아 봐","쉿.. 뭐 하나 숨겼어 히히|찾아 봐!"],"hideFound":["찾았다!! 어떻게 알았어?","헉 벌써 찾았어?!","역시 쟈기 눈 좋다 히히"],"hideReveal":["여기 있었지롱!","못 찾았지? 히히 여기!"],"sRamen":["앗.. 들켰다..|배고파서 몰래..","쉿! 비밀이야..|라면 한 입만.."],"sWish":["11시 11분이다!|소원 빌어야지..","소원 빌었어!|비밀이야 히히"],"sStars":["별 예쁘다..","쟈기도 지금 하늘 보고 있을까?"],"sSnack":["앗! 간식 먹는 거 들켰다","3시는 간식 시간이야 히히"],"sMidnight":["자정이다!|오늘도 수고했어","날짜 바뀌었다!|오늘도 같이 있자"],"sRain":["비 오는 소리 좋다~","비 오는 날엔 흔들흔들 히히"],"sStretch":["으아아~ 기지개!","잘 잤다~ 쭈욱"],"sParty":["불금이다!!","금요일 밤은 신나야지 히히"],"sMirror":["오늘도 귀엽네 나..","거울아 거울아.. 누가 제일 귀엽니?"],"sPetTalk":["{cat}야, 우리 쟈기 몰래 간식 먹을까?","{cat}야 쟈기 좋아해? 나도 히히"],"sConfess":["..좋아해.|아 아니! 연습이야!!","사..사랑.. 아니 아무것도 아니야!"],"sGrowl":["꼬르륵.. 들었어?","배에서 소리 났다..|점심 먹자"],"sleepTalk":["음냐.. {x}..","{x}.. 더 줘..","음.. {x} 좋아..","zzz.. {x}.."],"dreamTell":["꿈 꿨는데!!|{x} 나왔어","어젯밤 꿈에 {x} 나왔다 히히","꿈에서 {x} 봤어!|그려 놨어"],"monCheer":["월요일이다!|이번 주도 힘내!","쟈기 월요일 화이팅!|도시락 챙겨 놨어"],"friNight":["불금이다!!|영화 보러 갈래?","금요일 밤이다 히히|오늘 영화관 가자"],"brunchStart":["일요일엔 브런치지!|와플 구워 줄게","주말 아침이다!|맛있는 거 해 줄게"],"brunchDone":["짠! 브런치 완성!","같이 먹자 히히"],"styleLove":["이 옷 완전 내 스타일!!","이거 너무 좋아!! 빙글빙글","쟈기 내 취향 잘 안다 히히"],"styleHate":["음.. 이건 좀..","이 옷은 나랑 안 맞는 것 같아..","다른 거 입을래.."],"tooHot":["더워..|여름에 이건 좀..","땀 나.. 시원한 거 입고 싶어"],"tooCold":["추워..|겨울에 이건 좀..","덜덜.. 따뜻한 거 입혀 줘"],"craftShow":["짠! 내가 {x} 만들었어","쟈기 없을 때 {x} 만들었다!","이거 봐!! 내가 만든 {x} 히히"],"hobbyUp":["요즘 {x} 실력 늘었지?","{x} 점점 잘하게 돼 히히"],"guitarSong":["쟈기 생각하면서 만든 노래야","어때? 내가 만든 노래 히히"],"battLow":["폰 배터리 {x}%야!|충전해 줘","배터리 얼마 없어..|나 꺼지면 안 돼"],"battCharge":["폰도 밥 먹는다 냠냠","충전 시작! 폰 배부르겠다 히히"],"artTiny":["음.. 이건 뭐야?|추상화야? 히히","점 몇 개..? 그래도 고마워!"],"artLove":["하트다!!|고마워 히히","하트 그림이다! 나도 하트!"],"artMe":["이거 나야?!|완전 닮았어","나 이렇게 귀여워? 히히"],"artUs":["우리 둘이다!!|평생 간직할래","쟈기랑 나다 히히|벽에 걸어야지"],"artFood":["{x}다!|보니까 먹고 싶어","{x} 그림이다! 배고파진다 히히"],"artPet":["{cat}다!! 똑같아","{cat} 그림이다 히히"],"artNature":["예쁘다..|같이 보러 가고 싶어","그림 속 같은 데 가 보고 싶다"],"artColor":["우와 알록달록하다!!","색이 진짜 예뻐!"],"artAny":["우와 선물이야? 고마워!!","쟈기가 그린 거야? 최고야!"],"oneYear":["1년 전 오늘 기억나?","작년 오늘 일기 봤어 히히"],"diaryMe":["일기 읽었어? 히히","나도 쟈기 글 읽었어!"],"workHome_aegyo":["쟈기~ 나 일하고 왔어!|휴~ 힘들어 죽는 줄 알았어","나 왔어~|오늘 진짜진짜 힘들었어..","다녀왔어 쟈기!|안아 줘.. 힘들었어"],"workHome_warm":["다녀왔어~|오늘도 무사히 끝났다","나 왔어. 휴~|그래도 보람찬 하루였어","다녀왔어~|쟈기도 오늘 고생 많았지?"],"workHome_plain":["다녀왔어.|좀 피곤하네","왔어.|오늘 일 끝.","퇴근했어.|휴.."],"workHome_blunt":["왔어.","...퇴근.","다녀옴.|피곤."],"workHome_hyper":["퇴근이다!!!!|드디어 자유다!!!","나 왔다!!!!|오늘 완전 불태웠어!!!","다녀왔어!!!|힘든데 신나!!! 히히"],"workHomeTired_aegyo":["나 왔어..|너무 힘들어서 녹을 것 같아..","쟈기.. 나 왔어|기운이 하나도 없어.."],"workHomeTired_warm":["다녀왔어..|오늘은 좀 많이 피곤하다"],"workHomeTired_plain":["왔어. 진짜 피곤하다."],"workHomeTired_blunt":["...왔어. 졸려."],"workHomeTired_hyper":["다녀왔어..!!|배터리 1%야..!!"],"workBrag_aegyo":["오늘 {x}코인이나 벌었어!|나 대단하지? 히히","짜잔~ {x}코인!|이걸로 맛있는 거 사 줄게"],"workBrag_warm":["{x}코인 벌어 왔어|이걸로 우리 맛있는 거 먹자","오늘 번 거 {x}코인!|쟈기 갖고 싶은 거 있어?"],"workBrag_plain":["오늘 {x}코인 벌었어.","{x}코인. 나쁘지 않네."],"workBrag_blunt":["{x}코인. 받아.","...{x}코인 벌었어. 됐지?"],"workBrag_hyper":["{x}코인!!!!! 부자다!!!! 히히","오늘 {x}코인!!! 나 천재인가?!"],"workPraiseAsk_aegyo":["칭찬해 줘~|머리 쓰담쓰담!","나 잘했지?|쓰다듬어 줘~"],"workPraiseAsk_warm":["나 오늘 잘했지?","칭찬 한 번만 해 줄래?"],"workPraiseAsk_plain":["칭찬해 줘도 돼.","잘했다고 해 줘."],"workPraiseAsk_blunt":["...칭찬은?","쓰다듬든가."],"workPraiseAsk_hyper":["칭찬해!!! 빨리!!!","나 쓰담쓰담 해 줘!!!!"],"workPraised_aegyo":["헤헤 힘이 난다~","쟈기가 쓰다듬어 주니까 피곤이 싹 풀렸어"],"workPraised_warm":["고마워. 덕분에 힘이 나","쟈기 손 따뜻하다.."],"workPraised_plain":["...좋다.","고마워. 힘 난다."],"workPraised_blunt":["...뭐. 좋네.","...한 번 더."],"workPraised_hyper":["으아아 최고야!!!!","힘이 넘친다!!! 또 일하러 갈까?!"],"workNoPraise_aegyo":["칭찬 안 해 줘..?","쓰담쓰담 기다렸는데.."],"workNoPraise_warm":["괜찮아, 다음에 해 줘","...조금 서운하다"],"workNoPraise_plain":["...뭐, 됐어."],"workNoPraise_blunt":["...됐어.","흥."],"workNoPraise_hyper":["칭찬 왜 안 해!!!","서운해!!!!"],"workChatHi":["나 지금 {x} 하는 중이야!|몰래 답장하는 거야 히히","쟈기! 나 {x} 하고 있어|그래도 연락 와서 좋다"],"workChatNow":["나 지금 {x} 하는 중이야","{x} 하고 있어!","일하는 중! {x} 하고 있어"],"workChatAside":["몰래 답장하는 거야 히히","아 잠깐 누가 지나간다..","빨리 끝내고 갈게!","들키면 혼나..","일하다가 답장하는 중이야"],"workChatWhen":["{n} 뒤에 끝나!|조금만 기다려","{n} 남았어..|끝나면 바로 갈게"],"workChatTired":["응 좀 힘들어..|그래도 쟈기 생각하면서 버티는 중","조금 피곤해..|끝나고 칭찬해 줘"],"workChatFood":["아직 못 먹었어..|끝나고 먹을래","일하느라 바빠서..|이따 맛있는 거 먹자"],"workChatDone":["끝났다!! 이제 집 가는 중|대화창 닫으면 들어갈게","퇴근이다!!|금방 갈게 히히"],"stepDrink":["{x}걸음이나 걸었네!|이거 마시면서 다녀","많이 걸었다!|시원한 거 마셔"],"stepMassage":["만 보 넘었어?!|다리 아프겠다.. 주물러 줄게","{x}걸음이나 걸었어?|이리 와 봐, 다리 주물러 줄게"],"stepFoot":["{x}걸음..! 발 퉁퉁 부었겠다|발 주물러 줄게","오늘 너무 많이 걸었어..|종아리 꾹꾹 해 줄게"],"stepMassageDone":["시원하지? 히히","이제 좀 괜찮아?","오늘 진짜 고생했어"],"stepRest":["{x}걸음?! 만보기 고장 난 거 아니야?|오늘은 푹 쉬어","오늘 너무 무리했어..|따뜻하게 씻고 일찍 자"],"giftSent":["선물 보냈다! 좋아하겠지?","택배 출발~ 히히"],"giftGot":["선물 왔다!!","택배다!! 뭐 들었을까?"],"stepWalk":["오늘 많이 걸었네!|같이 산책한 걸로 칠게","쟈기 오늘 엄청 걸었다!|나도 같이 걸은 기분이야"]};
   const EVENTS = [{"id":"cherry","when":{"md":["04-01","04-02","04-03","04-04","04-05","04-06","04-07"]},"look":null,"lines":["벚꽃 폈다!!","벚꽃 보러 가자"]},{"id":"valentine","when":{"md":["02-14"]},"look":null,"lines":["발렌타인데이다!","초콜릿 줄까?"]},{"id":"whiteDay","when":{"md":["03-14"]},"look":null,"lines":["화이트데이다!","사탕 받고 싶다.."]},{"id":"pepero","when":{"md":["11-11"]},"look":null,"lines":["빼빼로데이!","빼빼로 먹자"]},{"id":"newYear","when":{"md":["01-01"]},"look":null,"lines":["새해 복 많이 받아!","올해도 잘 부탁해"]},{"id":"seollal","when":{"ymd":["2026-02-16","2026-02-17","2026-02-18","2027-02-06","2027-02-07","2027-02-08","2028-01-26","2028-01-27","2028-01-28","2029-02-12","2029-02-13","2029-02-14"]},"look":{"outfit":"hanbok"},"lines":["설날이다!","떡국 먹었어?"]},{"id":"chuseok","when":{"ymd":["2026-09-24","2026-09-25","2026-09-26","2027-09-14","2027-09-15","2027-09-16","2028-10-02","2028-10-03","2028-10-04","2029-09-21","2029-09-22","2029-09-23"]},"look":{"outfit":"hanbok"},"lines":["추석이다!","송편 먹었어?"]},{"id":"halloween","when":{"md":["10-31"]},"look":{"outfit":"vampire","headgear":"devil"},"lines":["해피 할로윈!","사탕 안 주면 장난칠 거야"]},{"id":"anniv100","when":{"daysSince":[100,200,300,365,400,500,600,700,730,800,900,1000]},"look":null,"lines":["오늘 우리 {days}일이야!!","{days}일 축하해!! 사랑해 쟈기","벌써 {days}일이다 히히"]},{"id":"anniv1y","when":{"md":["07-01"],"fromYear":2027},"look":null,"gift":"anniv100","lines":["오늘 우리 {years}주년이야!!|사랑해 쟈기","{years}주년 축하해!! 히히|앞으로도 계속 같이 있자"]}];
   const SINCE = '2026-07-01', FAV = ['pasta', 'bibim', 'chicken', 'matcha', 'cake'];
   const webVoice = t => String(t).replace(/\{you\}/g, '쟈기').replace(/\{laugh\}/g, '히히');
@@ -841,6 +854,7 @@ window.KyuppiWeb = (() => {
       window.callYou = () => '쟈기';
       // 일 시키기: 웹 캐릭터(큐삐)는 개발자 (대사에 '갠플젝'·'회의'가 나오는 그 직업)
       window.KYUPPI_JOB = 'developer';
+      window.KYUPPI_TONE = 'aegyo'; // 쟈기·히히 말투
     },
     afterBoot() {
       // 업데이트 전부터 깔려 있던 분홍 러그는 그대로
@@ -5791,7 +5805,8 @@ function say(text, ms = 2800) {
     b.textContent = parts[i]; b.classList.add('show');
     clearTimeout(bubbleTimer);
     const last = i === parts.length - 1;
-    bubbleTimer = setTimeout(() => (last ? b.classList.remove('show') : show(i + 1)), last ? ms : 1700);
+    const len = parts[i].length; // 긴 말은 읽을 시간만큼 더 떠 있게
+    bubbleTimer = setTimeout(() => (last ? b.classList.remove('show') : show(i + 1)), last ? Math.max(ms, 1200 + len * 85) : Math.max(1700, 900 + len * 75));
   };
   show(0);
   lastSpoke = Date.now();
@@ -7481,13 +7496,29 @@ function onReturn(away) {
 // ---------- UI ----------
 const toastQ = [];
 let toastBusy = false;
-function toast(t) { if (toastQ.length < 6) toastQ.push(t); if (!toastBusy) nextToast(); }
+// 알림: 글이 길수록 오래 떠 있고(3~8초), 누르면 바로 닫힌다. 금방 사라져도 설정 → 지난 알림에서 다시 볼 수 있다
+const TOAST_LOG = 'kyuppi.toastLog';
+let toastTimer = 0;
+function toast(t) {
+  if (!t) return;
+  try { const L = JSON.parse(localStorage.getItem(TOAST_LOG) || '[]'); L.unshift({ t: String(t), at: Date.now() }); localStorage.setItem(TOAST_LOG, JSON.stringify(L.slice(0, 40))); } catch (e) { /* 저장 못 해도 알림은 뜬다 */ }
+  if (toastQ.length < 6) toastQ.push({ t, at: Date.now() }); if (!toastBusy) nextToast();
+}
+const toastMs = t => Math.max(3000, Math.min(8000, 1800 + String(t).length * 110)) * (toastQ.length >= 3 ? 0.7 : 1);
 function nextToast() {
-  const el = $('toast'), t = toastQ.shift();
+  // 너무 늦게 차례가 온 알림(12초 넘게 기다린 것)은 건너뛴다. 지난 알림에는 남아 있다
+  while (toastQ.length && Date.now() - toastQ[0].at > 12000) toastQ.shift();
+  const el = $('toast'), q = toastQ.shift(), t = q && q.t;
+  clearTimeout(toastTimer);
   if (!t) { toastBusy = false; el.classList.remove('show'); return; }
   toastBusy = true; el.classList.remove('show'); void el.offsetWidth;
   el.textContent = t; el.classList.add('show');
-  setTimeout(nextToast, 2600);
+  toastTimer = setTimeout(nextToast, toastMs(t));
+}
+function renderToastLog() {
+  let L = []; try { L = JSON.parse(localStorage.getItem(TOAST_LOG) || '[]'); } catch (e) { L = []; }
+  const ago = at => { const m = Math.floor((Date.now() - at) / MIN); return m < 1 ? '방금' : m < 60 ? m + '분 전' : m < 1440 ? Math.floor(m / 60) + '시간 전' : Math.floor(m / 1440) + '일 전'; };
+  $('toastLogList').innerHTML = L.length ? L.map(x => '<li><span>' + esc(x.t) + '</span><small>' + ago(x.at) + '</small></li>').join('') : '<li class="empty">아직 알림이 없어</li>';
 }
 
 function updateUI() {
@@ -7970,7 +8001,7 @@ function catThink(now) {
     [(c.mood > 50 ? 1.3 : 0.4) * w('roll'), () => { catSet('roll', rand(3000, 5000)); track('catRoll'); ksay('catRoll', 0.5); }],
     [0.6, () => catSet('yawn', 1400)],
     [(c.mood > 60 ? 0.6 : 0.1) * w('zoom'), () => { kitty.zoomLeft = 4; catGoTo(kitty.x < 24 ? LW - 15 : 0); kitty.mode = 'zoom'; ksay('catZoom', 0.6); }],
-    [(c.mood > 40 ? 1 : 0.3) * w('rub'), () => catGoTo(charPos.x + 12, () => { catSet('rub', 3500); ksay('catRub', 0.7); })],
+    [(lifeHidden() ? 0 : c.mood > 40 ? 1 : 0.3) * w('rub'), () => catGoTo(charPos.x + 12, () => { catSet('rub', 3500); ksay('catRub', 0.7); })], // 일하러 나가 있으면 비빌 데가 없다
     [c.mood < 50 ? 1.2 : 0.6, () => catSet('nap', rand(8000, 15000))],
     // 종류마다 하는 것: 강아지 꼬리 흔들기, 새 날기·노래, 거북이 등껍질에 쏙
     [(c.mood > 40 ? 1 : 0.4) * w('wag', 0), () => catSet('wag', rand(2000, 3500))],
@@ -8487,6 +8518,8 @@ function bind() {
   $('growLetter2').onclick = () => { closeSheets(); $('letterTitle').textContent = '두 번째 편지'; $('letterText').textContent = LETTER2; openSheet('letterBack'); };
   $('danceBtn').addEventListener('pointerdown', e => e.stopPropagation());
   $('danceBtn').onclick = dance;
+  $('toast').onclick = () => nextToast(); // 다 읽었으면 눌러서 닫기
+  $('toastLogBtn').onclick = () => { closeSheets(); renderToastLog(); openSheet('toastLogBack'); };
   $('settingsBtn').onclick = () => { $('nameInput').value = state.name; $('catNameRow').hidden = !hasCat(); $('catNameInput').value = catName(); openSheet('settingsBack'); };
   const saveName = () => {
     const v = $('nameInput').value.trim().slice(0, 8) || '큐삐';
@@ -9044,22 +9077,24 @@ function startWork(id) {
   if (s.energy < t.en + 5 || s.full < 20) { startAnim('pout', 1400); sfx.sad(); return say(lineOf('workTired', ['너무 피곤해서 못 가..|좀 쉬고 갈래']), 2600); }
   workDay().n++;
   s.req = null; s.crave = s.crave && s.crave.until > Date.now() ? s.crave : null; hideCancel(true);
+  if (hasCat() && ['hug', 'rub', 'churu', 'brush', 'wand'].includes(kitty.mode)) catSet('sit', 2000); // 안겨 있던 고양이는 내려놓고 간다
   s.work = { task: t.id, name: t.name, job: jobId(), at: Date.now(), until: Date.now() + t.min * MIN, leaveAt: Date.now() + 3900 };
   say(lineOf('workGo', ['다녀올게!']), 2600); sfx.tap();
   setTimeout(() => { if (workAway()) { startAnim('workGo', 2400); beep(523, 0.06); beep(392, 0.08, 'square', 0.03, 0.1); } }, 1500);
   setTimeout(() => updateUI(), 4000);
   track('workGo'); afterAction();
 }
-// 돌아오기 (시간이 다 됐거나, 조기 퇴근). 앱을 꺼 둔 사이에 끝났으면 켤 때 돌아와 있다
+// 돌아오기 (시간이 다 됐거나, 조기 퇴근). 보상은 바로 정해 두고(코인은 자랑할 때 들어온다),
+// 집에 들어오는 장면은 화면을 보고 있을 때 틀어 준다. 앱을 꺼 둔 사이에 끝났으면 켰을 때 그때 들어온다
 function workReturn(early) {
   const s = state, w = s.work; if (!w) return;
   const t = workTask(w), share = early ? Math.min(1, (Date.now() - w.at) / Math.max(1, w.until - w.at)) : 1;
   s.work = null;
-  let pay = Math.round(t.pay * (early ? share * 0.6 : 1)), extra = '', line;
+  let pay = Math.round(t.pay * (early ? share * 0.6 : 1)), extra = '', story = null;
   const evs = (t.ev || []).concat(Math.random() < 0.25 ? ALL_DAY : []);
   const pickEv = early ? null : (evs.length ? pick(evs) : null);
   if (pickEv) {
-    const [text, fx] = pickEv; line = text;
+    const [text, fx] = pickEv; story = [text, fx || ''];
     if (fx === 'praise') { pay = Math.round(pay * 1.25); addLove(1); extra = ', 칭찬 보너스'; }
     else if (fx === 'mistake') { pay = Math.round(pay * 0.75); s.fun = clamp(s.fun - 5); extra = ', 실수해서 조금 깎였어'; }
     else if (fx === 'tip') { const n = Math.round(rand(20, 40)); pay += n; extra = ', 보너스 +' + n; }
@@ -9071,23 +9106,130 @@ function workReturn(early) {
     else if (fx && fx.startsWith('snack:')) { const f = giveFood(fx.slice(6)); if (f) extra = ', ' + f.name + ' 받아 왔어 (냉장고)'; else pay += 10; }
   }
   s.energy = clamp(s.energy - t.en * share); s.full = clamp(s.full - t.en * 0.5 * share); s.fun = clamp(s.fun + t.fun * share); s.clean = clamp(s.clean - 6 * share);
-  addCoins(pay); addLove(early ? 1 : 2);
+  addLove(early ? 1 : 2);
   const L = s.workLog = s.workLog || { n: 0, coins: 0, by: {} }; L.n++; L.coins += pay; L.by[t.id] = (L.by[t.id] || 0) + 1;
   dayLog().works.push(t.name); track('work');
-  const msg = t.name + (early ? ' 조기 퇴근! ' : ' 끝! ') + '코인 +' + pay + extra;
-  const show = () => {
-    startAnim('workBack', 2000);
-    anim.onEnd = () => {
-      startAnim('cheer', 1600);
-      for (let i = 0; i < 5; i++) spawn(i % 2 ? 'coin' : 'sparkle', charPos.x + rand(4, 26), charPos.y + rand(4, 16), rand(-8, 8), -rand(8, 14), 1100);
-      say(early ? lineOf('workEarly', ['벌써 와도 돼? 신난다']) : lineOf('workBack', ['다녀왔어!!']) + (line ? '|' + line : ''), 3200); sfx.happy();
-      toast(msg); afterAction();
-    };
+  s.workHome = { name: t.name, early: !!early, pay, msg: t.name + (early ? ' 조기 퇴근! ' : ' 끝! ') + '코인 +' + pay + extra, story, tired: s.energy < 30, at: Date.now() };
+  save(); afterAction();
+  homeSoon();
+}
+// ---------- 집에 오는 장면: 들어오기 → 휴~ → 오늘 있었던 일 → 번 돈 자랑(코인이 날아감) → 칭찬해 줘 ----------
+// 말투(설문의 애교형·다정형·담백형·무뚝뚝형·텐션형)마다 대사랑 몸짓이 다르다
+const TONES = ['aegyo', 'warm', 'plain', 'blunt', 'hyper'];
+const toneOf = () => (TONES.includes(window.KYUPPI_TONE) ? window.KYUPPI_TONE : 'warm');
+const toneLine = (k, fb) => lineOf(k + '_' + toneOf(), LINES[k] && LINES[k].length ? LINES[k] : fb);
+let homeOn = false, homeTimer = 0, praiseWant = 0;
+const homePending = () => !!(state && state.workHome && !homeOn);
+function homeSoon() { clearInterval(homeTimer); homeTimer = setInterval(() => { if (!state || !state.workHome) return clearInterval(homeTimer); playHome(); }, 900); playHome(); }
+function playHome() {
+  const s = state, H = s && s.workHome;
+  if (!H || homeOn || document.hidden || anim.type || game.active || date.place || sheetOpen() || s.boxed) return false;
+  homeOn = true; clearInterval(homeTimer);
+  const T = toneOf(), seq = [];
+  const at = (ms, f) => seq.push(setTimeout(() => { if (state && !state.boxed) f(); }, ms));
+  $('bubble').classList.remove('show');
+  startAnim('workBack', 2200); beep(988, 0.08, 'triangle', 0.05); beep(784, 0.1, 'triangle', 0.05, 0.14); // 띵동
+  // 1) 휴~ (말투마다 다른 몸짓)
+  at(2250, () => {
+    const a = T === 'hyper' ? 'homeJump' : T === 'aegyo' || H.tired ? 'homeFlop' : 'homeSigh';
+    startAnim(a, 2700);
+    if (a !== 'homeJump') for (let i = 0; i < 3; i++) spawn('sweat', charPos.x + rand(6, 24), charPos.y + rand(4, 10), rand(-4, 4), 8, 800);
+    say(H.early ? lineOf('workEarly', ['벌써 와도 돼? 신난다']) : toneLine(H.tired ? 'workHomeTired' : 'workHome', ['다녀왔어~|휴~ 힘들다']), 2600);
+    sfx.tap();
+  });
+  // 2) 오늘 있었던 일
+  let t = 5100;
+  if (H.story && !H.early) {
+    const [text, fx] = H.story, good = /praise|tip|fun|love|snack/.test(fx);
+    at(t, () => { startAnim(good ? 'cheer' : fx === 'mistake' || fx === 'tired' || fx === 'wet' ? 'pout' : 'shy', 2600); say(text, 2800); if (good) sfx.happy(); else sfx.sad(); });
+    t += 2900;
+  }
+  // 3) 번 돈 자랑: 손에 든 코인이 위 코인 칸으로 날아가고 숫자가 올라간다
+  at(t, () => {
+    startAnim('homeBrag', 2800);
+    say(fillX(toneLine('workBrag', ['오늘 {x}코인 벌었어!']), H.pay), 3000);
+    const r = $('lcd').getBoundingClientRect(), sc = r.width / LW;
+    coinFly(H.pay, r.left + (charPos.x + 26) * sc, r.top + (charPos.y + 8) * sc, () => { addCoins(H.pay); sfx.coin && sfx.coin(); });
+    if (state.workHome === H) state.workHome = null;
+    toast(H.msg); save();
+  });
+  t += 3100;
+  // 4) 칭찬해 줘 (머리를 쓰다듬으면 좋아한다. 조기 퇴근이면 생략)
+  if (!H.early) {
+    at(t, () => { startAnim('praiseWait', 9000); praiseWant = Date.now() + 9000; say(toneLine('workPraiseAsk', ['칭찬해 줘!']), 3000); });
+    at(t + 9100, () => { homeOn = false; if (praiseWant && Date.now() >= praiseWant) { praiseWant = 0; startAnim('pout', 1500); say(toneLine('workNoPraise', ['칭찬 안 해 줘..?']), 2400); } });
+  } else at(t, () => { homeOn = false; startAnim('cheer', 1400); });
+  // 혹시 중간에 끊겨도 코인은 꼭 들어온다
+  setTimeout(() => { if (state && state.workHome === H) { state.workHome = null; addCoins(H.pay); toast(H.msg); save(); } homeOn = false; }, t + 12000);
+  return true;
+}
+function workPraised() {
+  praiseWant = 0; homeOn = false;
+  startAnim('love', 2200);
+  for (let i = 0; i < 7; i++) spawn('heart', charPos.x + rand(2, 28), charPos.y + rand(0, 12), rand(-6, 6), -rand(8, 14), 1500);
+  say(toneLine('workPraised', ['헤헤 힘이 난다']), 2800); addLove(2); state.fun = clamp(state.fun + 6); sfx.happy(); track('pet'); afterAction();
+}
+// ---------- 코인이 늘고 줄 때: 숫자가 올라가거나 내려가고 +N / -N이 떠오른다 ----------
+(function coinCss() {
+  const c = document.createElement('style');
+  c.textContent = `.coin-float{position:fixed;z-index:30;pointer-events:none;font:inherit;font-size:16px;font-family:'Galmuri11Bold','Galmuri11',sans-serif;transform:translate(-50%,0);text-shadow:0 2px 0 #fff,0 -1px 0 #fff,1px 0 0 #fff,-1px 0 0 #fff;animation:coinUp 1.15s ease-out forwards}
+.coin-float.gain{color:#c98a1b}.coin-float.spend{color:#d33f6c}
+@keyframes coinUp{0%{opacity:0;transform:translate(-50%,6px) scale(.8)}15%{opacity:1;transform:translate(-50%,0) scale(1.15)}100%{opacity:0;transform:translate(-50%,-30px) scale(1)}}
+.coin-btn.spend,#shopCoins.spend{animation:coinShake .35s ease}
+@keyframes coinShake{25%{transform:translateX(-3px)}50%{transform:translateX(3px)}75%{transform:translateX(-2px)}}
+.coin-fly{position:fixed;z-index:30;width:22px;height:22px;image-rendering:pixelated;pointer-events:none;margin:-11px 0 0 -11px}
+@media (prefers-reduced-motion: reduce){.coin-float{animation-duration:.01s}}`;
+  document.head.appendChild(c);
+})();
+function coinAnchor() {
+  const shop = $('shopBack') && $('shopBack').classList.contains('show') ? $('shopCoins') : null;
+  return shop || $('coinBtn');
+}
+let coinShown = null, coinRaf = 0;
+function coinTick(from, to) {
+  cancelAnimationFrame(coinRaf);
+  const t0 = performance.now(), dur = Math.min(900, 250 + Math.abs(to - from) * 6);
+  const step = now => {
+    const k = Math.min(1, (now - t0) / dur), v = Math.round(from + (to - from) * (1 - Math.pow(1 - k, 3)));
+    $('coins').textContent = v; $('shopCoins').textContent = v;
+    if (k < 1) coinRaf = requestAnimationFrame(step); else { $('coins').textContent = state.coins; $('shopCoins').textContent = state.coins; }
   };
-  if (document.hidden) { toast(msg); afterAction(); } else show();
-  save();
+  coinRaf = requestAnimationFrame(step);
+}
+function coinFloat(d) {
+  const a = coinAnchor(), r = a.getBoundingClientRect(); if (!r.width) return;
+  const el = document.createElement('span'); el.className = 'coin-float ' + (d > 0 ? 'gain' : 'spend'); el.textContent = (d > 0 ? '+' : '−') + Math.abs(d);
+  el.style.left = (r.left + r.width / 2 + rand(-8, 8)) + 'px'; el.style.top = (r.bottom + 2) + 'px';
+  document.body.appendChild(el); setTimeout(() => el.remove(), 1300);
+  if (d < 0) { a.classList.remove('spend'); void a.offsetWidth; a.classList.add('spend'); }
+}
+// 화면의 한 점(캐릭터 손)에서 코인 칸으로 코인 몇 개가 날아간다. 첫 코인이 닿을 때 then()
+function coinFly(n, x, y, then) {
+  const a = coinAnchor().getBoundingClientRect(), tx = a.left + 18, ty = a.top + a.height / 2, k = Math.min(8, 2 + Math.floor(n / 15));
+  if (!icons.iconCoin || matchMedia('(prefers-reduced-motion: reduce)').matches || !a.width) { then(); return; }
+  let done = false;
+  for (let i = 0; i < k; i++) {
+    const img = document.createElement('img'); img.className = 'coin-fly'; img.src = icons.iconCoin; img.alt = '';
+    img.style.left = x + 'px'; img.style.top = y + 'px'; document.body.appendChild(img);
+    const dx = tx - x, dy = ty - y, j = rand(-30, 30);
+    const an = img.animate([{ transform: 'translate(0,0) scale(.6)', opacity: 0 }, { transform: 'translate(' + (dx * 0.3 + j) + 'px,' + (dy * 0.3 - 50) + 'px) scale(1.2)', opacity: 1, offset: 0.35 }, { transform: 'translate(' + dx + 'px,' + dy + 'px) scale(.7)', opacity: 0.9 }],
+      { duration: 650 + i * 70, delay: i * 60, easing: 'cubic-bezier(.4,.1,.6,1)', fill: 'forwards' });
+    an.onfinish = () => { img.remove(); if (!done) { done = true; then(); } beep(1568 + i * 60, 0.03, 'square', 0.02); };
+  }
+  setTimeout(() => { if (!done) { done = true; then(); } }, 1600);
+}
+{
+  const addCoins0 = addCoins;
+  addCoins = function (n) {
+    const before = state ? state.coins || 0 : 0;
+    const r = addCoins0.apply(this, arguments);
+    const d = (state ? state.coins || 0 : 0) - before;
+    if (d && state && !state.boxed) { coinTick(before, state.coins); coinFloat(d); }
+    return r;
+  };
 }
 function workBlock() {
+  if (homePending()) { toast(state.name + josa(state.name, '이', '가') + ' 지금 집에 오는 중이야!'); setTimeout(playHome, 300); return true; }
   if (!workAway()) return false;
   const w = state.work;
   toast(nameJ('은', '는') + ' 지금 ' + w.name + ' 하러 갔어. ' + fmtMin(workLeft()) + ' 뒤에 와 (활동하기에서 조기 퇴근시킬 수 있어)');
@@ -9099,8 +9241,11 @@ const awayGuard = f => function (...a) { if (workBlock()) return false; return f
 feed = awayGuard(feed); openFood = awayGuard(openFood); toilet = awayGuard(toilet); bath = awayGuard(bath); toggleSleep = awayGuard(toggleSleep);
 startGame = awayGuard(startGame); startQuiz = awayGuard(startQuiz); startMemory = awayGuard(startMemory); startRps = awayGuard(startRps); dance = awayGuard(dance);
 startDate = awayGuard(startDate); exercise = awayGuard(exercise); doTouch = awayGuard(doTouch); pet = awayGuard(pet); takePhoto = awayGuard(takePhoto); giveMedicine = awayGuard(giveMedicine);
+openSick = awayGuard(openSick); takeTemp = awayGuard(takeTemp); openMood = awayGuard(openMood); startFake = awayGuard(startFake); startHide = awayGuard(startHide);
+// 반려동물이랑 하는 것 중 캐릭터가 같이 하는 것(안아 주기·츄르·빗질·낚싯대)은 나가 있으면 못 한다. 밥 주기랑 돌봐주기 화면은 된다
+{ const catAction0 = catAction; catAction = function (kind) { const how = (PB().toy || {}).how || 'wand'; if ((workAway() || (state && state.workHome)) && (kind === 'hug' || kind === 'churu' || kind === 'brush' || (kind === 'wand' && how === 'wand'))) { closeSheets(); toast(state.name + josa(state.name, '이', '가') + ' 없어서 지금은 못 해. ' + catName() + josa(catName(), '이랑', '랑') + '은 돌봐주기 화면에서 놀아 줘'); return; } return catAction0.apply(this, arguments); }; }
 // 나가 있는 동안엔 방에서 저절로 일어나는 일도 없다 (빈 방에 요리·말풍선이 뜨지 않게). 돌아온 뒤에 다시 일어난다
-const quietAway = f => function (...a) { if (workAway()) return false; return f.apply(this, a); };
+const quietAway = f => function (...a) { if (workAway() || (state && state.workHome)) return false; return f.apply(this, a); };
 maybeEvent = quietAway(maybeEvent); maybeCrave = quietAway(maybeCrave); maybeReq = quietAway(maybeReq); maybeKnock = quietAway(maybeKnock); maybePing = quietAway(maybePing);
 startCook = quietAway(startCook); startDrawGift = quietAway(startDrawGift); startComfort = quietAway(startComfort); morningHi = quietAway(morningHi); startCat = quietAway(startCat);
 { const say0 = say; say = function (...a) { if (lifeHidden()) return; return say0.apply(this, a); }; }
@@ -9110,13 +9255,18 @@ startCook = quietAway(startCook); startDrawGift = quietAway(startDrawGift); star
 // ===================== 생활 2: 방에서 일어나는 일들 (게임이 부르는 lifeFace·lifeMove·lifeOverlay·lifeTick 등) =====================
 const workWear = () => { const w = state.work, id = JOB_WEAR[w ? w.job : jobId()]; return id && OUTFITS.some(o => o.id === id) ? { outfit: id } : {}; };
 const animK = now => Math.max(0, Math.min(1, (now - anim.start) / Math.max(1, anim.until - anim.start)));
-const LIFE_ANIMS = new Set(['workGo', 'workBack', 'eyeTap', 'poke', 'five', 'feet', 'temp', 'hugYou', 'sRamen', 'sWish', 'sStars', 'sSnack', 'sRain', 'sStretch', 'sParty', 'sMirror', 'sPetTalk', 'sGrowl', 'brunch', 'giveArt', 'guitar']);
+const LIFE_ANIMS = new Set(['workGo', 'workBack', 'homeFlop', 'homeSigh', 'homeJump', 'homeBrag', 'praiseWait', 'eyeTap', 'poke', 'five', 'feet', 'temp', 'hugYou', 'sRamen', 'sWish', 'sStars', 'sSnack', 'sRain', 'sStretch', 'sParty', 'sMirror', 'sPetTalk', 'sGrowl', 'brunch', 'giveArt', 'guitar']);
 function lifeFace(now) {
   const t = anim.type, k = now - (anim.start || now);
   if (t && LIFE_ANIMS.has(t)) {
     switch (t) {
       case 'workGo': return Object.assign({ eyes: k < 800 ? 'happy' : 'open', mouth: k < 800 ? 'open' : 'smile', arms: k < 800 && Math.floor(now / 160) % 2 ? 'upR' : 'down' }, workWear());
       case 'workBack': return Object.assign({ eyes: 'happy', mouth: 'open', arms: Math.floor(now / 200) % 2 ? 'upL' : 'down' }, workWear());
+      case 'homeFlop': return Object.assign({ eyes: k < 1200 ? 'blink' : 'sad', mouth: 'wavy', arms: 'down', blush: toneOf() === 'aegyo' ? 'big' : false }, workWear());
+      case 'homeSigh': return Object.assign({ eyes: 'blink', mouth: k < 1300 ? 'o' : 'smile', arms: k < 1300 ? 'up' : 'down' }, workWear());
+      case 'homeJump': return Object.assign({ eyes: 'happy', mouth: 'open', arms: Math.floor(now / 180) % 2 ? 'up' : 'upR', blush: true }, workWear());
+      case 'homeBrag': { const T = toneOf(); return T === 'blunt' ? { eyes: 'open', mouth: 'neutral', arms: 'upR' } : T === 'plain' ? { eyes: 'happy', mouth: 'smile', arms: 'upR' } : { eyes: 'happy', mouth: 'open', arms: T === 'hyper' && Math.floor(now / 160) % 2 ? 'up' : 'upR', blush: 'big' }; }
+      case 'praiseWait': { const T = toneOf(); if (T === 'blunt') return { eyes: 'sulk', mouth: 'neutral', blush: true }; return { eyes: (now % 2400) < 160 ? 'blink' : 'happy', mouth: T === 'hyper' ? 'open' : 'smile', blush: 'big', arms: T === 'hyper' ? (Math.floor(now / 200) % 2 ? 'upL' : 'upR') : 'down' }; }
       case 'eyeTap': return { eyes: k < 500 ? 'blink' : 'sulk', mouth: 'o', blush: true };
       case 'poke': return { eyes: anim.data >= 4 ? 'sulk' : 'happy', mouth: anim.data >= 4 ? 'pout' : 'o', blush: 'big' };
       case 'five': return { eyes: 'happy', mouth: 'open', arms: anim.data === 'L' ? 'upL' : 'upR', blush: true };
@@ -9151,6 +9301,10 @@ function lifeMove(now) {
   const t = anim.type; if (!t || !LIFE_ANIMS.has(t)) return null;
   const k = animK(now), bob = Math.floor(now / 130) % 2 ? -1 : 0, far = LW + 10 - homeX();
   if (t === 'workGo') return k < 0.33 ? { dx: 0, dy: 0 } : { dx: Math.round((k - 0.33) / 0.67 * far), dy: bob };
+  if (t === 'homeFlop') return { dx: 0, dy: k > 0.3 ? 1 : 0 };
+  if (t === 'homeJump') return { dx: 0, dy: Math.floor(now / 180) % 2 ? -3 : 0 };
+  if (t === 'homeBrag') return { dx: 0, dy: toneOf() === 'hyper' && Math.floor(now / 160) % 2 ? -2 : 0 };
+  if (t === 'praiseWait') return { dx: toneOf() === 'blunt' ? 0 : [0, 1, 0, -1][Math.floor(now / 500) % 4], dy: 0 };
   if (t === 'workBack') return k > 0.75 ? { dx: 0, dy: 0 } : { dx: Math.round((1 - k / 0.75) * far), dy: bob };
   if (t === 'feet') return { dx: 0, dy: Math.floor(now / 90) % 2 ? -1 : 0 };
   if (t === 'five') return { dx: 0, dy: now - anim.start < 200 ? -2 : 0 };
@@ -9162,10 +9316,12 @@ function lifeMove(now) {
   if (t === 'sGrowl') return { dx: 0, dy: Math.floor(now / 70) % 2 && now - anim.start < 600 ? 1 : 0 };
   return null;
 }
-const lifeHidden = () => workAway() && Date.now() >= (state.work.leaveAt || 0) && anim.type !== 'workBack' && anim.type !== 'workGo';
+const lifeHidden = () => (workAway() && Date.now() >= (state.work.leaveAt || 0) && anim.type !== 'workBack' && anim.type !== 'workGo') || homePending();
 function lifeOverlay(cx, cy, now) {
   const s = state, t = anim.type, k = now - (anim.start || now);
-  if (t === 'workGo' || t === 'workBack') bx.drawImage(item('iconWork'), cx + 22, cy + 21);
+  if (t === 'workGo' || t === 'workBack' || t === 'homeFlop' || t === 'homeSigh' || t === 'homeJump') bx.drawImage(item('iconWork'), cx + 22, cy + 21);
+  if (t === 'homeBrag') { bx.drawImage(item('iconCoin'), cx + 23, cy + 4 + (Math.floor(now / 260) % 2)); if (Math.random() < 0.1) spawn('sparkle', cx + 26, cy + 4, rand(-4, 4), -rand(4, 8), 700); }
+  if (t === 'praiseWait' && Math.floor(now / 450) % 2) bx.drawImage(item('heart'), cx + 13, cy - 7);
   if (s.hidden && !date.place) drawHidden(now);
   if (fakeSick() && !s.asleep && !t) { bx.fillStyle = '#8f86c9'; for (const [x, y0] of [[12, 11], [15, 10], [18, 11]]) bx.fillRect(cx + x, cy + y0 + (Math.floor(now / 600) % 2), 1, 3); }
   if (s.asleep && dream.until > Date.now() && !t) drawDream(cx, cy, now);
@@ -9204,6 +9360,7 @@ function lifeTouch(hp) {
 }
 function touchZone(z, side) {
   const s = state, n = zoneN(z);
+  if (z === 'head' && praiseWant > Date.now()) return workPraised();
   if (z === 'head') { pet(); if (n === 6) setTimeout(() => say(lineOf('touchHeadMany', ['머리 닳겠다 히히']), 2000), 400); return; }
   if (z === 'nose') return doTouchRaw('pig');
   if (z === 'belly') return doTouchRaw('tickle');
@@ -9610,6 +9767,7 @@ function lifeTick() {
   lifeLastTick = now;
   diaryRoll();
   if (workAway() && now >= s.work.until && !document.hidden && !game.active && !date.place) { workReturn(false); return; }
+  if (s.workHome) { playHome(); return; }
   if (s.fake && s.fake.until <= now) { s.fake = null; if (!document.hidden && !s.asleep && !anim.type) { startAnim('pout', 1400); say(lineOf('fakeEnd', ['아무도 안 속네.. 흥']), 2400); } updateUI(); }
   if (s.hidden && s.hidden.until <= now) hideCancel(document.hidden);
   petDexTick();
@@ -9633,6 +9791,7 @@ function lifeTick() {
   const greet0 = greet;
   greet = function (away) {
     const s = state;
+    if (s.workHome) return homeSoon(); // 퇴근해서 오는 길이면 그게 인사
     if (workAway()) { if (Date.now() >= s.work.until) return workReturn(false); setTimeout(() => toast(nameJ('은', '는') + ' ' + s.work.name + ' 하러 갔어. ' + fmtMin(workLeft()) + ' 뒤에 와'), 1200); return; }
     // 어제 힘들다고 했으면 먼저 물어본다
     const yk = dayKey(Date.now() - 86400000);
@@ -9650,9 +9809,11 @@ function lifeTick() {
     if (away >= 6 * HOUR && !s.asleep && !s.sick && !workAway() && Date.now() - (s.lastCraft || 0) > 18 * HOUR && Math.random() < 0.5) setTimeout(showCraft, 5600);
     return r;
   };
+  const pet0 = pet;
+  pet = function () { if (praiseWant > Date.now() && !state.asleep) return workPraised(); return pet0.apply(this, arguments); };
   const chatter0 = chatter;
   chatter = function () {
-    if (workAway()) return;
+    if (workAway() || state.workHome || homeOn) return;
     if (fakeSick() && !anim.type && !game.active) return say(lineOf('fakeStart', ['아야..']), 2200);
     return chatter0();
   };
@@ -9677,6 +9838,46 @@ function lifeTick() {
   };
   const unlockFood0 = unlockFood;
   unlockFood = function (key) { const f = FOODS.find(x => x.key === key); if (f && f.season && !inSeason(f)) { toast(f.name + josa(f.name, '은', '는') + ' ' + SEASON_KO[f.season] + '에만 열 수 있어'); return false; } return unlockFood0(key); };
+}
+
+// ---------- 일하러 가 있을 때 대화: 일하는 중인 걸 알고 몰래 답장한다 ----------
+const WORK_Q = { now: /(뭐|머|모)\s*(해|하|함|하고)|어디(야|에|임)?|바빠|일\s*(해|하|중)|회사|일하/, when: /언제\s*(와|끝|퇴근|올)|퇴근|몇\s*시|얼마나\s*(남|걸)/, tired: /힘들|피곤|지쳐|괜찮/, food: /밥|점심|저녁|먹었/ };
+{
+  const replyTo0 = replyTo;
+  replyTo = function (text, whole = text) {
+    if (!workAway()) return replyTo0.apply(this, arguments);
+    const w = state.work, x = w.name, n = fmtMin(workLeft()), f = t => fillX(String(t), x).replace(/\{n\}/g, n);
+    if (WORK_Q.when.test(whole)) return { text: f(lineOf('workChatWhen', ['{n} 뒤에 끝나!|조금만 기다려'])), mood: 'shy' };
+    if (WORK_Q.now.test(whole)) return { text: f(lineOf('workChatNow', ['나 지금 {x} 하는 중이야!'])) + '|' + f(lineOf('workChatAside', ['몰래 답장하는 거야'])) };
+    if (WORK_Q.tired.test(whole)) return { text: f(lineOf('workChatTired', ['응 좀 힘들어..|그래도 버티는 중'])), mood: 'sad' };
+    if (WORK_Q.food.test(whole)) return { text: f(lineOf('workChatFood', ['아직 못 먹었어..|끝나고 먹을래'])) };
+    const r = Object.assign({}, replyTo0.apply(this, arguments));
+    if (r.text && Math.random() < 0.35) r.text = r.text + '|' + f(lineOf('workChatAside', ['일하다가 답장하는 중'])), r.raw = true;
+    return r;
+  };
+  const openChat0 = openChat;
+  openChat = function () {
+    const away = workAway(), first = away && state.workChatHi !== state.work.at;
+    if (first) state.chatAt = Date.now(); // 평소 인사 대신 일하는 중 인사
+    const r = openChat0.apply(this, arguments);
+    if (away && sheetOpen()) {
+      $('chatStatus').textContent = state.work.name + ' 하는 중 · 몰래 답장';
+      if (first) {
+        state.workChatHi = state.work.at;
+        let n = 0; const hi = () => { if (!workAway() || !$('chatBack').classList.contains('show')) return; if (chat.busy && n++ < 20) return setTimeout(hi, 400); himSays(fillX(lineOf('workChatHi', ['나 지금 {x} 하는 중이야!|몰래 답장하는 거야']), state.work.name), null, true); };
+        setTimeout(hi, 500);
+      }
+    }
+    return r;
+  };
+  // 대화 중에 일이 끝나면 대화창으로 먼저 알려 준다 (창을 닫으면 집에 들어오는 장면)
+  const workReturn0 = workReturn;
+  workReturn = function (early) {
+    const chatting = $('chatBack').classList.contains('show') && workAway();
+    const r = workReturn0.apply(this, arguments);
+    if (chatting && !early) setTimeout(() => { if (!chat.busy) himSays(lineOf('workChatDone', ['끝났다!! 이제 집 가는 중|창 닫으면 갈게']), 'love', true); }, 400);
+    return r;
+  };
 }
 
 // ===================== 생활 3: 그림 선물, 일기장, 반려동물 돌봐주기·모습·도감, 주말 장터, 기록 =====================
