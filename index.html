@@ -422,7 +422,9 @@ img.px { image-rendering: pixelated; image-rendering: crisp-edges; }
   animation: up .2s ease-out;
 }
 @keyframes up { from { transform: translateY(30px); opacity: .5; } }
-#settingsBack .sheet { max-height: calc(100dvh - env(safe-area-inset-top) - 10px); overflow-y: auto; overscroll-behavior: contain; }
+/* 창이 화면보다 길면(음식·미니게임이 많아짐, 브라우저 주소창) 위가 잘리지 않게 창 안에서 스크롤, 닫기는 아래에 붙어 있게 */
+.sheet { max-height: calc(100vh - 10px); max-height: calc(100dvh - env(safe-area-inset-top) - 10px); overflow-y: auto; overscroll-behavior: contain; }
+.sheet > .close { position: sticky; bottom: 0; z-index: 3; box-shadow: 0 0 0 10px var(--cream), 0 40px 0 14px var(--cream); }
 /* 앱(브리지)과 웹 공통: hidden은 항상 숨김, 좁은 폰 머리줄, 작은 버튼 누르는 영역 넓히기 */
 [hidden] { display: none !important; }
 .title { min-width: 0; overflow: hidden; padding-right: 6px; } .title h1 { min-width: 0; max-width: 100%; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; font-size: clamp(17px, 5.4vw, 22px); }
@@ -817,11 +819,16 @@ window.KyuppiWeb = (() => {
     save();
   }
   function check() {
-    if (document.visibilityState !== 'visible' || state.asleep) return;
+    if (document.visibilityState !== 'visible') return;
     if (anim.type || game.active) { clearTimeout(check.t); check.t = setTimeout(check, 20000); return; }
     const d = new Date(), today = dayStr(d);
     const e = EVENTS.find(x => (state.evSeen || {})[x.id] !== today && fits(x, d));
-    if (e) play(e);
+    if (!e) return;
+    if (!state.asleep) return play(e);
+    // 자고 있으면 깨우지 않고 선물만 머리맡에 (알림으로)
+    const n = days(), years = d.getFullYear() - Number(SINCE.slice(0, 4));
+    state.evSeen = state.evSeen || {}; state.evSeen[e.id] = today; save();
+    holidayGift(e.gift || e.id, e.id === 'anniv1y' ? 'y' + years : n);
   }
   return {
     beforeBoot() {
