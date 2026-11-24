@@ -778,7 +778,7 @@ body:has(.sheet-back.show) .toast { bottom: auto; top: calc(env(safe-area-inset-
 
 <script>
 window.KyuppiWeb = (() => {
-  const EXTRA = {"exercise":["하나 둘! 하나 둘!","헉헉..","줄넘기 시작!"],"exerciseDone":["개운하다!","땀 났다..|씻어야겠다"],"exerciseSlim":["살 빠진 것 같아!!","몸이 가벼워졌다 히히"],"exerciseNo":["힘들어서 못 하겠어..","배고파서 힘이 없어.."],"fatTalk":["요즘 살찐 것 같아..|운동해야 하나","배가 나왔어..","간식 좀 줄여야겠다.."],"thinTalk":["배고파서 살 빠졌어..","요즘 너무 못 먹었어.."],"walkEnd":["산책 재밌었다!","{cat} 엄청 신났어 히히","다리 아프다.. 그래도 좋아"],"workGo":["헉 나 일하러 가야 돼..?|알겠어 다녀올게","쟈기가 시키니까 간다..!","으.. 일하기 싫어|그래도 다녀올게!","돈 벌어 올게 히히","나만 일해..? 쟈기도 일해!","다녀오겠습니다!|기다려 줘"],"workBack":["다녀왔어!!","나 왔다!! 힘들었어..","퇴근이다!! 히히","쟈기 나 왔어! 칭찬해 줘"],"workEarly":["벌써 와도 돼? 신난다 히히","조기 퇴근이다!!","헤헤 일찍 왔다"],"workTired":["너무 피곤해서 못 가..|좀 쉬고 갈래","배고파서 일 못 해..|밥부터 줘","기운이 없어..|조금만 쉬고"],"workLimit":["오늘은 일 많이 했어..|이제 쉴래","오늘은 그만!|내일 또 할게"],"workSick":["아파서 못 가..","몸이 안 좋아..|오늘은 쉴래"],"touchHeadMany":["머리 닳겠다 히히","쓰담쓰담 너무 좋아.."],"touchEye":["앗 눈!!","눈 찌르지 마!","앗 따가워 히히"],"touchCheek":["말랑말랑?","볼 콕! 히히","내 볼 말랑하지?"],"touchCheekMany":["볼 터진다!!","그만 찔러! 흥","볼에 구멍 나겠어"],"touchFive":["짝!","하이파이브!","나이스! 히히"],"touchFiveMany":["하이파이브 장인!","우리 손발 척척이다 히히"],"touchFeet":["발 간지러워!! 히히","거긴 안 돼 히히","발바닥은 반칙이야!"],"touchFeetMany":["그만!! 발차기 뻥!","간지러워서 못 참아!! 뻥!"],"moodAsk":["쟈기 오늘 기분 어때?","쟈기 오늘 하루 어땠어?","오늘 기분 알려 줘!"],"moodGreat":["나도 덩달아 신난다!!","최고다!! 오늘 같이 놀자 히히","쟈기 기분 좋으면 나도 좋아!"],"moodGood":["다행이다 히히","좋은 하루였구나!","헤헤 나도 좋아"],"moodSoso":["그런 날도 있지..|내가 웃겨 줄게","음.. 그냥 그런 날이구나|잠깐만!"],"moodSoso2":["꿀꿀! 웃었지? 히히","돼지코! 이제 좀 웃겨?"],"moodBad":["무슨 일 있었어?|내가 옆에 있을게","오늘 속상했구나..|내가 꼭 안아 줄게"],"moodHard":["오늘 많이 힘들었구나..|이리 와. 꼭 안아 줄게","쟈기 고생 많았어..|노래 불러 줄게"],"moodBad2":["오늘은 푹 쉬어. 내가 있잖아","쟈기는 잘하고 있어","맛있는 거 먹고 일찍 자자"],"moodNext":["어제 힘들었잖아..|오늘은 좀 괜찮아?","쟈기 오늘은 기분 괜찮아?|어제 걱정했어"],"fakeStart":["아야.. 나 아파..","머리가.. 아파..","쟈기.. 나 아픈 것 같아..","끙.. 아파.."],"fakeMed":["약은 싫어!!|...사실 안 아파 히히","으악 약 싫어!|헤헤 사실 꾀병이었어"],"fakePet":["헤헤 사실 안 아팠지롱","들켰다.. 심심해서 그랬어","쟈기 걱정했어? 헤헤 미안"],"fakeTemp":["어.. 정상이네..?|헤헤 들켰다","36.5도.. 꾀병인 거 들켰다 히히"],"fakeEnd":["아무도 안 속네.. 흥","꾀병 부려도 안 봐 주네.."],"tempOk":["나 건강해!","열 없지? 히히"],"hideStart":["내가 뭐 숨겼게~|방 어딘가에 있어. 찾아 봐!","숨바꼭질 하자!|내가 숨긴 거 찾아 봐","쉿.. 뭐 하나 숨겼어 히히|찾아 봐!"],"hideFound":["찾았다!! 어떻게 알았어?","헉 벌써 찾았어?!","역시 쟈기 눈 좋다 히히"],"hideReveal":["여기 있었지롱!","못 찾았지? 히히 여기!"],"sRamen":["앗.. 들켰다..|배고파서 몰래..","쉿! 비밀이야..|라면 한 입만.."],"sWish":["11시 11분이다!|소원 빌어야지..","소원 빌었어!|비밀이야 히히"],"sStars":["별 예쁘다..","쟈기도 지금 하늘 보고 있을까?"],"sSnack":["앗! 간식 먹는 거 들켰다","3시는 간식 시간이야 히히"],"sMidnight":["자정이다!|오늘도 수고했어","날짜 바뀌었다!|오늘도 같이 있자"],"sRain":["비 오는 소리 좋다~","비 오는 날엔 흔들흔들 히히"],"sStretch":["으아아~ 기지개!","잘 잤다~ 쭈욱"],"sParty":["불금이다!!","금요일 밤은 신나야지 히히"],"sMirror":["오늘도 귀엽네 나..","거울아 거울아.. 누가 제일 귀엽니?"],"sPetTalk":["{cat}야, 우리 쟈기 몰래 간식 먹을까?","{cat}야 쟈기 좋아해? 나도 히히"],"sConfess":["..좋아해.|아 아니! 연습이야!!","사..사랑.. 아니 아무것도 아니야!"],"sGrowl":["꼬르륵.. 들었어?","배에서 소리 났다..|점심 먹자"],"sleepTalk":["음냐.. {x}..","{x}.. 더 줘..","음.. {x} 좋아..","zzz.. {x}.."],"dreamTell":["꿈 꿨는데!!|{x} 나왔어","어젯밤 꿈에 {x} 나왔다 히히","꿈에서 {x} 봤어!|그려 놨어"],"monCheer":["월요일이다!|이번 주도 힘내!","쟈기 월요일 화이팅!|도시락 챙겨 놨어"],"friNight":["불금이다!!|영화 보러 갈래?","금요일 밤이다 히히|오늘 영화관 가자"],"brunchStart":["일요일엔 브런치지!|와플 구워 줄게","주말 아침이다!|맛있는 거 해 줄게"],"brunchDone":["짠! 브런치 완성!","같이 먹자 히히"],"styleLove":["이 옷 완전 내 스타일!!","이거 너무 좋아!! 빙글빙글","쟈기 내 취향 잘 안다 히히"],"styleHate":["음.. 이건 좀..","이 옷은 나랑 안 맞는 것 같아..","다른 거 입을래.."],"tooHot":["더워..|여름에 이건 좀..","땀 나.. 시원한 거 입고 싶어"],"tooCold":["추워..|겨울에 이건 좀..","덜덜.. 따뜻한 거 입혀 줘"],"craftShow":["짠! 내가 {x} 만들었어","쟈기 없을 때 {x} 만들었다!","이거 봐!! 내가 만든 {x} 히히"],"hobbyUp":["요즘 {x} 실력 늘었지?","{x} 점점 잘하게 돼 히히"],"guitarSong":["쟈기 생각하면서 만든 노래야","어때? 내가 만든 노래 히히"],"battLow":["폰 배터리 {x}%야!|충전해 줘","배터리 얼마 없어..|나 꺼지면 안 돼"],"battCharge":["폰도 밥 먹는다 냠냠","충전 시작! 폰 배부르겠다 히히"],"artTiny":["음.. 이건 뭐야?|추상화야? 히히","점 몇 개..? 그래도 고마워!"],"artLove":["하트다!!|고마워 히히","하트 그림이다! 나도 하트!"],"artMe":["이거 나야?!|완전 닮았어","나 이렇게 귀여워? 히히"],"artUs":["우리 둘이다!!|평생 간직할래","쟈기랑 나다 히히|벽에 걸어야지"],"artFood":["{x}다!|보니까 먹고 싶어","{x} 그림이다! 배고파진다 히히"],"artPet":["{cat}다!! 똑같아","{cat} 그림이다 히히"],"artNature":["예쁘다..|같이 보러 가고 싶어","그림 속 같은 데 가 보고 싶다"],"artColor":["우와 알록달록하다!!","색이 진짜 예뻐!"],"artAny":["우와 선물이야? 고마워!!","쟈기가 그린 거야? 최고야!"],"oneYear":["1년 전 오늘 기억나?","작년 오늘 일기 봤어 히히"],"diaryMe":["일기 읽었어? 히히","나도 쟈기 글 읽었어!"],"giftSent":["선물 보냈다! 좋아하겠지?","택배 출발~ 히히"],"giftGot":["선물 왔다!!","택배다!! 뭐 들었을까?"],"stepWalk":["오늘 많이 걸었네!|같이 산책한 걸로 칠게","쟈기 오늘 엄청 걸었다!|나도 같이 걸은 기분이야"]};
+  const EXTRA = {"exercise":["하나 둘! 하나 둘!","헉헉..","줄넘기 시작!"],"exerciseDone":["개운하다!","땀 났다..|씻어야겠다"],"exerciseSlim":["살 빠진 것 같아!!","몸이 가벼워졌다 히히"],"exerciseNo":["힘들어서 못 하겠어..","배고파서 힘이 없어.."],"fatTalk":["요즘 살찐 것 같아..|운동해야 하나","배가 나왔어..","간식 좀 줄여야겠다.."],"thinTalk":["배고파서 살 빠졌어..","요즘 너무 못 먹었어.."],"walkEnd":["산책 재밌었다!","{cat} 엄청 신났어 히히","다리 아프다.. 그래도 좋아"],"workGo":["헉 나 일하러 가야 돼..?|알겠어 다녀올게","쟈기가 시키니까 간다..!","으.. 일하기 싫어|그래도 다녀올게!","돈 벌어 올게 히히","나만 일해..? 쟈기도 일해!","다녀오겠습니다!|기다려 줘"],"workBack":["다녀왔어!!","나 왔다!! 힘들었어..","퇴근이다!! 히히","쟈기 나 왔어! 칭찬해 줘"],"workEarly":["벌써 와도 돼? 신난다 히히","조기 퇴근이다!!","헤헤 일찍 왔다"],"workTired":["너무 피곤해서 못 가..|좀 쉬고 갈래","배고파서 일 못 해..|밥부터 줘","기운이 없어..|조금만 쉬고"],"workLimit":["오늘은 일 많이 했어..|이제 쉴래","오늘은 그만!|내일 또 할게"],"workSick":["아파서 못 가..","몸이 안 좋아..|오늘은 쉴래"],"touchHeadMany":["머리 닳겠다 히히","쓰담쓰담 너무 좋아.."],"touchEye":["앗 눈!!","눈 찌르지 마!","앗 따가워 히히"],"touchCheek":["말랑말랑?","볼 콕! 히히","내 볼 말랑하지?"],"touchCheekMany":["볼 터진다!!","그만 찔러! 흥","볼에 구멍 나겠어"],"touchFive":["짝!","하이파이브!","나이스! 히히"],"touchFiveMany":["하이파이브 장인!","우리 손발 척척이다 히히"],"touchFeet":["발 간지러워!! 히히","거긴 안 돼 히히","발바닥은 반칙이야!"],"touchFeetMany":["그만!! 발차기 뻥!","간지러워서 못 참아!! 뻥!"],"moodAsk":["쟈기 오늘 기분 어때?","쟈기 오늘 하루 어땠어?","오늘 기분 알려 줘!"],"moodGreat":["나도 덩달아 신난다!!","최고다!! 오늘 같이 놀자 히히","쟈기 기분 좋으면 나도 좋아!"],"moodGood":["다행이다 히히","좋은 하루였구나!","헤헤 나도 좋아"],"moodSoso":["그런 날도 있지..|내가 웃겨 줄게","음.. 그냥 그런 날이구나|잠깐만!"],"moodSoso2":["꿀꿀! 웃었지? 히히","돼지코! 이제 좀 웃겨?"],"moodBad":["무슨 일 있었어?|내가 옆에 있을게","오늘 속상했구나..|내가 꼭 안아 줄게"],"moodHard":["오늘 많이 힘들었구나..|이리 와. 꼭 안아 줄게","쟈기 고생 많았어..|노래 불러 줄게"],"moodBad2":["오늘은 푹 쉬어. 내가 있잖아","쟈기는 잘하고 있어","맛있는 거 먹고 일찍 자자"],"moodNext":["어제 힘들었잖아..|오늘은 좀 괜찮아?","쟈기 오늘은 기분 괜찮아?|어제 걱정했어"],"fakeStart":["아야.. 나 아파..","머리가.. 아파..","쟈기.. 나 아픈 것 같아..","끙.. 아파.."],"fakeMed":["약은 싫어!!|...사실 안 아파 히히","으악 약 싫어!|헤헤 사실 꾀병이었어"],"fakePet":["헤헤 사실 안 아팠지롱","들켰다.. 심심해서 그랬어","쟈기 걱정했어? 헤헤 미안"],"fakeTemp":["어.. 정상이네..?|헤헤 들켰다","36.5도.. 꾀병인 거 들켰다 히히"],"fakeEnd":["아무도 안 속네.. 흥","꾀병 부려도 안 봐 주네.."],"tempOk":["나 건강해!","열 없지? 히히"],"hideStart":["내가 뭐 숨겼게~|방 어딘가에 있어. 찾아 봐!","숨바꼭질 하자!|내가 숨긴 거 찾아 봐","쉿.. 뭐 하나 숨겼어 히히|찾아 봐!"],"hideFound":["찾았다!! 어떻게 알았어?","헉 벌써 찾았어?!","역시 쟈기 눈 좋다 히히"],"hideReveal":["여기 있었지롱!","못 찾았지? 히히 여기!"],"sRamen":["앗.. 들켰다..|배고파서 몰래..","쉿! 비밀이야..|라면 한 입만.."],"sWish":["11시 11분이다!|소원 빌어야지..","소원 빌었어!|비밀이야 히히"],"sStars":["별 예쁘다..","쟈기도 지금 하늘 보고 있을까?"],"sSnack":["앗! 간식 먹는 거 들켰다","3시는 간식 시간이야 히히"],"sMidnight":["자정이다!|오늘도 수고했어","날짜 바뀌었다!|오늘도 같이 있자"],"sRain":["비 오는 소리 좋다~","비 오는 날엔 흔들흔들 히히"],"sStretch":["으아아~ 기지개!","잘 잤다~ 쭈욱"],"sParty":["불금이다!!","금요일 밤은 신나야지 히히"],"sMirror":["오늘도 귀엽네 나..","거울아 거울아.. 누가 제일 귀엽니?"],"sPetTalk":["{cat}야, 우리 쟈기 몰래 간식 먹을까?","{cat}야 쟈기 좋아해? 나도 히히"],"sConfess":["..좋아해.|아 아니! 연습이야!!","사..사랑.. 아니 아무것도 아니야!"],"sGrowl":["꼬르륵.. 들었어?","배에서 소리 났다..|점심 먹자"],"sleepTalk":["음냐.. {x}..","{x}.. 더 줘..","음.. {x} 좋아..","zzz.. {x}.."],"dreamTell":["꿈 꿨는데!!|{x} 나왔어","어젯밤 꿈에 {x} 나왔다 히히","꿈에서 {x} 봤어!|그려 놨어"],"monCheer":["월요일이다!|이번 주도 힘내!","쟈기 월요일 화이팅!|도시락 챙겨 놨어"],"friNight":["불금이다!!|영화 보러 갈래?","금요일 밤이다 히히|오늘 영화관 가자"],"brunchStart":["일요일엔 브런치지!|와플 구워 줄게","주말 아침이다!|맛있는 거 해 줄게"],"brunchDone":["짠! 브런치 완성!","같이 먹자 히히"],"styleLove":["이 옷 완전 내 스타일!!","이거 너무 좋아!! 빙글빙글","쟈기 내 취향 잘 안다 히히"],"styleHate":["음.. 이건 좀..","이 옷은 나랑 안 맞는 것 같아..","다른 거 입을래.."],"tooHot":["더워..|여름에 이건 좀..","땀 나.. 시원한 거 입고 싶어"],"tooCold":["추워..|겨울에 이건 좀..","덜덜.. 따뜻한 거 입혀 줘"],"craftShow":["짠! 내가 {x} 만들었어","쟈기 없을 때 {x} 만들었다!","이거 봐!! 내가 만든 {x} 히히"],"hobbyUp":["요즘 {x} 실력 늘었지?","{x} 점점 잘하게 돼 히히"],"guitarSong":["쟈기 생각하면서 만든 노래야","어때? 내가 만든 노래 히히"],"battLow":["폰 배터리 {x}%야!|충전해 줘","배터리 얼마 없어..|나 꺼지면 안 돼"],"battCharge":["폰도 밥 먹는다 냠냠","충전 시작! 폰 배부르겠다 히히"],"artTiny":["음.. 이건 뭐야?|추상화야? 히히","점 몇 개..? 그래도 고마워!"],"artLove":["하트다!!|고마워 히히","하트 그림이다! 나도 하트!"],"artMe":["이거 나야?!|완전 닮았어","나 이렇게 귀여워? 히히"],"artUs":["우리 둘이다!!|평생 간직할래","쟈기랑 나다 히히|벽에 걸어야지"],"artFood":["{x}다!|보니까 먹고 싶어","{x} 그림이다! 배고파진다 히히"],"artPet":["{cat}다!! 똑같아","{cat} 그림이다 히히"],"artNature":["예쁘다..|같이 보러 가고 싶어","그림 속 같은 데 가 보고 싶다"],"artColor":["우와 알록달록하다!!","색이 진짜 예뻐!"],"artAny":["우와 선물이야? 고마워!!","쟈기가 그린 거야? 최고야!"],"oneYear":["1년 전 오늘 기억나?","작년 오늘 일기 봤어 히히"],"diaryMe":["일기 읽었어? 히히","나도 쟈기 글 읽었어!"],"stepDrink":["{x}걸음이나 걸었네!|이거 마시면서 다녀","많이 걸었다!|시원한 거 마셔"],"stepMassage":["만 보 넘었어?!|다리 아프겠다.. 주물러 줄게","{x}걸음이나 걸었어?|이리 와 봐, 다리 주물러 줄게"],"stepFoot":["{x}걸음..! 발 퉁퉁 부었겠다|발 주물러 줄게","오늘 너무 많이 걸었어..|종아리 꾹꾹 해 줄게"],"stepMassageDone":["시원하지? 히히","이제 좀 괜찮아?","오늘 진짜 고생했어"],"stepRest":["{x}걸음?! 만보기 고장 난 거 아니야?|오늘은 푹 쉬어","오늘 너무 무리했어..|따뜻하게 씻고 일찍 자"],"giftSent":["선물 보냈다! 좋아하겠지?","택배 출발~ 히히"],"giftGot":["선물 왔다!!","택배다!! 뭐 들었을까?"],"stepWalk":["오늘 많이 걸었네!|같이 산책한 걸로 칠게","쟈기 오늘 엄청 걸었다!|나도 같이 걸은 기분이야"]};
   const EVENTS = [{"id":"cherry","when":{"md":["04-01","04-02","04-03","04-04","04-05","04-06","04-07"]},"look":null,"lines":["벚꽃 폈다!!","벚꽃 보러 가자"]},{"id":"valentine","when":{"md":["02-14"]},"look":null,"lines":["발렌타인데이다!","초콜릿 줄까?"]},{"id":"whiteDay","when":{"md":["03-14"]},"look":null,"lines":["화이트데이다!","사탕 받고 싶다.."]},{"id":"pepero","when":{"md":["11-11"]},"look":null,"lines":["빼빼로데이!","빼빼로 먹자"]},{"id":"newYear","when":{"md":["01-01"]},"look":null,"lines":["새해 복 많이 받아!","올해도 잘 부탁해"]},{"id":"seollal","when":{"ymd":["2026-02-16","2026-02-17","2026-02-18","2027-02-06","2027-02-07","2027-02-08","2028-01-26","2028-01-27","2028-01-28","2029-02-12","2029-02-13","2029-02-14"]},"look":{"outfit":"hanbok"},"lines":["설날이다!","떡국 먹었어?"]},{"id":"chuseok","when":{"ymd":["2026-09-24","2026-09-25","2026-09-26","2027-09-14","2027-09-15","2027-09-16","2028-10-02","2028-10-03","2028-10-04","2029-09-21","2029-09-22","2029-09-23"]},"look":{"outfit":"hanbok"},"lines":["추석이다!","송편 먹었어?"]},{"id":"halloween","when":{"md":["10-31"]},"look":{"outfit":"vampire","headgear":"devil"},"lines":["해피 할로윈!","사탕 안 주면 장난칠 거야"]},{"id":"anniv100","when":{"daysSince":[100,200,300,365,400,500,600,700,730,800,900,1000]},"look":null,"lines":["오늘 우리 {days}일이야!!","{days}일 축하해!! 사랑해 쟈기","벌써 {days}일이다 히히"]},{"id":"anniv1y","when":{"md":["07-01"],"fromYear":2027},"look":null,"gift":"anniv100","lines":["오늘 우리 {years}주년이야!!|사랑해 쟈기","{years}주년 축하해!! 히히|앞으로도 계속 같이 있자"]}];
   const SINCE = '2026-07-01', FAV = ['pasta', 'bibim', 'chicken', 'matcha', 'cake'];
   const webVoice = t => String(t).replace(/\{you\}/g, '쟈기').replace(/\{laugh\}/g, '히히');
@@ -7852,21 +7852,36 @@ function floorBox(slot) {
   const id = roomOf(slot); if (!id || !ITEMS[id] || !FURN_POS[id]) return null;
   const g = ITEMS[id]; return { x: FURN_POS[id][0], w: g[0].length };
 }
-function catItemAt(slot) {
-  const id = state.room[slot];
-  if (!id || !state.owned.includes(id) || !ITEMS[id]) return null;
-  const g = ITEMS[id], w = g[0].length, h = g.length;
-  let x = slot === 'catL' ? 1 : slot === 'catR' ? LW - w - 1 : Math.round((slot === 'catM' ? 24 : 40) - w / 2);
-  if (slot === 'catL' || slot === 'catR') {
-    const f = floorBox(slot === 'catL' ? 'floorL' : 'floorR');
-    if (f && x < f.x + f.w - 3 && x + w > f.x + 3) x = slot === 'catL' ? Math.min(LW / 2 - w, f.x + f.w - 2) : Math.max(LW / 2, f.x - w + 2);
-  } else {
-    // 옆으로 비킨 큰 용품과 겹치면 작은 것도 조금 비킨다
-    const big = catItemAt(slot === 'catM' ? 'catL' : 'catR');
-    if (big && slot === 'catM' && x < big.x + big.w + 1) x = big.x + big.w + 1;
-    if (big && slot === 'catN' && x + w > big.x - 1) x = big.x - w - 1;
+// 고양이 용품 네 자리를 한 줄로 펴서 놓는다: 큰 용품은 바닥 가구 옆으로 비키고, 용품끼리는 안 겹치게
+function catLayout() {
+  const items = [];
+  for (const slot of ['catL', 'catM', 'catN', 'catR']) {
+    const id = state.room[slot];
+    if (!id || !state.owned.includes(id) || !ITEMS[id]) continue;
+    const g = ITEMS[id], w = g[0].length;
+    let x = slot === 'catL' ? 1 : slot === 'catR' ? LW - w - 1 : Math.round((slot === 'catM' ? 24 : 40) - w / 2);
+    if (slot === 'catL' || slot === 'catR') {
+      const f = floorBox(slot === 'catL' ? 'floorL' : 'floorR');
+      if (f && x < f.x + f.w - 3 && x + w > f.x + 3) x = slot === 'catL' ? Math.min(LW / 2 - w, f.x + f.w - 2) : Math.max(LW / 2, f.x - w + 2);
+    }
+    items.push({ id, slot, x, w, h: g.length });
   }
-  return { id, slot, x, y: LH - h, w, h };
+  const n = items.length, total = items.reduce((a, it) => a + it.w, 0) + (n - 1);
+  if (n > 1 && total <= LW - 2) {
+    for (let i = 1; i < n; i++) items[i].x = Math.max(items[i].x, items[i - 1].x + items[i - 1].w + 1);
+    let right = LW - 1;
+    for (let i = n - 1; i >= 0; i--) { items[i].x = Math.min(items[i].x, right - items[i].w); right = items[i].x - 1; }
+    for (let i = 0; i < n; i++) items[i].x = Math.max(items[i].x, i ? items[i - 1].x + items[i - 1].w + 1 : 1);
+  } else if (n > 1) {
+    // 너무 많아서 다 못 펴면 고르게 조금씩 겹친다
+    const step = (LW - 2 - items[n - 1].w) / (n - 1);
+    items.forEach((it, i) => { it.x = Math.round(1 + i * step); });
+  }
+  return items;
+}
+function catItemAt(slot) {
+  const it = catLayout().find(i => i.slot === slot);
+  return it ? { id: it.id, slot, x: it.x, y: LH - it.h, w: it.w, h: it.h } : null;
 }
 const catItems = () => CAT_SLOTS.map(sl => catItemAt(sl.id)).filter(Boolean);
 const findCatItem = id => catItems().find(r => r.id === id);
@@ -9084,6 +9099,13 @@ const awayGuard = f => function (...a) { if (workBlock()) return false; return f
 feed = awayGuard(feed); openFood = awayGuard(openFood); toilet = awayGuard(toilet); bath = awayGuard(bath); toggleSleep = awayGuard(toggleSleep);
 startGame = awayGuard(startGame); startQuiz = awayGuard(startQuiz); startMemory = awayGuard(startMemory); startRps = awayGuard(startRps); dance = awayGuard(dance);
 startDate = awayGuard(startDate); exercise = awayGuard(exercise); doTouch = awayGuard(doTouch); pet = awayGuard(pet); takePhoto = awayGuard(takePhoto); giveMedicine = awayGuard(giveMedicine);
+// 나가 있는 동안엔 방에서 저절로 일어나는 일도 없다 (빈 방에 요리·말풍선이 뜨지 않게). 돌아온 뒤에 다시 일어난다
+const quietAway = f => function (...a) { if (workAway()) return false; return f.apply(this, a); };
+maybeEvent = quietAway(maybeEvent); maybeCrave = quietAway(maybeCrave); maybeReq = quietAway(maybeReq); maybeKnock = quietAway(maybeKnock); maybePing = quietAway(maybePing);
+startCook = quietAway(startCook); startDrawGift = quietAway(startDrawGift); startComfort = quietAway(startComfort); morningHi = quietAway(morningHi); startCat = quietAway(startCat);
+{ const say0 = say; say = function (...a) { if (lifeHidden()) return; return say0.apply(this, a); }; }
+// 나가 있는 동안 응아 신호가 와도 바닥에 싸지 않는다 (밖에서 해결)
+{ const tick0 = tick; tick = function (now) { const away = workAway(), p = state.poops, c = state.clean; const r = tick0.apply(this, arguments); if (away && state.poops > p) { state.poops = p; state.clean = Math.max(state.clean, c - 2); state.newFloorPoop = false; } return r; }; }
 
 // ===================== 생활 2: 방에서 일어나는 일들 (게임이 부르는 lifeFace·lifeMove·lifeOverlay·lifeTick 등) =====================
 const workWear = () => { const w = state.work, id = JOB_WEAR[w ? w.job : jobId()]; return id && OUTFITS.some(o => o.id === id) ? { outfit: id } : {}; };
@@ -9723,12 +9745,13 @@ const weatherOn = k => { const h = hashStr(k + 'wx') % 100; return h < 55 ? 'sun
 function diaryText(L, live) {
   const you = youName(), P = [], fname = k => (FOODS.find(f => f.key === k) || {}).name;
   const foods = [...new Set(L.foods)].map(fname).filter(Boolean), places = [...new Set(L.places)].map(id => (PLACES.find(p => p.id === id) || {}).name).filter(Boolean);
-  const any = foods.length || places.length || L.works.length || L.games || L.pets || L.tease || L.baths || L.crafts.length || L.secrets.length || L.me != null || L.walk || L.art || L.ex;
+  const any = foods.length || places.length || L.works.length || L.games || L.pets || L.tease || L.baths || L.crafts.length || L.secrets.length || L.me != null || L.walk || L.art || L.ex || L.steps >= 5000;
   if (!any) return '';
   if (foods.length) { const last = foods.slice(0, 3).join(', '); P.push(you + josa(you, '이', '가') + ' ' + last + josa(last, '을', '를') + ' 줬다. ' + (L.foods.some(k => (FOODS.find(f => f.key === k) || {}).fav) ? '제일 좋아하는 거라 신났다.' : '맛있었다.')); }
   if (places.length) P.push(places.join(', ') + '에 데이트 갔다! ' + pick(['재밌었다.', '또 가고 싶다.', '사진도 찍었다.']));
   if (L.works.length) P.push([...new Set(L.works)].slice(0, 2).join(', ') + ' 하고 왔다. ' + pick(['힘들었지만 뿌듯했다.', '피곤했다..', '코인 벌었다!']));
-  if (L.walk) P.push(catName() + josa(catName(), '이랑', '랑') + ' 산책했다.');
+  if (L.steps >= 5000) P.push(you + josa(you, '이', '가') + ' 오늘 ' + Number(L.steps).toLocaleString() + '걸음이나 걸었다.' + ({ massage: ' 다리 주물러 줬다.', drink: ' 시원한 음료 챙겨 줬다.', rest: ' 너무 무리해서 걱정됐다.' }[L.stepCare] || ''));
+  if (L.walk && hasCat()) P.push(catName() + josa(catName(), '이랑', '랑') + ' 산책했다.');
   if (L.ex) P.push('운동도 했다. 땀 났다.');
   if (L.art) P.push(you + josa(you, '이', '가') + ' 그림을 그려 줬다. 벽에 걸어 둬야지.');
   if (L.crafts.length) P.push(L.crafts[0] + ' 만들어서 자랑했다.');
