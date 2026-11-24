@@ -775,7 +775,7 @@ body:has(.sheet-back.show) .toast { bottom: auto; top: calc(env(safe-area-inset-
 <script>
 window.KyuppiWeb = (() => {
   const EXTRA = {"exercise":["하나 둘! 하나 둘!","헉헉..","줄넘기 시작!"],"exerciseDone":["개운하다!","땀 났다..|씻어야겠다"],"exerciseSlim":["살 빠진 것 같아!!","몸이 가벼워졌다 히히"],"exerciseNo":["힘들어서 못 하겠어..","배고파서 힘이 없어.."],"fatTalk":["요즘 살찐 것 같아..|운동해야 하나","배가 나왔어..","간식 좀 줄여야겠다.."],"thinTalk":["배고파서 살 빠졌어..","요즘 너무 못 먹었어.."],"walkEnd":["산책 재밌었다!","{cat} 엄청 신났어 히히","다리 아프다.. 그래도 좋아"]};
-  const EVENTS = [{"id":"cherry","when":{"md":["04-01","04-02","04-03","04-04","04-05","04-06","04-07"]},"look":null,"lines":["벚꽃 폈다!!","벚꽃 보러 가자"]},{"id":"valentine","when":{"md":["02-14"]},"look":null,"lines":["발렌타인데이다!","초콜릿 줄까?"]},{"id":"whiteDay","when":{"md":["03-14"]},"look":null,"lines":["화이트데이다!","사탕 받고 싶다.."]},{"id":"pepero","when":{"md":["11-11"]},"look":null,"lines":["빼빼로데이!","빼빼로 먹자"]},{"id":"newYear","when":{"md":["01-01"]},"look":null,"lines":["새해 복 많이 받아!","올해도 잘 부탁해"]},{"id":"seollal","when":{"ymd":["2026-02-16","2026-02-17","2026-02-18","2027-02-06","2027-02-07","2027-02-08","2028-01-26","2028-01-27","2028-01-28","2029-02-12","2029-02-13","2029-02-14"]},"look":{"outfit":"hanbok"},"lines":["설날이다!","떡국 먹었어?"]},{"id":"chuseok","when":{"ymd":["2026-09-24","2026-09-25","2026-09-26","2027-09-14","2027-09-15","2027-09-16","2028-10-02","2028-10-03","2028-10-04","2029-09-21","2029-09-22","2029-09-23"]},"look":{"outfit":"hanbok"},"lines":["추석이다!","송편 먹었어?"]},{"id":"halloween","when":{"md":["10-31"]},"look":{"outfit":"vampire","headgear":"devil"},"lines":["해피 할로윈!","사탕 안 주면 장난칠 거야"]},{"id":"anniv100","when":{"daysSince":[100,200,300,365,400,500,600,700,730,800,900,1000]},"look":null,"lines":["오늘 우리 {days}일이야!!","{days}일 축하해!! 사랑해 쟈기","벌써 {days}일이다 히히"],"lines365":["오늘 우리 1주년이야!!|사랑해 쟈기","1주년 축하해!! 히히|앞으로도 계속 같이 있자"]}];
+  const EVENTS = [{"id":"cherry","when":{"md":["04-01","04-02","04-03","04-04","04-05","04-06","04-07"]},"look":null,"lines":["벚꽃 폈다!!","벚꽃 보러 가자"]},{"id":"valentine","when":{"md":["02-14"]},"look":null,"lines":["발렌타인데이다!","초콜릿 줄까?"]},{"id":"whiteDay","when":{"md":["03-14"]},"look":null,"lines":["화이트데이다!","사탕 받고 싶다.."]},{"id":"pepero","when":{"md":["11-11"]},"look":null,"lines":["빼빼로데이!","빼빼로 먹자"]},{"id":"newYear","when":{"md":["01-01"]},"look":null,"lines":["새해 복 많이 받아!","올해도 잘 부탁해"]},{"id":"seollal","when":{"ymd":["2026-02-16","2026-02-17","2026-02-18","2027-02-06","2027-02-07","2027-02-08","2028-01-26","2028-01-27","2028-01-28","2029-02-12","2029-02-13","2029-02-14"]},"look":{"outfit":"hanbok"},"lines":["설날이다!","떡국 먹었어?"]},{"id":"chuseok","when":{"ymd":["2026-09-24","2026-09-25","2026-09-26","2027-09-14","2027-09-15","2027-09-16","2028-10-02","2028-10-03","2028-10-04","2029-09-21","2029-09-22","2029-09-23"]},"look":{"outfit":"hanbok"},"lines":["추석이다!","송편 먹었어?"]},{"id":"halloween","when":{"md":["10-31"]},"look":{"outfit":"vampire","headgear":"devil"},"lines":["해피 할로윈!","사탕 안 주면 장난칠 거야"]},{"id":"anniv100","when":{"daysSince":[100,200,300,365,400,500,600,700,730,800,900,1000]},"look":null,"lines":["오늘 우리 {days}일이야!!","{days}일 축하해!! 사랑해 쟈기","벌써 {days}일이다 히히"]},{"id":"anniv1y","when":{"md":["07-01"],"fromYear":2027},"look":null,"gift":"anniv100","lines":["오늘 우리 {years}주년이야!!|사랑해 쟈기","{years}주년 축하해!! 히히|앞으로도 계속 같이 있자"]}];
   const SINCE = '2026-07-01', FAV = ['pasta', 'bibim', 'chicken', 'matcha', 'cake'];
   const webVoice = t => String(t).replace(/\{you\}/g, '쟈기').replace(/\{laugh\}/g, '히히');
   const webList = a => a.map(webVoice);
@@ -801,18 +801,19 @@ window.KyuppiWeb = (() => {
     if (w.md && !w.md.includes(pad(d.getMonth() + 1) + '-' + pad(d.getDate()))) return false;
     if (w.ymd && !w.ymd.includes(d.getFullYear() + '-' + pad(d.getMonth() + 1) + '-' + pad(d.getDate()))) return false;
     if (w.daysSince && !w.daysSince.includes(days())) return false;
+    if (w.fromYear && d.getFullYear() < w.fromYear) return false;
     return true;
   }
   function endLook() { if (!state.evRestore) return; state.outfit = state.evRestore.outfit; state.headgear = state.evRestore.headgear; delete state.evRestore; save(); }
   function play(e) {
-    const n = days();
-    const lines = (n === 365 && e.lines365 ? e.lines365 : e.lines).map(l => l.replace(/\{days\}/g, n));
+    const n = days(), years = new Date().getFullYear() - Number(SINCE.slice(0, 4));
+    const lines = e.lines.map(l => l.replace(/\{days\}/g, n).replace(/\{years\}/g, years));
     state.evSeen = state.evSeen || {}; state.evSeen[e.id] = dayStr(new Date());
     const look = e.look || {};
     const okO = look.outfit && OUTFITS.some(o => o.id === look.outfit), okH = look.headgear && HEADS.some(o => o.id === look.headgear);
     if ((okO || okH) && !state.evRestore) { state.evRestore = { outfit: state.outfit, headgear: state.headgear }; if (okO) state.outfit = look.outfit; if (okH) state.headgear = look.headgear; setTimeout(endLook, 90 * 1000); }
     say(pick(lines), 4200); startAnim('cheer', 1800);
-    setTimeout(() => holidayGift(e.id, n), 4600);
+    setTimeout(() => holidayGift(e.gift || e.id, e.id === 'anniv1y' ? 'y' + years : n), 4600);
     save();
   }
   function check() {
