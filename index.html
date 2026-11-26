@@ -813,7 +813,8 @@ body:has(.sheet-back.show) .toast { bottom: auto; top: calc(env(safe-area-inset-
 <script>
 window.KyuppiWeb = (() => {
   const EXTRA = {"exercise":["하나 둘! 하나 둘!","헉헉..","줄넘기 시작!"],"exerciseDone":["개운하다!","땀 났다..|씻어야겠다"],"exerciseSlim":["살 빠진 것 같아!!","몸이 가벼워졌다 히히"],"exerciseNo":["힘들어서 못 하겠어..","배고파서 힘이 없어.."],"fatTalk":["요즘 살찐 것 같아..|운동해야 하나","배가 나왔어..","간식 좀 줄여야겠다.."],"thinTalk":["배고파서 살 빠졌어..","요즘 너무 못 먹었어.."],"walkEnd":["산책 재밌었다!","{cat} 엄청 신났어 히히","다리 아프다.. 그래도 좋아"],"workGo":["헉 나 일하러 가야 돼..?|알겠어 다녀올게","쟈기가 시키니까 간다..!","으.. 일하기 싫어|그래도 다녀올게!","돈 벌어 올게 히히","나만 일해..? 쟈기도 일해!","다녀오겠습니다!|기다려 줘"],"workBack":["다녀왔어!!","나 왔다!! 힘들었어..","퇴근이다!! 히히","쟈기 나 왔어! 칭찬해 줘"],"workEarly":["벌써 와도 돼? 신난다 히히","조기 퇴근이다!!","헤헤 일찍 왔다"],"workTired":["너무 피곤해서 못 가..|좀 쉬고 갈래","배고파서 일 못 해..|밥부터 줘","기운이 없어..|조금만 쉬고"],"workLimit":["오늘은 일 많이 했어..|이제 쉴래","오늘은 그만!|내일 또 할게"],"workSick":["아파서 못 가..","몸이 안 좋아..|오늘은 쉴래"],"workBusy":["지금 일 중이라 어려워..|끝나고 할게","회의 중이야..|이따 할게!","헉 지금은 안 돼..|{n} 뒤에 끝나","{x} 하는 중이라..|끝나면 바로 할게"],"workSneak":["몰래 할게..|잠깐만이야","쉿.. 몰래 잠깐만 하자","들키면 안 되는데..|조금만! 히히"],"workCall":["회의 중이야..|이따 전화할게","지금 전화는 어려워..|끝나면 바로 할게","전화는 이따 할게..|지금 일하는 중이야"],"idleTv":["이거 재밌다 히히","다음 화 궁금해..","헉 대박.."],"idleGame":["한 판만 더..","이겼다!!","아 졌다.."],"idlePiano":["♪ 도레미..","연습 중이야","이 곡 어려워.."],"idleRead":["이 책 재밌다..","한 장만 더 읽고..","주인공 멋있다.."],"idleGuitar":["♪ 띵가띵가","코드 연습 중","쟈기한테 들려줄 노래"],"idleNap":["잠깐만 눈 붙일게..","하암.. 졸려","폭신하다.."],"idlePlush":["폭신폭신..","얘 안고 있으면 좋아 히히","말랑말랑.."],"idlePet":["{cat}야 이리 와!","{cat}랑 놀자 히히","{cat} 귀여워.."],"idlePetSwat":["앗! 맞았다 히히","{cat} 앞발 빠르다..!","아야.. 그래도 귀여워"],"idleStartle":["앗 깜짝이야!","헉! 언제 왔어?","놀랐잖아 히히","어? 보고 있었어?"],"lunchGot":["도시락 왔다!! {menu} 최고 히히","헉 도시락이다!!|쟈기 최고야","{menu} 들어있다!!|회사 사람들이 부러워해 히히"],"lunchHate":["헉 {menu} 들어있네..|그래도 다 먹을게","{menu}는 좀..|그래도 고마워"],"lunchThanks":["도시락 고마워!! 덕분에 힘났어","{menu} 진짜 맛있었어|쟈기 최고"],"roomNoticed":["어?! 방 바뀌었다!!|쟈기가 꾸며 줬어?","우와 방이 달라졌어!!|완전 마음에 들어"],"salonGo":["미용실 다녀올게!","머리 하러 간다 히히","변신하고 올게!|기다려"],"salonCut":["싹둑싹둑..","두근두근..","어떻게 될까.."],"salonBack":["어때? 잘랐어 히히","짠!! 어때?","나 달라졌지? 히히","쟈기 마음에 들어?"],"salonReset":["원래대로 돌아왔어!","역시 이게 나지 히히"],"touchHeadMany":["머리 닳겠다 히히","쓰담쓰담 너무 좋아.."],"touchEye":["앗 눈!!","눈 찌르지 마!","앗 따가워 히히"],"touchCheek":["말랑말랑?","볼 콕! 히히","내 볼 말랑하지?"],"touchCheekMany":["볼 터진다!!","그만 찔러! 흥","볼에 구멍 나겠어"],"touchFive":["짝!","하이파이브!","나이스! 히히"],"touchFiveMany":["하이파이브 장인!","우리 손발 척척이다 히히"],"touchFeet":["발 간지러워!! 히히","거긴 안 돼 히히","발바닥은 반칙이야!"],"touchFeetMany":["그만!! 발차기 뻥!","간지러워서 못 참아!! 뻥!"],"moodAsk":["쟈기 오늘 기분 어때?","쟈기 오늘 하루 어땠어?","오늘 기분 알려 줘!"],"moodGreat":["나도 덩달아 신난다!!","최고다!! 오늘 같이 놀자 히히","쟈기 기분 좋으면 나도 좋아!"],"moodGood":["다행이다 히히","좋은 하루였구나!","헤헤 나도 좋아"],"moodSoso":["그런 날도 있지..|내가 웃겨 줄게","음.. 그냥 그런 날이구나|잠깐만!"],"moodSoso2":["꿀꿀! 웃었지? 히히","돼지코! 이제 좀 웃겨?"],"moodBad":["무슨 일 있었어?|내가 옆에 있을게","오늘 속상했구나..|내가 꼭 안아 줄게"],"moodHard":["오늘 많이 힘들었구나..|이리 와. 꼭 안아 줄게","쟈기 고생 많았어..|노래 불러 줄게"],"moodBad2":["오늘은 푹 쉬어. 내가 있잖아","쟈기는 잘하고 있어","맛있는 거 먹고 일찍 자자"],"moodNext":["어제 힘들었잖아..|오늘은 좀 괜찮아?","쟈기 오늘은 기분 괜찮아?|어제 걱정했어"],"fakeStart":["아야.. 나 아파..","머리가.. 아파..","쟈기.. 나 아픈 것 같아..","끙.. 아파.."],"fakeMed":["약은 싫어!!|...사실 안 아파 히히","으악 약 싫어!|헤헤 사실 꾀병이었어"],"fakePet":["헤헤 사실 안 아팠지롱","들켰다.. 심심해서 그랬어","쟈기 걱정했어? 헤헤 미안"],"fakeTemp":["어.. 정상이네..?|헤헤 들켰다","36.5도.. 꾀병인 거 들켰다 히히"],"fakeEnd":["아무도 안 속네.. 흥","꾀병 부려도 안 봐 주네.."],"tempOk":["나 건강해!","열 없지? 히히"],"hideStart":["내가 뭐 숨겼게~|방 어딘가에 있어. 찾아 봐!","숨바꼭질 하자!|내가 숨긴 거 찾아 봐","쉿.. 뭐 하나 숨겼어 히히|찾아 봐!"],"hideFound":["찾았다!! 어떻게 알았어?","헉 벌써 찾았어?!","역시 쟈기 눈 좋다 히히"],"hideReveal":["여기 있었지롱!","못 찾았지? 히히 여기!"],"sRamen":["앗.. 들켰다..|배고파서 몰래..","쉿! 비밀이야..|라면 한 입만.."],"sWish":["11시 11분이다!|소원 빌어야지..","소원 빌었어!|비밀이야 히히"],"sStars":["별 예쁘다..","쟈기도 지금 하늘 보고 있을까?"],"sSnack":["앗! 간식 먹는 거 들켰다","3시는 간식 시간이야 히히"],"sMidnight":["자정이다!|오늘도 수고했어","날짜 바뀌었다!|오늘도 같이 있자"],"sRain":["비 오는 소리 좋다~","비 오는 날엔 흔들흔들 히히"],"sStretch":["으아아~ 기지개!","잘 잤다~ 쭈욱"],"sParty":["불금이다!!","금요일 밤은 신나야지 히히"],"sMirror":["오늘도 귀엽네 나..","거울아 거울아.. 누가 제일 귀엽니?"],"sPetTalk":["{cat}야, 우리 쟈기 몰래 간식 먹을까?","{cat}야 쟈기 좋아해? 나도 히히"],"sConfess":["..좋아해.|아 아니! 연습이야!!","사..사랑.. 아니 아무것도 아니야!"],"sGrowl":["꼬르륵.. 들었어?","배에서 소리 났다..|점심 먹자"],"sleepTalk":["음냐.. {x}..","{x}.. 더 줘..","음.. {x} 좋아..","zzz.. {x}.."],"dreamTell":["꿈 꿨는데!!|{x} 나왔어","어젯밤 꿈에 {x} 나왔다 히히","꿈에서 {x} 봤어!|그려 놨어"],"monCheer":["월요일이다!|이번 주도 힘내!","쟈기 월요일 화이팅!|도시락 챙겨 놨어"],"friNight":["불금이다!!|영화 보러 갈래?","금요일 밤이다 히히|오늘 영화관 가자"],"brunchStart":["일요일엔 브런치지!|와플 구워 줄게","주말 아침이다!|맛있는 거 해 줄게"],"brunchDone":["짠! 브런치 완성!","같이 먹자 히히"],"styleLove":["이 옷 완전 내 스타일!!","이거 너무 좋아!! 빙글빙글","쟈기 내 취향 잘 안다 히히"],"styleHate":["음.. 이건 좀..","이 옷은 나랑 안 맞는 것 같아..","다른 거 입을래.."],"tooHot":["더워..|여름에 이건 좀..","땀 나.. 시원한 거 입고 싶어"],"tooCold":["추워..|겨울에 이건 좀..","덜덜.. 따뜻한 거 입혀 줘"],"craftShow":["짠! 내가 {x} 만들었어","쟈기 없을 때 {x} 만들었다!","이거 봐!! 내가 만든 {x} 히히"],"hobbyUp":["요즘 {x} 실력 늘었지?","{x} 점점 잘하게 돼 히히"],"guitarSong":["쟈기 생각하면서 만든 노래야","어때? 내가 만든 노래 히히"],"battLow":["폰 배터리 {x}%야!|충전해 줘","배터리 얼마 없어..|나 꺼지면 안 돼"],"battCharge":["폰도 밥 먹는다 냠냠","충전 시작! 폰 배부르겠다 히히"],"artTiny":["음.. 이건 뭐야?|추상화야? 히히","점 몇 개..? 그래도 고마워!"],"artLove":["하트다!!|고마워 히히","하트 그림이다! 나도 하트!"],"artMe":["이거 나야?!|완전 닮았어","나 이렇게 귀여워? 히히"],"artUs":["우리 둘이다!!|평생 간직할래","쟈기랑 나다 히히|벽에 걸어야지"],"artFood":["{x}다!|보니까 먹고 싶어","{x} 그림이다! 배고파진다 히히"],"artPet":["{cat}다!! 똑같아","{cat} 그림이다 히히"],"artNature":["예쁘다..|같이 보러 가고 싶어","그림 속 같은 데 가 보고 싶다"],"artColor":["우와 알록달록하다!!","색이 진짜 예뻐!"],"artAny":["우와 선물이야? 고마워!!","쟈기가 그린 거야? 최고야!"],"oneYear":["1년 전 오늘 기억나?","작년 오늘 일기 봤어 히히"],"diaryMe":["일기 읽었어? 히히","나도 쟈기 글 읽었어!"],"workHome_aegyo":["쟈기~ 나 일하고 왔어!|휴~ 힘들어 죽는 줄 알았어","나 왔어~|오늘 진짜진짜 힘들었어..","다녀왔어 쟈기!|안아 줘.. 힘들었어"],"workHome_warm":["다녀왔어~|오늘도 무사히 끝났다","나 왔어. 휴~|그래도 보람찬 하루였어","다녀왔어~|쟈기도 오늘 고생 많았지?"],"workHome_plain":["다녀왔어.|좀 피곤하네","왔어.|오늘 일 끝.","퇴근했어.|휴.."],"workHome_blunt":["왔어.","...퇴근.","다녀옴.|피곤."],"workHome_hyper":["퇴근이다!!!!|드디어 자유다!!!","나 왔다!!!!|오늘 완전 불태웠어!!!","다녀왔어!!!|힘든데 신나!!! 히히"],"workHomeTired_aegyo":["나 왔어..|너무 힘들어서 녹을 것 같아..","쟈기.. 나 왔어|기운이 하나도 없어.."],"workHomeTired_warm":["다녀왔어..|오늘은 좀 많이 피곤하다"],"workHomeTired_plain":["왔어. 진짜 피곤하다."],"workHomeTired_blunt":["...왔어. 졸려."],"workHomeTired_hyper":["다녀왔어..!!|배터리 1%야..!!"],"workBrag_aegyo":["오늘 {x}코인이나 벌었어!|나 대단하지? 히히","짜잔~ {x}코인!|이걸로 맛있는 거 사 줄게"],"workBrag_warm":["{x}코인 벌어 왔어|이걸로 우리 맛있는 거 먹자","오늘 번 거 {x}코인!|쟈기 갖고 싶은 거 있어?"],"workBrag_plain":["오늘 {x}코인 벌었어.","{x}코인. 나쁘지 않네."],"workBrag_blunt":["{x}코인. 받아.","...{x}코인 벌었어. 됐지?"],"workBrag_hyper":["{x}코인!!!!! 부자다!!!! 히히","오늘 {x}코인!!! 나 천재인가?!"],"workPraiseAsk_aegyo":["칭찬해 줘~|머리 쓰담쓰담!","나 잘했지?|쓰다듬어 줘~"],"workPraiseAsk_warm":["나 오늘 잘했지?","칭찬 한 번만 해 줄래?"],"workPraiseAsk_plain":["칭찬해 줘도 돼.","잘했다고 해 줘."],"workPraiseAsk_blunt":["...칭찬은?","쓰다듬든가."],"workPraiseAsk_hyper":["칭찬해!!! 빨리!!!","나 쓰담쓰담 해 줘!!!!"],"workPraised_aegyo":["헤헤 힘이 난다~","쟈기가 쓰다듬어 주니까 피곤이 싹 풀렸어"],"workPraised_warm":["고마워. 덕분에 힘이 나","쟈기 손 따뜻하다.."],"workPraised_plain":["...좋다.","고마워. 힘 난다."],"workPraised_blunt":["...뭐. 좋네.","...한 번 더."],"workPraised_hyper":["으아아 최고야!!!!","힘이 넘친다!!! 또 일하러 갈까?!"],"workNoPraise_aegyo":["칭찬 안 해 줘..?","쓰담쓰담 기다렸는데.."],"workNoPraise_warm":["괜찮아, 다음에 해 줘","...조금 서운하다"],"workNoPraise_plain":["...뭐, 됐어."],"workNoPraise_blunt":["...됐어.","흥."],"workNoPraise_hyper":["칭찬 왜 안 해!!!","서운해!!!!"],"workChatHi":["나 지금 {x} 하는 중이야!|몰래 답장하는 거야 히히","쟈기! 나 {x} 하고 있어|그래도 연락 와서 좋다"],"workChatNow":["나 지금 {x} 하는 중이야","{x} 하고 있어!","일하는 중! {x} 하고 있어"],"workChatAside":["몰래 답장하는 거야 히히","아 잠깐 누가 지나간다..","빨리 끝내고 갈게!","들키면 혼나..","일하다가 답장하는 중이야"],"workChatWhen":["{n} 뒤에 끝나!|조금만 기다려","{n} 남았어..|끝나면 바로 갈게"],"workChatTired":["응 좀 힘들어..|그래도 쟈기 생각하면서 버티는 중","조금 피곤해..|끝나고 칭찬해 줘"],"workChatFood":["아직 못 먹었어..|끝나고 먹을래","일하느라 바빠서..|이따 맛있는 거 먹자"],"workChatDone":["끝났다!! 이제 집 가는 중|대화창 닫으면 들어갈게","퇴근이다!!|금방 갈게 히히"],"stepDrink":["{x}걸음이나 걸었네!|이거 마시면서 다녀","많이 걸었다!|시원한 거 마셔"],"stepMassage":["만 보 넘었어?!|다리 아프겠다.. 주물러 줄게","{x}걸음이나 걸었어?|이리 와 봐, 다리 주물러 줄게"],"stepFoot":["{x}걸음..! 발 퉁퉁 부었겠다|발 주물러 줄게","오늘 너무 많이 걸었어..|종아리 꾹꾹 해 줄게"],"stepMassageDone":["시원하지? 히히","이제 좀 괜찮아?","오늘 진짜 고생했어"],"stepRest":["{x}걸음?! 만보기 고장 난 거 아니야?|오늘은 푹 쉬어","오늘 너무 무리했어..|따뜻하게 씻고 일찍 자"],"giftSent":["선물 보냈다! 좋아하겠지?","택배 출발~ 히히"],"giftGot":["선물 왔다!!","택배다!! 뭐 들었을까?"],"stepWalk":["오늘 많이 걸었네!|같이 산책한 걸로 칠게","쟈기 오늘 엄청 걸었다!|나도 같이 걸은 기분이야"]};
-  const EVENTS = [{"id":"cherry","when":{"md":["04-01","04-02","04-03","04-04","04-05","04-06","04-07"]},"look":null,"lines":["벚꽃 폈다!!","벚꽃 보러 가자"]},{"id":"valentine","when":{"md":["02-14"]},"look":null,"lines":["발렌타인데이다!","초콜릿 줄까?"]},{"id":"whiteDay","when":{"md":["03-14"]},"look":null,"lines":["화이트데이다!","사탕 받고 싶다.."]},{"id":"pepero","when":{"md":["11-11"]},"look":null,"lines":["빼빼로데이!","빼빼로 먹자"]},{"id":"newYear","when":{"md":["01-01"]},"look":null,"lines":["새해 복 많이 받아!","올해도 잘 부탁해"]},{"id":"seollal","when":{"ymd":["2026-02-16","2026-02-17","2026-02-18","2027-02-06","2027-02-07","2027-02-08","2028-01-26","2028-01-27","2028-01-28","2029-02-12","2029-02-13","2029-02-14"]},"look":{"outfit":"hanbok"},"lines":["설날이다!","떡국 먹었어?"]},{"id":"chuseok","when":{"ymd":["2026-09-24","2026-09-25","2026-09-26","2027-09-14","2027-09-15","2027-09-16","2028-10-02","2028-10-03","2028-10-04","2029-09-21","2029-09-22","2029-09-23"]},"look":{"outfit":"hanbok"},"lines":["추석이다!","송편 먹었어?"]},{"id":"halloween","when":{"md":["10-31"]},"look":{"outfit":"vampire","headgear":"devil"},"lines":["해피 할로윈!","사탕 안 주면 장난칠 거야"]},{"id":"anniv100","when":{"daysSince":[100,200,300,365,400,500,600,700,730,800,900,1000]},"look":null,"lines":["오늘 우리 {days}일이야!!","{days}일 축하해!! 사랑해 쟈기","벌써 {days}일이다 히히"]},{"id":"anniv1y","when":{"md":["07-01"],"fromYear":2027},"look":null,"gift":"anniv100","lines":["오늘 우리 {years}주년이야!!|사랑해 쟈기","{years}주년 축하해!! 히히|앞으로도 계속 같이 있자"]}];
+  const EVENTS = [{"id":"cherry","when":{"md":["04-01","04-02","04-03","04-04","04-05","04-06","04-07"]},"look":null,"lines":["벚꽃 폈다!!","벚꽃 보러 가자"]},{"id":"valentine","when":{"md":["02-14"]},"look":null,"lines":["발렌타인데이다!","초콜릿 줄까?"]},{"id":"whiteDay","when":{"md":["03-14"]},"look":null,"lines":["화이트데이다!","사탕 받고 싶다.."]},{"id":"pepero","when":{"md":["11-11"]},"look":null,"lines":["빼빼로데이!","빼빼로 먹자"]},{"id":"newYear","when":{"md":["01-01"]},"look":null,"lines":["새해 복 많이 받아!","올해도 잘 부탁해"]},{"id":"seollal","when":{"ymd":["2026-02-16","2026-02-17","2026-02-18","2027-02-06","2027-02-07","2027-02-08","2028-01-26","2028-01-27","2028-01-28","2029-02-12","2029-02-13","2029-02-14"]},"look":{"outfit":"hanbok"},"lines":["설날이다!","떡국 먹었어?"]},{"id":"chuseok","when":{"ymd":["2026-09-24","2026-09-25","2026-09-26","2027-09-14","2027-09-15","2027-09-16","2028-10-02","2028-10-03","2028-10-04","2029-09-21","2029-09-22","2029-09-23"]},"look":{"outfit":"hanbok"},"lines":["추석이다!","송편 먹었어?"]},{"id":"halloween","when":{"md":["10-31"]},"look":{"outfit":"vampire","headgear":"devil"},"lines":["해피 할로윈!","사탕 안 주면 장난칠 거야"]},{"id":"anniv100","when":{"daysSince":[100,200,300,365,400,500,600,700,730,800,900,1000]},"look":null,"lines":["오늘 우리 {days}일이야!!","{days}일 축하해!! 사랑해 쟈기","벌써 {days}일이다 히히"]},{"id":"anniv1y","when":{"md":["07-01"],"fromYear":2027},"look":null,"gift":"anniv100","lines":["오늘 우리 {years}주년이야!!|사랑해 쟈기","{years}주년 축하해!! 히히|앞으로도 계속 같이 있자"]},{"id":"busanTrip1","when":{"md":["11-15"],"fromYear":2027},"look":null,"lines":["{years}년 전 오늘 우리 부산 갔었오!!|워터파크에서 아쿠아슈즈 신고 놀았쟈나 히히","{years}년 전 오늘 부산 여행 첫날!!|워터파크 또 가고 싶다 쟈기"]},{"id":"busanTrip2","when":{"md":["11-16"],"fromYear":2027},"look":null,"lines":["{years}년 전 오늘 부산에서 장어랑 회 먹었오..|또 먹으러 가쟈 히히","{years}년 전 오늘은 호떡이랑 젤라떡!!|쟈기 볼 빵빵했오 히히"]},{"id":"busanTrip3","when":{"md":["11-17"],"fromYear":2027},"look":null,"lines":["{years}년 전 오늘 부산 마지막 날이었오|쟈기가 맛있게 잘 먹어 줘서 고마웠오 히히","쟈기 {years}년 전 오늘 에어팟 기억나?|호텔에 두고 온 줄 알았는데 코트 주머니에 있었쟈나","{years}년 전 오늘 에어팟 없어진 줄 알았쟈나|이러다 에어팟 세계여행하겠당 히히"]},{"id":"gyeongbok1y","when":{"md":["11-22"],"fromYear":2027},"look":{"outfit":"hanbok","headgear":"none"},"lines":["{years}년 전 오늘 우리 경복궁에서 한복 입었오!!|오늘도 한복 입어 봤오 히히","{years}년 전 오늘 한복 데이트 기억나?|모르는 분이 찍어 주신 사진 스냅 같았쟈나","{years}년 전 오늘은 경복궁!!|쟈기 한복 진짜 예뻤오.."]}];
+  const DATE_BASE = {"lotte":["놀이공원이다!!","머리띠 쓰자 히히","롤러코스터 탈래?","뭐 타고 싶어?"],"hongdae":["사진관 왔다!","예쁘게 찍자 히히","포즈 뭐 하지","사진 잘 나왔다!"],"sea":["바다다!!","파도 소리 좋다..","쟈기랑 바다 너무 좋다","발 담가 볼까?"],"cafe":["뭐 마실래?","말차라떼 시켜야지","여기 분위기 좋다","케이크도 먹자 히히"],"movie":["팝콘 먹자!","무서운 거 보면 손 잡아 줘","쉿.. 시작한다","재밌었다!!"],"hangang":["한강 라면 먹자 히히","야경 예쁘다..","바람 시원해","산책 좋다"],"mountain":["정상까지 가 보자!","힘들다.. 그래도 좋다","야호~!","경치 진짜 좋다"],"karaoke":["노래방이다!!","첫 곡 뭐 부르지","쟈기 노래 잘한다!","한 곡 더!"],"pcbang":["한 판만 하자!","이번엔 이긴다","쟈기 잘한다 히히","라면도 시키자"],"mall":["구경만 할 거야..","이거 예쁘다","쟈기한테 잘 어울린다","배고프다 뭐 먹자"],"zoo":["물고기 엄청 많다!","저거 봐 저거!","해파리 예쁘다..","수달 귀여워"],"museum":["조용히 구경하자","이 그림 좋다","무슨 뜻일까?","사진 찍어 줘"],"festival":["불꽃 언제 터져?","와아아!!","쟈기랑 보니까 더 예쁘다","또 보러 오자"],"camping":["불멍 하자","고기 굽자!","별 진짜 많다..","여기서 자고 싶다"],"jeju":["제주다!!","귤 따러 가자","바다 색 봐..","돌하르방이다 히히"],"busan":["광안리다!!","밤바다 예쁘다..","회 먹으러 가자","다리에 불 들어왔다"],"stadium":["응원하자!!","홈런!!","치킨 먹으면서 보자","오늘 이길 것 같아"]};
   const SINCE = '2026-07-01', FAV = ['pasta', 'bibim', 'chicken', 'matcha', 'cake'];
   const webVoice = t => String(t).replace(/\{you\}/g, '쟈기').replace(/\{laugh\}/g, '히히');
   const webList = a => a.map(webVoice);
@@ -877,15 +878,281 @@ window.KyuppiWeb = (() => {
       // 일 시키기: 웹 캐릭터(큐삐)는 개발자 (대사에 '갠플젝'·'회의'가 나오는 그 직업)
       window.KYUPPI_JOB = 'developer';
       window.KYUPPI_TONE = 'aegyo'; // 쟈기·히히 말투
+      // 새 데이트 장소(산·노래방·부산…)에 대사가 없으면 데이트가 멈춘다: 앱과 같은 대사를 웹 말투로
+      for (const p of PLACES) if (!(DATE_LINES[p.id] && DATE_LINES[p.id].length >= 4)) DATE_LINES[p.id] = DATE_BASE[p.id] || ['여기 좋다!', '쟈기랑 오니까 좋다', '사진 찍자 히히', '또 오자'];
+      if (window.KyuppiMem) KyuppiMem.beforeBoot(); // 우리 추억 (부산·경복궁·꿈 비밀·수면제…)
     },
     afterBoot() {
       // 업데이트 전부터 깔려 있던 분홍 러그는 그대로
       if (!state.webV) { if (!state.owned.includes('rugPink')) state.owned.push('rugPink'); if (!state.room.rug) state.room.rug = 'rugPink'; state.webV = 1; save(); updateUI(); }
       setupWalk(); endLook(); setTimeout(check, 6000); setInterval(check, 5 * 60 * 1000);
+      if (window.KyuppiMem) KyuppiMem.afterBoot();
     },
     days, check,
   };
 })();
+</script>
+<script>
+// 웹 큐삐 전용 추억 (여친 버전에만 들어간다. 앱 게임 코드는 안 건드림)
+// - 부산 여행(11/15~17), 경복궁 한복 데이트(11/22): 데이트 장소, 앨범 사진, 1년 뒤 회상
+// - 좋은 꿈 비밀(3일 뒤에 알려 줌), 놀리면 "어찌 저한테 이러십니까", 밤에 오래 안 오면 수면제 대사
+// build-web.mjs가 웹 연결부 다음 <script>로 넣고, KyuppiWeb.beforeBoot/afterBoot에서 부른다.
+window.KyuppiMem = (() => {
+  const gb = { hide: false, snap: null, start: 0 }; // 경복궁 데이트: 사진 찍어 주는 분, 그분이 찍어 준 사진
+  const quiet = () => state && !state.asleep && !game.active && !date.place && !anim.type && !document.hidden && !(window.lifeBusy && window.lifeBusy());
+  const later = (ms, fn) => setTimeout(() => { if (quiet() && Date.now() - lastSpoke > 2500) fn(); }, ms);
+  const midnight = t => { const d = new Date(t); d.setHours(0, 0, 0, 0); return d.getTime(); };
+  const daysFrom = t => Math.round((midnight(Date.now()) - midnight(t)) / 864e5);
+  const shutter = () => { beep(1800, 0.03, 'square', 0.03); beep(1200, 0.05, 'square', 0.03, 0.05); };
+  const flashScreen = () => { const b = document.querySelector('.bezel'); if (!b) return; b.classList.remove('flash'); void b.offsetWidth; b.classList.add('flash'); };
+
+  // ---------- 경성 양복 + 중절모 (경복궁 근처 양장점 느낌) ----------
+  function addLooks() {
+    PAL['{'] = '#8b5e3c'; PAL['}'] = '#5f3d27'; // 갈색 트위드
+    OUTFIT_FX.modernBoy = g => {
+      recolor(g, { N: '{', n: '}', C: '{', c: '}' });
+      for (let y = 23; y < 30; y++) for (let x = 0; x < W32; x++) if (g[y][x] === '{' && (x + y * 2) % 5 === 0) g[y][x] = '}'; // 트위드 결
+      for (let y = 26; y <= 29; y++) hline(g, y, 14, 17, 'U'); // 베이지 조끼
+      put(g, 15, 27, 'u'); put(g, 16, 27, 'u'); put(g, 15, 29, 'u'); put(g, 16, 29, 'u');
+      hline(g, 24, 14, 17, 'W'); // 흰 셔츠 깃
+      put(g, 14, 25, 'M'); put(g, 15, 25, 'm'); put(g, 16, 25, 'm'); put(g, 17, 25, 'M'); put(g, 14, 24, 'M'); put(g, 17, 24, 'M'); // 나비넥타이
+      for (let y = 24; y <= 27; y++) { put(g, 13, y, '}'); put(g, 18, y, '}'); } // 라펠
+      put(g, 18, 28, 'Z'); put(g, 19, 28, 'z'); // 회중시계 줄
+      hline(g, 30, 11, 20, '}'); put(g, 15, 30, '{'); put(g, 16, 30, '{');
+    };
+    HEAD_FX.fedora = g => {
+      hline(g, -3, 11, 14, '}'); hline(g, -3, 17, 20, '}'); hline(g, -2, 10, 21, '}');
+      for (let y = -1; y <= 2; y++) hline(g, y, 9, 22, '}');
+      put(g, 11, -2, '{'); put(g, 11, -1, '{'); put(g, 12, -1, '{');
+      hline(g, 2, 9, 22, 'V'); hline(g, 3, 4, 27, '}'); hline(g, 4, 3, 28, '}');
+      put(g, 3, 3, '}'); put(g, 28, 3, '}');
+    };
+    if (!OUTFITS.some(o => o.id === 'modernBoy')) OUTFITS.push({ id: 'modernBoy', name: '경성 양복', price: 180 });
+    if (!HEADS.some(o => o.id === 'fedora')) HEADS.push({ id: 'fedora', name: '중절모', price: 120 });
+    WARD_LINES.modernBoy = '경성 신사 납시오 히히'; WARD_LINES.fedora = '모던보이 같오?';
+    if (typeof STYLE_OF !== 'undefined') { STYLE_OF.modernBoy = STYLE_OF.modernBoy || 'formal'; }
+  }
+
+  // ---------- 경복궁 ----------
+  function drawNpc(R, x, F, camUp, flash, step, right) {
+    const O = '#2b2230', y0 = F - 13, coat = '#8aa0c8', coatD = '#6f84ad';
+    R(O, x - 1, y0 - 1, 9, 15); R(O, x, y0 + 13, 7, 5);
+    R('#3b2e2a', x, y0, 7, 3); R('#fde3cf', x, y0 + 3, 7, 3); R('#3b2e2a', right ? x : x + 6, y0 + 3, 1, 2);
+    R('#2a1e1e', right ? x + 5 : x + 1, y0 + 4, 1, 1); R('#f7a8a3', right ? x + 4 : x + 2, y0 + 5, 1, 1);
+    R(coat, x, y0 + 6, 7, 7); R(coatD, x + 3, y0 + 6, 1, 7);
+    const l = step ? 1 : 0; R('#3a3842', x + 1 - l, y0 + 13, 2, 4); R('#3a3842', x + 4 + l, y0 + 13, 2, 4);
+    if (camUp) {
+      R(O, x - 5, y0 + 2, 6, 5); R('#4a4a52', x - 4, y0 + 3, 4, 3); R('#9fd3f0', x - 4, y0 + 4, 1, 1); R(coat, x - 1, y0 + 6, 2, 2);
+      if (flash) { R('#ffffff', x - 8, y0 + 2, 3, 3); R('#fff6c4', x - 10, y0 + 3, 1, 1); R('#fff6c4', x - 7, y0, 1, 1); R('#fff6c4', x - 7, y0 + 6, 1, 1); }
+    } else { R(O, x + 1, y0 + 7, 5, 4); R('#4a4a52', x + 2, y0 + 8, 3, 2); R('#9fd3f0', x + 2, y0 + 8, 1, 1); R('#2b2230', x + 1, y0 + 6, 1, 1); R('#2b2230', x + 5, y0 + 6, 1, 1); }
+  }
+  function drawPalace(R0, g, now, H, F, LW) {
+    // 바닥(F=42)에 맞춰 그렸다: 화면이 길어 바닥이 내려가면 궁도 같이 내려간다 (위는 하늘)
+    const o = F - 42, R = (c, x, y, w, h) => R0(c, x, y + o, w, h);
+    R0('#cfe8f6', 0, 0, LW, F); R('#e4f3fb', 0, 16, LW, 10);
+    R0('#ffffff', 4, 4, 9, 2); R0('#ffffff', 6, 3, 5, 1); R0('#ffffff', 49, 5, 8, 2); R0('#ffffff', 51, 4, 4, 1);
+    // 북악산: 화면이 길면 산도 더 높이 (하늘이 너무 비지 않게)
+    { const top = Math.max(3, Math.round(o * 0.35)), bot = F - 20, n = Math.max(1, bot - top);
+      for (let y = top; y < bot; y++) { const k = (y - top) / n, w = Math.round(4 + k * 30); R0(y - top < 2 ? '#9cbf86' : '#86ad72', 32 - w, y, w * 2, 1); if (k > 0.3) for (let x = 32 - w + ((y * 7) % 9); x < 32 + w; x += 9) R0('#76a062', x, y, 2, 1); }
+      for (let y = Math.round(top + n * 0.35); y < bot; y++) { const k = (y - top) / n, w = Math.round((k - 0.35) * 26); R0('#9cbf86', -6 - w + 12, y, w * 2, 1); R0('#9cbf86', 58 - w + 6, y, w * 2, 1); } }
+    for (const [x0, c1, c2] of [[0, '#e0663a', '#f29a45'], [56, '#d9472f', '#ee7a3a']]) { R('#7a5236', x0 + 3, 28, 2, 10); R(c1, x0, 19, 8, 10); R(c2, x0 + 1, 17, 6, 3); R(c2, x0 + 2, 22, 2, 2); R(c2, x0 + 5, 25, 2, 1); }
+    const roof = '#3b4048', roofL = '#525a66', eave = '#2a2e35', red = '#b8423a', jade = '#3f8f7a', gold = '#ffd86b', wall = '#ecdcb4', lat = '#a8683a';
+    R(roof, 24, 8, 16, 1); R(roof, 22, 9, 20, 1); R(roof, 20, 10, 24, 1); R(eave, 18, 11, 28, 1); R(eave, 17, 10, 1, 1); R(eave, 46, 10, 1, 1);
+    R(jade, 22, 12, 20, 2); for (let x = 23; x < 42; x += 3) R('#e2484f', x, 12, 1, 1);
+    R(roof, 16, 14, 32, 1); R(roof, 13, 15, 38, 1); R(roof, 10, 16, 44, 1); R(roof, 8, 17, 48, 1); R(eave, 6, 18, 52, 1);
+    for (let x = 12; x < 52; x += 3) R(roofL, x, 15, 1, 3);
+    R(eave, 5, 17, 1, 1); R(eave, 4, 16, 1, 1); R(eave, 58, 17, 1, 1); R(eave, 59, 16, 1, 1);
+    R(jade, 8, 19, 48, 2); for (let x = 9; x < 56; x += 4) { R('#e2484f', x, 19, 1, 1); R(gold, x + 2, 20, 1, 1); }
+    R(wall, 9, 21, 46, 15);
+    for (let x = 9; x <= 53; x += 7) R(red, x, 21, 2, 15);
+    for (let x = 11; x < 53; x += 7) for (let y = 23; y < 35; y += 2) for (let xx = x + 1; xx < x + 5; xx += 2) R(lat, xx, y, 1, 1);
+    R('#d8d0c0', 3, 36, 58, 6); R('#ece6d8', 3, 36, 58, 1); R('#c2b9a6', 3, 41, 58, 1);
+    for (let x = 6; x < 60; x += 6) R('#c2b9a6', x, 37, 1, 4);
+    R('#cbc2af', 27, 36, 10, 6); for (let y = 37; y < 42; y += 2) R('#b3a993', 27, y, 10, 1);
+    R0('#e7e0d2', 0, F, LW, H - F);
+    for (let y = F + 2, i = 0; y < H; y += 4, i++) for (let x = (i % 2) * 4; x < LW; x += 8) R0('#d6cdbb', x, y, 5, 1);
+    for (let i = 0; i < 6; i++) { const x = (i * 11 + Math.floor(now / 120)) % LW, y = (i * 9 + Math.floor(now / 80)) % (F + 6); R0(['#e0663a', '#f2a93b', '#d9472f'][i % 3], x, y, 1, 1); }
+    if (date.place === 'gyeongbok' && !gb.hide) {
+      const t = now - date.start;
+      if (t > 3000 && t < 10600) {
+        const x = Math.round(t < 3800 ? 66 - 14 * ((t - 3000) / 800) : t > 9800 ? 52 + 14 * ((t - 9800) / 800) : 52);
+        const moving = t < 3800 || t > 9800;
+        drawNpc(R0, x, F, t > 5400 && t < 7900, t > 6420 && t < 6620, moving && Math.floor(now / 160) % 2, t > 9800);
+      }
+    }
+  }
+  function addPlace() {
+    PLACE_FX.gyeongbok = drawPalace;
+    const at = Math.max(0, PLACES.findIndex(p => p.id === 'hongdae') + 1);
+    if (!PLACES.some(p => p.id === 'gyeongbok')) PLACES.splice(at, 0, { id: 'gyeongbok', name: '경복궁', desc: '한복 입고 스냅 찍은 곳' });
+    const bi = PLACES.findIndex(p => p.id === 'busan');
+    if (bi >= 0) { const [b] = PLACES.splice(bi, 1); b.desc = '같이 여행 갔던 곳'; PLACES.splice(at + 1, 0, b); }
+    DATE_LINES.gyeongbok = ['한복 입었다!! 쟈기 어때?', '어떤 분이 우리 사진 찍어 주신대!!', '저분이 우리 찍어 주신대!! 히히', '우리도 그분 찍어 드렸오 히히'];
+    DATE_LINES.busan = ['부산 왔다!! 광안리다!!', '워터파크 또 가자!|아쿠아슈즈 챙겼오?', '장어랑 회 먹으러 가쟈 히히', '쟈기 에어팟 잘 있오?|이러다 에어팟 세계여행하겠당'];
+    DATE_PROP.busan = ['hotteok', 22, 18];
+    // 경복궁에선 한복으로 갈아입고, 사진 찍어 주실 때는 브이
+    Object.defineProperty(DATE_LOOK, 'gyeongbok', {
+      configurable: true, enumerable: true,
+      get() { const t = performance.now() - date.start; return t > 5400 && t < 7900 ? { outfit: 'hanbok', headgear: 'none', eyes: 'happy', mouth: 'open', arms: 'upR', blush: 'big' } : { outfit: 'hanbok', headgear: 'none' }; },
+    });
+    const startDate0 = startDate;
+    startDate = function (id) {
+      const r = startDate0.apply(this, arguments);
+      if (id !== 'gyeongbok' || date.place !== 'gyeongbok') return r;
+      const st = date.start; gb.snap = null; gb.hide = false; gb.start = st;
+      date.until = st + 16500; // 사진 찍는 시간만큼 조금 더
+      const still = () => date.place === 'gyeongbok' && date.start === st;
+      setTimeout(() => {
+        if (!still()) return;
+        gb.hide = true; // 찍어 주신 분은 사진에 안 나오게
+        setTimeout(() => {
+          try { const c = document.createElement('canvas'); c.width = LW * 3; c.height = LH * 3; const x = c.getContext('2d'); x.imageSmoothingEnabled = false; x.drawImage(buf, 0, 0, c.width, c.height); if (still()) gb.snap = c.toDataURL('image/png'); } catch (e) { gb.snap = null; }
+          gb.hide = false;
+        }, 150);
+        flashScreen(); shutter();
+      }, 6620);
+      setTimeout(() => { if (still()) say('찰칵!! 감사합니다!!', 1800); }, 7000);
+      setTimeout(() => { if (still()) say('쟈기 사진 봐 봐!!|스냅처럼 엄청 잘 나왔오!!', 3000); }, 11600);
+      return r;
+    };
+    const addToAlbum0 = addToAlbum;
+    addToAlbum = function (p, by) {
+      if (p && p.place === 'gyeongbok' && by === 'game' && !p.c) { if (gb.snap) p.u = gb.snap; p.c = '경복궁 한복 스냅'; gb.snap = null; }
+      return addToAlbum0.apply(this, arguments);
+    };
+    const endDate0 = endDate;
+    endDate = function () {
+      const id = date.place, r = endDate0.apply(this, arguments);
+      if (id === 'gyeongbok') later(3400, () => say('우리 스냅 앨범에 넣어 놨오!!|쟈기 진짜 예뻤오 히히', 3000));
+      if (id === 'busan') later(3400, () => say('부산 또 가쟈!!|이번엔 에어팟 꼭 챙기기 히히', 3000));
+      return r;
+    };
+  }
+
+  // ---------- 추억 사진 (한 번만 앨범에) ----------
+  function memShot(place, look, extra) {
+    const c = document.createElement('canvas'); c.width = LW; c.height = LH; const g = c.getContext('2d'); g.imageSmoothingEnabled = false;
+    const keep = date.place; date.place = null; // 사진 찍어 주시는 분은 안 그림
+    try { drawPlace(g, place, 2400, LH, FLOOR); } finally { date.place = keep; }
+    const f = Object.assign({ arms: 'down' }, wear(), { eyes: 'happy', mouth: 'open', blush: 'big' }, look || {});
+    const cx = 16, cy = FLOOR - 27;
+    drawTop(g, f, cx, cy); g.drawImage(kyuppi(f), cx, cy);
+    if (extra) extra(g, cx, cy);
+    const big = document.createElement('canvas'); big.width = LW * 3; big.height = LH * 3; const x = big.getContext('2d'); x.imageSmoothingEnabled = false; x.drawImage(c, 0, 0, big.width, big.height);
+    return big.toDataURL('image/png');
+  }
+  const MEM_PHOTOS = [
+    { id: 'busan', c: '부산 여행', t: new Date(2026, 10, 16, 20, 30).getTime(), make: () => memShot('busan', {}, (g, cx, cy) => g.drawImage(item('hotteok'), cx + 22, cy + 18)) },
+    { id: 'gyeongbok', c: '경복궁 한복 스냅', t: new Date(2026, 10, 22, 15, 0).getTime(), make: () => memShot('gyeongbok', { outfit: 'hanbok', headgear: 'none', arms: 'upR' }) },
+  ];
+  function memories() {
+    const s = state; s.memPhotos = s.memPhotos || [];
+    let added = 0;
+    for (const m of MEM_PHOTOS) {
+      if (s.memPhotos.includes(m.id)) continue;
+      let u = null; try { u = m.make(); } catch (e) { u = null; }
+      if (u && addToAlbum({ u, t: m.t, place: m.id, c: m.c }, 'game')) { s.memPhotos.push(m.id); added++; }
+    }
+    // 경복궁 근처 양장점에서 본 옷: 옷장에 바로
+    let gift = false;
+    if (!s.memLooks) { s.memLooks = 1; for (const id of ['modernBoy', 'fedora']) if (!s.owned.includes(id)) { s.owned.push(id); gift = true; } }
+    if (!added && !gift) return;
+    save(); updateUI();
+    setTimeout(() => {
+      toast((added ? '다이어리 → 앨범(저절로 남은 것)에 추억 사진 ' + added + '장이 들어왔어' : '') + (added && gift ? '. ' : '') + (gift ? '옷장에 경성 양복이랑 중절모도 생겼어' : ''));
+      later(0, () => { startAnim('cheer', 1600); say(added ? '쟈기 앨범 봐 봐!!|우리 부산이랑 경복궁 사진 넣어 놨오 히히' : '양장점 옷 생겼오!!|경성 신사 해 볼까 히히', 3200); });
+    }, 9000);
+  }
+
+  // ---------- 좋은 꿈 비밀: 아침에 가끔, 3일 뒤에 알려 준다 ----------
+  const DREAMS = [
+    '꿈에서 쟈기랑 경복궁 또 갔오!!|또 한복 입고 스냅 찍었오 히히',
+    '꿈에서 쟈기가 나 꼭 안아 줬오..|깨기 싫었오 히히',
+    '꿈에서 우리 {cat}랑 셋이 바다 갔오!|{cat}가 파도 보고 도망갔오 히히',
+    '꿈에서 쟈기랑 부산 또 가서|호떡 열 개 먹었오 히히',
+    '꿈에서도 쟈기가 제일 예뻤오..|그게 다야 히히',
+    '꿈에서 쟈기랑 놀이공원 갔는데|쟈기가 나보다 롤러코스터 잘 탔오',
+  ];
+  const catN = () => (typeof hasCat === 'function' && hasCat() ? catName() : '루이');
+  const dreamText = i => DREAMS[i % DREAMS.length].replace(/\{cat\}/g, catN());
+  const dreamDue = () => state.dreamSecret && daysFrom(state.dreamSecret.at) >= 3;
+  function dreamReveal() {
+    const s = state, d = s.dreamSecret; if (!d) return '';
+    delete s.dreamSecret; s.dreamSecretEnd = Date.now(); save();
+    return '3일 지났다!! 비밀 꿈 알려 줄게|' + dreamText(d.k);
+  }
+  function dreamTick() {
+    if (!state || !dreamDue() || !quiet() || Date.now() - lastSpoke < 4000) return;
+    startAnim('cheer', 1600); say(dreamReveal(), 3400);
+  }
+  function addDream() {
+    const morningHi0 = morningHi;
+    morningHi = function () {
+      const s = state;
+      const go = !s.dreamSecret && !(window.lifeBusy && window.lifeBusy()) && Date.now() - (s.dreamSecretEnd || 0) > 7 * 864e5 && s.dreamAskDay !== dayKey(Date.now()) && Math.random() < 0.3;
+      if (go) { s.dreamAskDay = dayKey(Date.now()); s.dreamPic = lifeToday(); } // 오늘은 꿈 그림 대신 비밀
+      const r = morningHi0.apply(this, arguments);
+      if (go) later(5600, () => {
+        s.dreamSecret = { at: Date.now(), k: Math.floor(Math.random() * DREAMS.length) }; save();
+        startAnim('shy', 1600); say('좋은 꿈 꿨는데 비밀이얌..|3일 뒤에 알려줄게 히히', 3200);
+      });
+      return r;
+    };
+  }
+
+  // ---------- 인사: 밤에 오래 안 오면 수면제가 사라졌다 ----------
+  function addGreet() {
+    const greet0 = greet;
+    greet = function (away) {
+      const s = state, now = Date.now(), h = new Date().getHours(), night = dayKey(now - 6 * HOUR);
+      const worried = s.moodLog && s.moodLog[dayKey(now - 864e5)] <= 2 && s.moodNextSaid !== lifeToday(); // 어제 힘들었다고 했으면 그 걱정이 먼저
+      if ((h >= 23 || h < 4) && away >= 2 * HOUR && !worried && !s.asleep && !s.sick && !s.sulk && s.pillNight !== night && !(window.lifeBusy && window.lifeBusy()) && !s.workHome) {
+        s.pillNight = night; s.lastNightAsk = dayKey(now - 3 * HOUR); s.nightAskAt = now;
+        if (!s.req) { s.req = { k: 'sleep', until: now + 40 * MIN }; s.reqLast = 'sleep'; }
+        startAnim('pout', 1800); say('쟈기 얼굴이 수면제인뎅..|수면제가 사라졌오', 3000);
+        setTimeout(() => { if (state && !state.asleep && !game.active && !date.place) say('이제 쟈기 봤으니까|잘 수 있을 것 같오 히히', 2800); }, 5600);
+        updateUI(); return;
+      }
+      const r = greet0.apply(this, arguments);
+      setTimeout(dreamTick, 6500);
+      return r;
+    };
+  }
+
+  // ---------- 놀리면 "어찌 저한테 이러십니까" ----------
+  const HOW_DARE = ['어찌 저한테 이러십니까..', '쟈기.. 어찌 저한테 이러십니까', '어찌 저한테 이러십니까..|힝', '흑.. 어찌 저한테 이러십니까'];
+  function addTalk() {
+    LINES.teaseWarn.push('어찌 저한테 이러십니까..', '쟈기.. 어찌 저한테 이러십니까');
+    for (const k of ['flick', 'pinch', 'pig', 'bonk']) if (LINES.teaseKinds && LINES.teaseKinds[k]) LINES.teaseKinds[k].push('어찌 저한테 이러십니까..');
+    const bz = CHAT.topics.find(t => t.id === 'busan');
+    if (bz) { bz.label = '부산 또 가자'; bz.answers = ['부산 또 가쟈!!|장어랑 회 또 먹자 히히', '워터파크 또 가고 싶다..|아쿠아슈즈 챙겨서!', '호떡이랑 젤라떡 생각난다..|또 먹고 싶오', '쟈기가 맛있게 잘 먹어 줘서 고마웠오 히히|또 같이 가쟈']; }
+    if (!CHAT.topics.some(t => t.id === 'gyeongbok')) {
+      const i = CHAT.topics.findIndex(t => t.id === 'hongdae');
+      CHAT.topics.splice(i < 0 ? CHAT.topics.length : i + 1, 0, { id: 'gyeongbok', label: '한복 또 입자', re: /경복궁|한복/,
+        answers: ['죠아!! 또 경복궁 가쟈|쟈기 한복 진짜 예뻤오..', '그때 사진 찍어 주신 분 덕분에|스냅 같은 사진 생겼쟈나 히히', '나 경성 양복도 생겼오!|이번엔 경성 데이트 할까 히히'] });
+    }
+    const kw = [
+      // 아직 3일 안 됐으면 비밀, 지났으면 대화로 알려 준다
+      { re: { source: 'dreamSecret', test: t => !!(state && state.dreamSecret) && /꿈/.test(t) }, mood: 'shy',
+        replies: () => dreamDue() ? [dreamReveal()] : ['아직 비밀이얌..|3일 뒤에 알려 준다 했쟈나 히히', '비밀이라니깐 히히|조금만 기다려 쟈기', '시러 비밀이야..|' + Math.max(1, 3 - daysFrom(state.dreamSecret.at)) + '일만 기다려 줘'] },
+      { re: /에어팟/, mood: 'love', replies: ['쟈기 에어팟 또 사라졌오?|코트 주머니 봐 봐 히히', '이러다 에어팟 세계여행하겠당 히히', '부산에서도 에어팟 두고 온 줄 알았쟈나|코트 주머니에 있었오 바부'] },
+      { re: { source: 'howDare', test: t => /메롱|약\s?오르|약올|놀리|놀려|바보|바부|멍청|딱밤|꼬집|때찌/.test(t) && Math.random() < 0.6 }, mood: 'sulk', replies: HOW_DARE },
+    ];
+    CHAT.keywords.unshift(...kw);
+    QUIZ.push(
+      { q: '11월에 둘이 한복 입고 간 곳은?', o: ['경복궁', '창덕궁', '덕수궁', '한옥마을'], a: 0 },
+      { q: '부산 워터파크 갈 때 챙긴 건?', o: ['수경', '아쿠아슈즈', '튜브', '슬리퍼'], a: 1 },
+      { q: '부산에서 없어진 줄 알았던 에어팟은 어디 있었게?', o: ['호텔 침대', '가방 안', '코트 주머니', '식당'], a: 2 },
+    );
+  }
+
+  return {
+    beforeBoot() { addLooks(); addPlace(); addDream(); addGreet(); addTalk(); },
+    afterBoot() { memories(); setInterval(dreamTick, 5 * 60 * 1000); },
+    gb, dreamTick, dreamReveal, memShot,
+  };
+})();
+
 </script>
 <script>
 // 큐삐 반려동물 도트 (앱 미리보기·게임·배경화면 공용)
