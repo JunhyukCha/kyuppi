@@ -97,15 +97,14 @@ img.px { image-rendering: pixelated; image-rendering: crisp-edges; }
 }
 /* 화면 위 버튼 줄: 큐삐(대화, 춤) 왼쪽, 루이 오른쪽 */
 .stage { display: flex; flex-direction: column; gap: 10px; }
-.quick { display: flex; align-items: center; gap: 8px; padding: 0 2px; }
-.talk-btn, .dance-btn, .louie-btn {
+.quick { display: flex; align-items: center; gap: 6px; padding: 0 2px; }
+.talk-btn, .dance-btn, .diary-btn, .med-btn, .louie-btn {
   position: relative; border: 0; background: var(--cream); border-radius: 12px; white-space: nowrap;
-  padding: 6px 11px 5px 8px; font-size: 13px; display: flex; align-items: center; gap: 5px;
+  padding: 6px 9px 5px 7px; font-size: 13px; display: flex; align-items: center; gap: 4px;
   box-shadow: 0 3px 0 var(--shell-deep);
 }
-.talk-btn img { width: 17px; height: auto; }
-.talk-btn:active, .dance-btn:active, .louie-btn:active { transform: translateY(2px); box-shadow: 0 1px 0 var(--shell-deep); }
-.gaming .quick button { pointer-events: none; opacity: .45; }
+.talk-btn img, .diary-btn img { width: 17px; height: auto; }
+.talk-btn:active, .dance-btn:active, .diary-btn:active, .louie-btn:active { transform: translateY(2px); box-shadow: 0 1px 0 var(--shell-deep); }
 .lv {
   border: 0; border-radius: 999px; padding: 4px 9px 3px; font-size: 12px; white-space: nowrap; color: var(--ink);
   background: linear-gradient(90deg, #ffd0de var(--p, 0%), var(--cream) var(--p, 0%));
@@ -179,7 +178,16 @@ img.px { image-rendering: pixelated; image-rendering: crisp-edges; }
 .dot { display: inline-block; width: 8px; height: 8px; border-radius: 50%; background: #ff4d6d; box-shadow: 0 0 0 2px var(--cream); vertical-align: top; margin-left: 2px; }
 .dot[hidden] { display: none; }
 .title .dot { margin-left: -6px; }
-.talk-btn .dot { position: absolute; top: -3px; right: -3px; }
+.talk-btn .dot, .diary-btn .dot { position: absolute; top: -3px; right: -3px; }
+/* 버튼이 많아지면(약 주기·루이) 줄 안에서 옆으로 밀어 볼 수 있게 */
+.stage { min-width: 0; } .quick { min-width: 0; max-width: 100%; overflow-x: auto; scrollbar-width: none; padding-bottom: 4px; margin-bottom: -4px; } .quick::-webkit-scrollbar { display: none; }
+.quick > button { flex: none; }
+.album-seg { display: flex; gap: 6px; margin: 2px 0 8px; } .album-seg button { flex: 1; border: 0; border-radius: 10px; padding: 8px 6px; font: inherit; font-size: 13px; background: #fff; color: var(--ink); box-shadow: 0 2px 0 #eadfd2; }
+.album-seg button[aria-pressed="true"] { background: var(--ink); color: #fff; box-shadow: none; }
+.album-seg small { opacity: .7; margin-left: 3px; }
+.album-shot { display: flex; align-items: center; justify-content: center; gap: 6px; width: 100%; margin: 0 0 8px; border: 0; border-radius: 12px; padding: 9px; font: inherit; font-size: 13px; background: #fff; box-shadow: 0 2px 0 #eadfd2; color: var(--ink); }
+.album-shot img { width: 18px; height: auto; image-rendering: pixelated; }
+.album-ph .cap { display: block; padding: 3px 4px 4px; font-size: 10px; line-height: 1.3; color: var(--ink-soft); background: #fff; text-align: left; }
 .foods.three { grid-template-columns: repeat(3, 1fr); }
 .shop-top { display: flex; align-items: center; justify-content: space-between; }
 .shop-top h2 { margin: 0; }
@@ -301,7 +309,7 @@ img.px { image-rendering: pixelated; image-rendering: crisp-edges; }
 .dating .actions, .dating .talk-btn, .dating .dance-btn, .dating .louie-btn { pointer-events: none; opacity: .45; }
 .louie-btn { margin-left: auto; max-width: 40%; overflow: hidden; }
 .louie-btn[hidden] { display: none; }
-.louie-btn img { width: 18px; height: auto; }
+.louie-btn img { width: 20px; height: auto; image-rendering: pixelated; }
 .louie-btn span { overflow: hidden; text-overflow: ellipsis; }
 .cat-bubble {
   position: absolute; transform: translateX(-50%); background: #fff; border-radius: 10px; padding: 3px 7px; font-size: 12px;
@@ -358,13 +366,13 @@ img.px { image-rendering: pixelated; image-rendering: crisp-edges; }
 .icon-btn.gear img { width: 18px; height: auto; display: block; }
 .ward { max-height: 88dvh; display: flex; flex-direction: column; }
 .ward-top { display: flex; gap: 14px; align-items: center; margin-bottom: 4px; }
-.ward-top canvas { width: 96px; height: 96px; image-rendering: pixelated; background: var(--lcd); border-radius: 16px; flex: none; }
+.ward-top canvas { width: 96px; height: 120px; image-rendering: pixelated; background: var(--lcd); border-radius: 16px; flex: none; }
 .ward-top h2 { margin: 0 0 6px; }
 .ward-top p { margin: 0; font-size: 13px; color: var(--ink-soft); line-height: 1.5; }
 .ward-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(88px, 1fr)); gap: 8px; padding: 10px 2px 4px; overflow-y: auto; min-height: 0; }
 .wcard { border: 0; background: #fff; border-radius: 14px; padding: 8px 4px 7px; display: flex; flex-direction: column; align-items: center; gap: 4px;
   font-size: 12px; box-shadow: 0 2px 0 #eadfd2; text-align: center; word-break: keep-all; }
-.wcard img { width: 64px; height: 64px; image-rendering: pixelated; border-radius: 10px; background: var(--lcd); }
+.wcard img { width: 64px; height: 64px; object-fit: contain; image-rendering: pixelated; border-radius: 10px; background: var(--lcd); }
 .wcard[aria-pressed="true"] { box-shadow: 0 0 0 3px var(--bell), 0 2px 0 #eadfd2; }
 .wcard:disabled { opacity: .5; }
 .wcard small { font-size: 11px; color: var(--ink-soft); }
@@ -379,11 +387,20 @@ img.px { image-rendering: pixelated; image-rendering: crisp-edges; }
 .dance-btn.off { opacity: .55; filter: grayscale(.7); }
 .dance-btn.ready img { animation: bop 1.1s ease-in-out infinite; }
 @keyframes bop { 0%, 100% { transform: rotate(-12deg); } 50% { transform: rotate(12deg) translateY(-1px); } }
+/* 미니게임 중: 위쪽 버튼 줄 자리에 점수·시간 (화면 안은 게임만 보이게) */
 .hud {
-  position: absolute; left: 8px; right: 8px; bottom: 6px; display: none; justify-content: space-between;
-  font-size: 14px; color: var(--ink); text-shadow: 0 1px 0 rgba(255,255,255,.7);
+  display: none; justify-content: space-between; align-items: center; gap: 8px;
+  background: var(--cream); border-radius: 12px; padding: 6px 12px 5px; font-size: 15px; color: var(--ink);
+  box-shadow: 0 3px 0 var(--shell-deep);
 }
 .hud.show { display: flex; }
+.gaming .quick, .gaming .cat-bubble { display: none; }
+.game-hint {
+  position: absolute; left: 6px; right: 6px; top: 6px; padding: 5px 8px 4px; border-radius: 10px; text-align: center;
+  background: rgba(255,255,255,.82); color: var(--ink); font-size: 13px; line-height: 1.3; pointer-events: none;
+  opacity: 0; transition: opacity .25s; z-index: 3;
+}
+.game-hint.show { opacity: 1; }
 
 /* 행동 버튼 */
 .actions { display: grid; grid-template-columns: repeat(6, 1fr); gap: 6px; }
@@ -521,15 +538,17 @@ body:has(.sheet-back.show) .toast { bottom: auto; top: calc(env(safe-area-inset-
       <button class="talk-btn" id="talkBtn"><img class="px" data-icon="iconTalk" alt="">대화하기<i class="dot" id="talkDot" hidden></i></button>
       <button class="dance-btn" id="danceBtn"><img class="px" data-icon="note" alt="">춤추기</button>
       <button class="med-btn" id="medBtn" hidden><img class="px" data-icon="iconMed" alt="">약 주기</button>
+      <button class="diary-btn" id="diaryBtn" aria-label="다이어리: 일기, 앨범, 기록"><img class="px" data-icon="iconDiary" alt="">다이어리<i class="dot" id="diaryDot" hidden></i></button>
       <button class="louie-btn" id="louieBtn" hidden><img class="px" data-icon="iconLouie" alt=""><span id="louieBtnName">루이</span></button>
     </nav>
+    <div class="hud" id="hud" role="status"><span id="hudScore"></span><span id="hudTime"></span></div>
     <button type="button" class="req-bar" id="reqBar" hidden><b>부탁</b><span id="reqText"></span><small id="reqLeft"></small></button>
     <div class="bezel">
       <div class="screen" id="screen" aria-label="큐삐 화면. 큐삐를 누르면 쓰다듬을 수 있어요">
         <canvas id="lcd"></canvas>
         <div class="bubble" id="bubble" role="status" aria-live="polite"></div>
         <div class="cat-bubble" id="catBubble" aria-live="polite"></div>
-        <div class="hud" id="hud"><span id="hudScore"></span><span id="hudTime"></span></div>
+        <div class="game-hint" id="gameHint" aria-live="polite"></div>
       </div>
     </div>
    </div>
@@ -605,14 +624,15 @@ body:has(.sheet-back.show) .toast { bottom: auto; top: calc(env(safe-area-inset-
 
 <div class="sheet-back" id="growBack">
   <div class="sheet" role="dialog" aria-modal="true" aria-labelledby="growTitle">
-    <h2 id="growTitle">다이어리</h2>
-    <div class="chat-tabs" id="diaryTabs" role="tablist" aria-label="다이어리">
-      <button type="button" role="tab" data-tab="grow" aria-selected="true">성장</button>
-      <button type="button" role="tab" data-tab="mission" aria-selected="false">미션<i class="dot" id="misDot" hidden></i></button>
-      <button type="button" role="tab" data-tab="ach" aria-selected="false">업적<i class="dot" id="achDot" hidden></i></button>
-      <button type="button" role="tab" data-tab="album" aria-selected="false">앨범</button>
-      <button type="button" role="tab" data-tab="diary" aria-selected="false">일기</button>
-      <button type="button" role="tab" data-tab="record" aria-selected="false">기록</button>
+    <h2 id="growTitle">성장</h2>
+    <!-- 레벨 배지로 열면 성장 탭들(grow), 다이어리 버튼으로 열면 일기·앨범·기록(memo)만 보인다 -->
+    <div class="chat-tabs" id="diaryTabs" role="tablist" aria-label="성장">
+      <button type="button" role="tab" data-tab="grow" data-group="grow" aria-selected="true">레벨</button>
+      <button type="button" role="tab" data-tab="mission" data-group="grow" aria-selected="false">미션<i class="dot" id="misDot" hidden></i></button>
+      <button type="button" role="tab" data-tab="ach" data-group="grow" aria-selected="false">업적<i class="dot" id="achDot" hidden></i></button>
+      <button type="button" role="tab" data-tab="diary" data-group="memo" aria-selected="false">일기</button>
+      <button type="button" role="tab" data-tab="album" data-group="memo" aria-selected="false">앨범</button>
+      <button type="button" role="tab" data-tab="record" data-group="memo" aria-selected="false">기록</button>
     </div>
     <div id="paneGrow">
     <div class="grow-now">
@@ -694,13 +714,14 @@ body:has(.sheet-back.show) .toast { bottom: auto; top: calc(env(safe-area-inset-
 <div class="sheet-back" id="wardBack">
   <div class="sheet ward" role="dialog" aria-modal="true" aria-labelledby="wardTitle">
     <div class="ward-top">
-      <canvas id="wardPreview" width="32" height="32" aria-hidden="true"></canvas>
+      <canvas id="wardPreview" width="32" height="40" aria-hidden="true"></canvas>
       <div><h2 id="wardTitle">꾸미기</h2><p id="wardNow"></p><button type="button" class="photo-btn" id="photoBtn"><img data-icon="iconCamera" alt="">사진 찍기</button></div>
     </div>
     <div class="chat-tabs" id="wardTabs" role="tablist" aria-label="옷장 종류">
       <button type="button" role="tab" data-tab="outfit" aria-selected="true">옷</button>
       <button type="button" role="tab" data-tab="head" aria-selected="false">머리</button>
       <button type="button" role="tab" data-tab="acc" aria-selected="false">액세서리</button>
+      <button type="button" role="tab" data-tab="salon" aria-selected="false">미용실</button>
       <button type="button" role="tab" data-tab="room" aria-selected="false">방</button>
       <button type="button" role="tab" data-tab="louie" aria-selected="false" id="wardLouieTab" hidden>루이</button>
     </div>
@@ -791,7 +812,7 @@ body:has(.sheet-back.show) .toast { bottom: auto; top: calc(env(safe-area-inset-
 
 <script>
 window.KyuppiWeb = (() => {
-  const EXTRA = {"exercise":["하나 둘! 하나 둘!","헉헉..","줄넘기 시작!"],"exerciseDone":["개운하다!","땀 났다..|씻어야겠다"],"exerciseSlim":["살 빠진 것 같아!!","몸이 가벼워졌다 히히"],"exerciseNo":["힘들어서 못 하겠어..","배고파서 힘이 없어.."],"fatTalk":["요즘 살찐 것 같아..|운동해야 하나","배가 나왔어..","간식 좀 줄여야겠다.."],"thinTalk":["배고파서 살 빠졌어..","요즘 너무 못 먹었어.."],"walkEnd":["산책 재밌었다!","{cat} 엄청 신났어 히히","다리 아프다.. 그래도 좋아"],"workGo":["헉 나 일하러 가야 돼..?|알겠어 다녀올게","쟈기가 시키니까 간다..!","으.. 일하기 싫어|그래도 다녀올게!","돈 벌어 올게 히히","나만 일해..? 쟈기도 일해!","다녀오겠습니다!|기다려 줘"],"workBack":["다녀왔어!!","나 왔다!! 힘들었어..","퇴근이다!! 히히","쟈기 나 왔어! 칭찬해 줘"],"workEarly":["벌써 와도 돼? 신난다 히히","조기 퇴근이다!!","헤헤 일찍 왔다"],"workTired":["너무 피곤해서 못 가..|좀 쉬고 갈래","배고파서 일 못 해..|밥부터 줘","기운이 없어..|조금만 쉬고"],"workLimit":["오늘은 일 많이 했어..|이제 쉴래","오늘은 그만!|내일 또 할게"],"workSick":["아파서 못 가..","몸이 안 좋아..|오늘은 쉴래"],"touchHeadMany":["머리 닳겠다 히히","쓰담쓰담 너무 좋아.."],"touchEye":["앗 눈!!","눈 찌르지 마!","앗 따가워 히히"],"touchCheek":["말랑말랑?","볼 콕! 히히","내 볼 말랑하지?"],"touchCheekMany":["볼 터진다!!","그만 찔러! 흥","볼에 구멍 나겠어"],"touchFive":["짝!","하이파이브!","나이스! 히히"],"touchFiveMany":["하이파이브 장인!","우리 손발 척척이다 히히"],"touchFeet":["발 간지러워!! 히히","거긴 안 돼 히히","발바닥은 반칙이야!"],"touchFeetMany":["그만!! 발차기 뻥!","간지러워서 못 참아!! 뻥!"],"moodAsk":["쟈기 오늘 기분 어때?","쟈기 오늘 하루 어땠어?","오늘 기분 알려 줘!"],"moodGreat":["나도 덩달아 신난다!!","최고다!! 오늘 같이 놀자 히히","쟈기 기분 좋으면 나도 좋아!"],"moodGood":["다행이다 히히","좋은 하루였구나!","헤헤 나도 좋아"],"moodSoso":["그런 날도 있지..|내가 웃겨 줄게","음.. 그냥 그런 날이구나|잠깐만!"],"moodSoso2":["꿀꿀! 웃었지? 히히","돼지코! 이제 좀 웃겨?"],"moodBad":["무슨 일 있었어?|내가 옆에 있을게","오늘 속상했구나..|내가 꼭 안아 줄게"],"moodHard":["오늘 많이 힘들었구나..|이리 와. 꼭 안아 줄게","쟈기 고생 많았어..|노래 불러 줄게"],"moodBad2":["오늘은 푹 쉬어. 내가 있잖아","쟈기는 잘하고 있어","맛있는 거 먹고 일찍 자자"],"moodNext":["어제 힘들었잖아..|오늘은 좀 괜찮아?","쟈기 오늘은 기분 괜찮아?|어제 걱정했어"],"fakeStart":["아야.. 나 아파..","머리가.. 아파..","쟈기.. 나 아픈 것 같아..","끙.. 아파.."],"fakeMed":["약은 싫어!!|...사실 안 아파 히히","으악 약 싫어!|헤헤 사실 꾀병이었어"],"fakePet":["헤헤 사실 안 아팠지롱","들켰다.. 심심해서 그랬어","쟈기 걱정했어? 헤헤 미안"],"fakeTemp":["어.. 정상이네..?|헤헤 들켰다","36.5도.. 꾀병인 거 들켰다 히히"],"fakeEnd":["아무도 안 속네.. 흥","꾀병 부려도 안 봐 주네.."],"tempOk":["나 건강해!","열 없지? 히히"],"hideStart":["내가 뭐 숨겼게~|방 어딘가에 있어. 찾아 봐!","숨바꼭질 하자!|내가 숨긴 거 찾아 봐","쉿.. 뭐 하나 숨겼어 히히|찾아 봐!"],"hideFound":["찾았다!! 어떻게 알았어?","헉 벌써 찾았어?!","역시 쟈기 눈 좋다 히히"],"hideReveal":["여기 있었지롱!","못 찾았지? 히히 여기!"],"sRamen":["앗.. 들켰다..|배고파서 몰래..","쉿! 비밀이야..|라면 한 입만.."],"sWish":["11시 11분이다!|소원 빌어야지..","소원 빌었어!|비밀이야 히히"],"sStars":["별 예쁘다..","쟈기도 지금 하늘 보고 있을까?"],"sSnack":["앗! 간식 먹는 거 들켰다","3시는 간식 시간이야 히히"],"sMidnight":["자정이다!|오늘도 수고했어","날짜 바뀌었다!|오늘도 같이 있자"],"sRain":["비 오는 소리 좋다~","비 오는 날엔 흔들흔들 히히"],"sStretch":["으아아~ 기지개!","잘 잤다~ 쭈욱"],"sParty":["불금이다!!","금요일 밤은 신나야지 히히"],"sMirror":["오늘도 귀엽네 나..","거울아 거울아.. 누가 제일 귀엽니?"],"sPetTalk":["{cat}야, 우리 쟈기 몰래 간식 먹을까?","{cat}야 쟈기 좋아해? 나도 히히"],"sConfess":["..좋아해.|아 아니! 연습이야!!","사..사랑.. 아니 아무것도 아니야!"],"sGrowl":["꼬르륵.. 들었어?","배에서 소리 났다..|점심 먹자"],"sleepTalk":["음냐.. {x}..","{x}.. 더 줘..","음.. {x} 좋아..","zzz.. {x}.."],"dreamTell":["꿈 꿨는데!!|{x} 나왔어","어젯밤 꿈에 {x} 나왔다 히히","꿈에서 {x} 봤어!|그려 놨어"],"monCheer":["월요일이다!|이번 주도 힘내!","쟈기 월요일 화이팅!|도시락 챙겨 놨어"],"friNight":["불금이다!!|영화 보러 갈래?","금요일 밤이다 히히|오늘 영화관 가자"],"brunchStart":["일요일엔 브런치지!|와플 구워 줄게","주말 아침이다!|맛있는 거 해 줄게"],"brunchDone":["짠! 브런치 완성!","같이 먹자 히히"],"styleLove":["이 옷 완전 내 스타일!!","이거 너무 좋아!! 빙글빙글","쟈기 내 취향 잘 안다 히히"],"styleHate":["음.. 이건 좀..","이 옷은 나랑 안 맞는 것 같아..","다른 거 입을래.."],"tooHot":["더워..|여름에 이건 좀..","땀 나.. 시원한 거 입고 싶어"],"tooCold":["추워..|겨울에 이건 좀..","덜덜.. 따뜻한 거 입혀 줘"],"craftShow":["짠! 내가 {x} 만들었어","쟈기 없을 때 {x} 만들었다!","이거 봐!! 내가 만든 {x} 히히"],"hobbyUp":["요즘 {x} 실력 늘었지?","{x} 점점 잘하게 돼 히히"],"guitarSong":["쟈기 생각하면서 만든 노래야","어때? 내가 만든 노래 히히"],"battLow":["폰 배터리 {x}%야!|충전해 줘","배터리 얼마 없어..|나 꺼지면 안 돼"],"battCharge":["폰도 밥 먹는다 냠냠","충전 시작! 폰 배부르겠다 히히"],"artTiny":["음.. 이건 뭐야?|추상화야? 히히","점 몇 개..? 그래도 고마워!"],"artLove":["하트다!!|고마워 히히","하트 그림이다! 나도 하트!"],"artMe":["이거 나야?!|완전 닮았어","나 이렇게 귀여워? 히히"],"artUs":["우리 둘이다!!|평생 간직할래","쟈기랑 나다 히히|벽에 걸어야지"],"artFood":["{x}다!|보니까 먹고 싶어","{x} 그림이다! 배고파진다 히히"],"artPet":["{cat}다!! 똑같아","{cat} 그림이다 히히"],"artNature":["예쁘다..|같이 보러 가고 싶어","그림 속 같은 데 가 보고 싶다"],"artColor":["우와 알록달록하다!!","색이 진짜 예뻐!"],"artAny":["우와 선물이야? 고마워!!","쟈기가 그린 거야? 최고야!"],"oneYear":["1년 전 오늘 기억나?","작년 오늘 일기 봤어 히히"],"diaryMe":["일기 읽었어? 히히","나도 쟈기 글 읽었어!"],"workHome_aegyo":["쟈기~ 나 일하고 왔어!|휴~ 힘들어 죽는 줄 알았어","나 왔어~|오늘 진짜진짜 힘들었어..","다녀왔어 쟈기!|안아 줘.. 힘들었어"],"workHome_warm":["다녀왔어~|오늘도 무사히 끝났다","나 왔어. 휴~|그래도 보람찬 하루였어","다녀왔어~|쟈기도 오늘 고생 많았지?"],"workHome_plain":["다녀왔어.|좀 피곤하네","왔어.|오늘 일 끝.","퇴근했어.|휴.."],"workHome_blunt":["왔어.","...퇴근.","다녀옴.|피곤."],"workHome_hyper":["퇴근이다!!!!|드디어 자유다!!!","나 왔다!!!!|오늘 완전 불태웠어!!!","다녀왔어!!!|힘든데 신나!!! 히히"],"workHomeTired_aegyo":["나 왔어..|너무 힘들어서 녹을 것 같아..","쟈기.. 나 왔어|기운이 하나도 없어.."],"workHomeTired_warm":["다녀왔어..|오늘은 좀 많이 피곤하다"],"workHomeTired_plain":["왔어. 진짜 피곤하다."],"workHomeTired_blunt":["...왔어. 졸려."],"workHomeTired_hyper":["다녀왔어..!!|배터리 1%야..!!"],"workBrag_aegyo":["오늘 {x}코인이나 벌었어!|나 대단하지? 히히","짜잔~ {x}코인!|이걸로 맛있는 거 사 줄게"],"workBrag_warm":["{x}코인 벌어 왔어|이걸로 우리 맛있는 거 먹자","오늘 번 거 {x}코인!|쟈기 갖고 싶은 거 있어?"],"workBrag_plain":["오늘 {x}코인 벌었어.","{x}코인. 나쁘지 않네."],"workBrag_blunt":["{x}코인. 받아.","...{x}코인 벌었어. 됐지?"],"workBrag_hyper":["{x}코인!!!!! 부자다!!!! 히히","오늘 {x}코인!!! 나 천재인가?!"],"workPraiseAsk_aegyo":["칭찬해 줘~|머리 쓰담쓰담!","나 잘했지?|쓰다듬어 줘~"],"workPraiseAsk_warm":["나 오늘 잘했지?","칭찬 한 번만 해 줄래?"],"workPraiseAsk_plain":["칭찬해 줘도 돼.","잘했다고 해 줘."],"workPraiseAsk_blunt":["...칭찬은?","쓰다듬든가."],"workPraiseAsk_hyper":["칭찬해!!! 빨리!!!","나 쓰담쓰담 해 줘!!!!"],"workPraised_aegyo":["헤헤 힘이 난다~","쟈기가 쓰다듬어 주니까 피곤이 싹 풀렸어"],"workPraised_warm":["고마워. 덕분에 힘이 나","쟈기 손 따뜻하다.."],"workPraised_plain":["...좋다.","고마워. 힘 난다."],"workPraised_blunt":["...뭐. 좋네.","...한 번 더."],"workPraised_hyper":["으아아 최고야!!!!","힘이 넘친다!!! 또 일하러 갈까?!"],"workNoPraise_aegyo":["칭찬 안 해 줘..?","쓰담쓰담 기다렸는데.."],"workNoPraise_warm":["괜찮아, 다음에 해 줘","...조금 서운하다"],"workNoPraise_plain":["...뭐, 됐어."],"workNoPraise_blunt":["...됐어.","흥."],"workNoPraise_hyper":["칭찬 왜 안 해!!!","서운해!!!!"],"workChatHi":["나 지금 {x} 하는 중이야!|몰래 답장하는 거야 히히","쟈기! 나 {x} 하고 있어|그래도 연락 와서 좋다"],"workChatNow":["나 지금 {x} 하는 중이야","{x} 하고 있어!","일하는 중! {x} 하고 있어"],"workChatAside":["몰래 답장하는 거야 히히","아 잠깐 누가 지나간다..","빨리 끝내고 갈게!","들키면 혼나..","일하다가 답장하는 중이야"],"workChatWhen":["{n} 뒤에 끝나!|조금만 기다려","{n} 남았어..|끝나면 바로 갈게"],"workChatTired":["응 좀 힘들어..|그래도 쟈기 생각하면서 버티는 중","조금 피곤해..|끝나고 칭찬해 줘"],"workChatFood":["아직 못 먹었어..|끝나고 먹을래","일하느라 바빠서..|이따 맛있는 거 먹자"],"workChatDone":["끝났다!! 이제 집 가는 중|대화창 닫으면 들어갈게","퇴근이다!!|금방 갈게 히히"],"stepDrink":["{x}걸음이나 걸었네!|이거 마시면서 다녀","많이 걸었다!|시원한 거 마셔"],"stepMassage":["만 보 넘었어?!|다리 아프겠다.. 주물러 줄게","{x}걸음이나 걸었어?|이리 와 봐, 다리 주물러 줄게"],"stepFoot":["{x}걸음..! 발 퉁퉁 부었겠다|발 주물러 줄게","오늘 너무 많이 걸었어..|종아리 꾹꾹 해 줄게"],"stepMassageDone":["시원하지? 히히","이제 좀 괜찮아?","오늘 진짜 고생했어"],"stepRest":["{x}걸음?! 만보기 고장 난 거 아니야?|오늘은 푹 쉬어","오늘 너무 무리했어..|따뜻하게 씻고 일찍 자"],"giftSent":["선물 보냈다! 좋아하겠지?","택배 출발~ 히히"],"giftGot":["선물 왔다!!","택배다!! 뭐 들었을까?"],"stepWalk":["오늘 많이 걸었네!|같이 산책한 걸로 칠게","쟈기 오늘 엄청 걸었다!|나도 같이 걸은 기분이야"]};
+  const EXTRA = {"exercise":["하나 둘! 하나 둘!","헉헉..","줄넘기 시작!"],"exerciseDone":["개운하다!","땀 났다..|씻어야겠다"],"exerciseSlim":["살 빠진 것 같아!!","몸이 가벼워졌다 히히"],"exerciseNo":["힘들어서 못 하겠어..","배고파서 힘이 없어.."],"fatTalk":["요즘 살찐 것 같아..|운동해야 하나","배가 나왔어..","간식 좀 줄여야겠다.."],"thinTalk":["배고파서 살 빠졌어..","요즘 너무 못 먹었어.."],"walkEnd":["산책 재밌었다!","{cat} 엄청 신났어 히히","다리 아프다.. 그래도 좋아"],"workGo":["헉 나 일하러 가야 돼..?|알겠어 다녀올게","쟈기가 시키니까 간다..!","으.. 일하기 싫어|그래도 다녀올게!","돈 벌어 올게 히히","나만 일해..? 쟈기도 일해!","다녀오겠습니다!|기다려 줘"],"workBack":["다녀왔어!!","나 왔다!! 힘들었어..","퇴근이다!! 히히","쟈기 나 왔어! 칭찬해 줘"],"workEarly":["벌써 와도 돼? 신난다 히히","조기 퇴근이다!!","헤헤 일찍 왔다"],"workTired":["너무 피곤해서 못 가..|좀 쉬고 갈래","배고파서 일 못 해..|밥부터 줘","기운이 없어..|조금만 쉬고"],"workLimit":["오늘은 일 많이 했어..|이제 쉴래","오늘은 그만!|내일 또 할게"],"workSick":["아파서 못 가..","몸이 안 좋아..|오늘은 쉴래"],"workBusy":["지금 일 중이라 어려워..|끝나고 할게","회의 중이야..|이따 할게!","헉 지금은 안 돼..|{n} 뒤에 끝나","{x} 하는 중이라..|끝나면 바로 할게"],"workSneak":["몰래 할게..|잠깐만이야","쉿.. 몰래 잠깐만 하자","들키면 안 되는데..|조금만! 히히"],"workCall":["회의 중이야..|이따 전화할게","지금 전화는 어려워..|끝나면 바로 할게","전화는 이따 할게..|지금 일하는 중이야"],"idleTv":["이거 재밌다 히히","다음 화 궁금해..","헉 대박.."],"idleGame":["한 판만 더..","이겼다!!","아 졌다.."],"idlePiano":["♪ 도레미..","연습 중이야","이 곡 어려워.."],"idleRead":["이 책 재밌다..","한 장만 더 읽고..","주인공 멋있다.."],"idleGuitar":["♪ 띵가띵가","코드 연습 중","쟈기한테 들려줄 노래"],"idleNap":["잠깐만 눈 붙일게..","하암.. 졸려","폭신하다.."],"idlePlush":["폭신폭신..","얘 안고 있으면 좋아 히히","말랑말랑.."],"idlePet":["{cat}야 이리 와!","{cat}랑 놀자 히히","{cat} 귀여워.."],"idlePetSwat":["앗! 맞았다 히히","{cat} 앞발 빠르다..!","아야.. 그래도 귀여워"],"idleStartle":["앗 깜짝이야!","헉! 언제 왔어?","놀랐잖아 히히","어? 보고 있었어?"],"lunchGot":["도시락 왔다!! {menu} 최고 히히","헉 도시락이다!!|쟈기 최고야","{menu} 들어있다!!|회사 사람들이 부러워해 히히"],"lunchHate":["헉 {menu} 들어있네..|그래도 다 먹을게","{menu}는 좀..|그래도 고마워"],"lunchThanks":["도시락 고마워!! 덕분에 힘났어","{menu} 진짜 맛있었어|쟈기 최고"],"roomNoticed":["어?! 방 바뀌었다!!|쟈기가 꾸며 줬어?","우와 방이 달라졌어!!|완전 마음에 들어"],"salonGo":["미용실 다녀올게!","머리 하러 간다 히히","변신하고 올게!|기다려"],"salonCut":["싹둑싹둑..","두근두근..","어떻게 될까.."],"salonBack":["어때? 잘랐어 히히","짠!! 어때?","나 달라졌지? 히히","쟈기 마음에 들어?"],"salonReset":["원래대로 돌아왔어!","역시 이게 나지 히히"],"touchHeadMany":["머리 닳겠다 히히","쓰담쓰담 너무 좋아.."],"touchEye":["앗 눈!!","눈 찌르지 마!","앗 따가워 히히"],"touchCheek":["말랑말랑?","볼 콕! 히히","내 볼 말랑하지?"],"touchCheekMany":["볼 터진다!!","그만 찔러! 흥","볼에 구멍 나겠어"],"touchFive":["짝!","하이파이브!","나이스! 히히"],"touchFiveMany":["하이파이브 장인!","우리 손발 척척이다 히히"],"touchFeet":["발 간지러워!! 히히","거긴 안 돼 히히","발바닥은 반칙이야!"],"touchFeetMany":["그만!! 발차기 뻥!","간지러워서 못 참아!! 뻥!"],"moodAsk":["쟈기 오늘 기분 어때?","쟈기 오늘 하루 어땠어?","오늘 기분 알려 줘!"],"moodGreat":["나도 덩달아 신난다!!","최고다!! 오늘 같이 놀자 히히","쟈기 기분 좋으면 나도 좋아!"],"moodGood":["다행이다 히히","좋은 하루였구나!","헤헤 나도 좋아"],"moodSoso":["그런 날도 있지..|내가 웃겨 줄게","음.. 그냥 그런 날이구나|잠깐만!"],"moodSoso2":["꿀꿀! 웃었지? 히히","돼지코! 이제 좀 웃겨?"],"moodBad":["무슨 일 있었어?|내가 옆에 있을게","오늘 속상했구나..|내가 꼭 안아 줄게"],"moodHard":["오늘 많이 힘들었구나..|이리 와. 꼭 안아 줄게","쟈기 고생 많았어..|노래 불러 줄게"],"moodBad2":["오늘은 푹 쉬어. 내가 있잖아","쟈기는 잘하고 있어","맛있는 거 먹고 일찍 자자"],"moodNext":["어제 힘들었잖아..|오늘은 좀 괜찮아?","쟈기 오늘은 기분 괜찮아?|어제 걱정했어"],"fakeStart":["아야.. 나 아파..","머리가.. 아파..","쟈기.. 나 아픈 것 같아..","끙.. 아파.."],"fakeMed":["약은 싫어!!|...사실 안 아파 히히","으악 약 싫어!|헤헤 사실 꾀병이었어"],"fakePet":["헤헤 사실 안 아팠지롱","들켰다.. 심심해서 그랬어","쟈기 걱정했어? 헤헤 미안"],"fakeTemp":["어.. 정상이네..?|헤헤 들켰다","36.5도.. 꾀병인 거 들켰다 히히"],"fakeEnd":["아무도 안 속네.. 흥","꾀병 부려도 안 봐 주네.."],"tempOk":["나 건강해!","열 없지? 히히"],"hideStart":["내가 뭐 숨겼게~|방 어딘가에 있어. 찾아 봐!","숨바꼭질 하자!|내가 숨긴 거 찾아 봐","쉿.. 뭐 하나 숨겼어 히히|찾아 봐!"],"hideFound":["찾았다!! 어떻게 알았어?","헉 벌써 찾았어?!","역시 쟈기 눈 좋다 히히"],"hideReveal":["여기 있었지롱!","못 찾았지? 히히 여기!"],"sRamen":["앗.. 들켰다..|배고파서 몰래..","쉿! 비밀이야..|라면 한 입만.."],"sWish":["11시 11분이다!|소원 빌어야지..","소원 빌었어!|비밀이야 히히"],"sStars":["별 예쁘다..","쟈기도 지금 하늘 보고 있을까?"],"sSnack":["앗! 간식 먹는 거 들켰다","3시는 간식 시간이야 히히"],"sMidnight":["자정이다!|오늘도 수고했어","날짜 바뀌었다!|오늘도 같이 있자"],"sRain":["비 오는 소리 좋다~","비 오는 날엔 흔들흔들 히히"],"sStretch":["으아아~ 기지개!","잘 잤다~ 쭈욱"],"sParty":["불금이다!!","금요일 밤은 신나야지 히히"],"sMirror":["오늘도 귀엽네 나..","거울아 거울아.. 누가 제일 귀엽니?"],"sPetTalk":["{cat}야, 우리 쟈기 몰래 간식 먹을까?","{cat}야 쟈기 좋아해? 나도 히히"],"sConfess":["..좋아해.|아 아니! 연습이야!!","사..사랑.. 아니 아무것도 아니야!"],"sGrowl":["꼬르륵.. 들었어?","배에서 소리 났다..|점심 먹자"],"sleepTalk":["음냐.. {x}..","{x}.. 더 줘..","음.. {x} 좋아..","zzz.. {x}.."],"dreamTell":["꿈 꿨는데!!|{x} 나왔어","어젯밤 꿈에 {x} 나왔다 히히","꿈에서 {x} 봤어!|그려 놨어"],"monCheer":["월요일이다!|이번 주도 힘내!","쟈기 월요일 화이팅!|도시락 챙겨 놨어"],"friNight":["불금이다!!|영화 보러 갈래?","금요일 밤이다 히히|오늘 영화관 가자"],"brunchStart":["일요일엔 브런치지!|와플 구워 줄게","주말 아침이다!|맛있는 거 해 줄게"],"brunchDone":["짠! 브런치 완성!","같이 먹자 히히"],"styleLove":["이 옷 완전 내 스타일!!","이거 너무 좋아!! 빙글빙글","쟈기 내 취향 잘 안다 히히"],"styleHate":["음.. 이건 좀..","이 옷은 나랑 안 맞는 것 같아..","다른 거 입을래.."],"tooHot":["더워..|여름에 이건 좀..","땀 나.. 시원한 거 입고 싶어"],"tooCold":["추워..|겨울에 이건 좀..","덜덜.. 따뜻한 거 입혀 줘"],"craftShow":["짠! 내가 {x} 만들었어","쟈기 없을 때 {x} 만들었다!","이거 봐!! 내가 만든 {x} 히히"],"hobbyUp":["요즘 {x} 실력 늘었지?","{x} 점점 잘하게 돼 히히"],"guitarSong":["쟈기 생각하면서 만든 노래야","어때? 내가 만든 노래 히히"],"battLow":["폰 배터리 {x}%야!|충전해 줘","배터리 얼마 없어..|나 꺼지면 안 돼"],"battCharge":["폰도 밥 먹는다 냠냠","충전 시작! 폰 배부르겠다 히히"],"artTiny":["음.. 이건 뭐야?|추상화야? 히히","점 몇 개..? 그래도 고마워!"],"artLove":["하트다!!|고마워 히히","하트 그림이다! 나도 하트!"],"artMe":["이거 나야?!|완전 닮았어","나 이렇게 귀여워? 히히"],"artUs":["우리 둘이다!!|평생 간직할래","쟈기랑 나다 히히|벽에 걸어야지"],"artFood":["{x}다!|보니까 먹고 싶어","{x} 그림이다! 배고파진다 히히"],"artPet":["{cat}다!! 똑같아","{cat} 그림이다 히히"],"artNature":["예쁘다..|같이 보러 가고 싶어","그림 속 같은 데 가 보고 싶다"],"artColor":["우와 알록달록하다!!","색이 진짜 예뻐!"],"artAny":["우와 선물이야? 고마워!!","쟈기가 그린 거야? 최고야!"],"oneYear":["1년 전 오늘 기억나?","작년 오늘 일기 봤어 히히"],"diaryMe":["일기 읽었어? 히히","나도 쟈기 글 읽었어!"],"workHome_aegyo":["쟈기~ 나 일하고 왔어!|휴~ 힘들어 죽는 줄 알았어","나 왔어~|오늘 진짜진짜 힘들었어..","다녀왔어 쟈기!|안아 줘.. 힘들었어"],"workHome_warm":["다녀왔어~|오늘도 무사히 끝났다","나 왔어. 휴~|그래도 보람찬 하루였어","다녀왔어~|쟈기도 오늘 고생 많았지?"],"workHome_plain":["다녀왔어.|좀 피곤하네","왔어.|오늘 일 끝.","퇴근했어.|휴.."],"workHome_blunt":["왔어.","...퇴근.","다녀옴.|피곤."],"workHome_hyper":["퇴근이다!!!!|드디어 자유다!!!","나 왔다!!!!|오늘 완전 불태웠어!!!","다녀왔어!!!|힘든데 신나!!! 히히"],"workHomeTired_aegyo":["나 왔어..|너무 힘들어서 녹을 것 같아..","쟈기.. 나 왔어|기운이 하나도 없어.."],"workHomeTired_warm":["다녀왔어..|오늘은 좀 많이 피곤하다"],"workHomeTired_plain":["왔어. 진짜 피곤하다."],"workHomeTired_blunt":["...왔어. 졸려."],"workHomeTired_hyper":["다녀왔어..!!|배터리 1%야..!!"],"workBrag_aegyo":["오늘 {x}코인이나 벌었어!|나 대단하지? 히히","짜잔~ {x}코인!|이걸로 맛있는 거 사 줄게"],"workBrag_warm":["{x}코인 벌어 왔어|이걸로 우리 맛있는 거 먹자","오늘 번 거 {x}코인!|쟈기 갖고 싶은 거 있어?"],"workBrag_plain":["오늘 {x}코인 벌었어.","{x}코인. 나쁘지 않네."],"workBrag_blunt":["{x}코인. 받아.","...{x}코인 벌었어. 됐지?"],"workBrag_hyper":["{x}코인!!!!! 부자다!!!! 히히","오늘 {x}코인!!! 나 천재인가?!"],"workPraiseAsk_aegyo":["칭찬해 줘~|머리 쓰담쓰담!","나 잘했지?|쓰다듬어 줘~"],"workPraiseAsk_warm":["나 오늘 잘했지?","칭찬 한 번만 해 줄래?"],"workPraiseAsk_plain":["칭찬해 줘도 돼.","잘했다고 해 줘."],"workPraiseAsk_blunt":["...칭찬은?","쓰다듬든가."],"workPraiseAsk_hyper":["칭찬해!!! 빨리!!!","나 쓰담쓰담 해 줘!!!!"],"workPraised_aegyo":["헤헤 힘이 난다~","쟈기가 쓰다듬어 주니까 피곤이 싹 풀렸어"],"workPraised_warm":["고마워. 덕분에 힘이 나","쟈기 손 따뜻하다.."],"workPraised_plain":["...좋다.","고마워. 힘 난다."],"workPraised_blunt":["...뭐. 좋네.","...한 번 더."],"workPraised_hyper":["으아아 최고야!!!!","힘이 넘친다!!! 또 일하러 갈까?!"],"workNoPraise_aegyo":["칭찬 안 해 줘..?","쓰담쓰담 기다렸는데.."],"workNoPraise_warm":["괜찮아, 다음에 해 줘","...조금 서운하다"],"workNoPraise_plain":["...뭐, 됐어."],"workNoPraise_blunt":["...됐어.","흥."],"workNoPraise_hyper":["칭찬 왜 안 해!!!","서운해!!!!"],"workChatHi":["나 지금 {x} 하는 중이야!|몰래 답장하는 거야 히히","쟈기! 나 {x} 하고 있어|그래도 연락 와서 좋다"],"workChatNow":["나 지금 {x} 하는 중이야","{x} 하고 있어!","일하는 중! {x} 하고 있어"],"workChatAside":["몰래 답장하는 거야 히히","아 잠깐 누가 지나간다..","빨리 끝내고 갈게!","들키면 혼나..","일하다가 답장하는 중이야"],"workChatWhen":["{n} 뒤에 끝나!|조금만 기다려","{n} 남았어..|끝나면 바로 갈게"],"workChatTired":["응 좀 힘들어..|그래도 쟈기 생각하면서 버티는 중","조금 피곤해..|끝나고 칭찬해 줘"],"workChatFood":["아직 못 먹었어..|끝나고 먹을래","일하느라 바빠서..|이따 맛있는 거 먹자"],"workChatDone":["끝났다!! 이제 집 가는 중|대화창 닫으면 들어갈게","퇴근이다!!|금방 갈게 히히"],"stepDrink":["{x}걸음이나 걸었네!|이거 마시면서 다녀","많이 걸었다!|시원한 거 마셔"],"stepMassage":["만 보 넘었어?!|다리 아프겠다.. 주물러 줄게","{x}걸음이나 걸었어?|이리 와 봐, 다리 주물러 줄게"],"stepFoot":["{x}걸음..! 발 퉁퉁 부었겠다|발 주물러 줄게","오늘 너무 많이 걸었어..|종아리 꾹꾹 해 줄게"],"stepMassageDone":["시원하지? 히히","이제 좀 괜찮아?","오늘 진짜 고생했어"],"stepRest":["{x}걸음?! 만보기 고장 난 거 아니야?|오늘은 푹 쉬어","오늘 너무 무리했어..|따뜻하게 씻고 일찍 자"],"giftSent":["선물 보냈다! 좋아하겠지?","택배 출발~ 히히"],"giftGot":["선물 왔다!!","택배다!! 뭐 들었을까?"],"stepWalk":["오늘 많이 걸었네!|같이 산책한 걸로 칠게","쟈기 오늘 엄청 걸었다!|나도 같이 걸은 기분이야"]};
   const EVENTS = [{"id":"cherry","when":{"md":["04-01","04-02","04-03","04-04","04-05","04-06","04-07"]},"look":null,"lines":["벚꽃 폈다!!","벚꽃 보러 가자"]},{"id":"valentine","when":{"md":["02-14"]},"look":null,"lines":["발렌타인데이다!","초콜릿 줄까?"]},{"id":"whiteDay","when":{"md":["03-14"]},"look":null,"lines":["화이트데이다!","사탕 받고 싶다.."]},{"id":"pepero","when":{"md":["11-11"]},"look":null,"lines":["빼빼로데이!","빼빼로 먹자"]},{"id":"newYear","when":{"md":["01-01"]},"look":null,"lines":["새해 복 많이 받아!","올해도 잘 부탁해"]},{"id":"seollal","when":{"ymd":["2026-02-16","2026-02-17","2026-02-18","2027-02-06","2027-02-07","2027-02-08","2028-01-26","2028-01-27","2028-01-28","2029-02-12","2029-02-13","2029-02-14"]},"look":{"outfit":"hanbok"},"lines":["설날이다!","떡국 먹었어?"]},{"id":"chuseok","when":{"ymd":["2026-09-24","2026-09-25","2026-09-26","2027-09-14","2027-09-15","2027-09-16","2028-10-02","2028-10-03","2028-10-04","2029-09-21","2029-09-22","2029-09-23"]},"look":{"outfit":"hanbok"},"lines":["추석이다!","송편 먹었어?"]},{"id":"halloween","when":{"md":["10-31"]},"look":{"outfit":"vampire","headgear":"devil"},"lines":["해피 할로윈!","사탕 안 주면 장난칠 거야"]},{"id":"anniv100","when":{"daysSince":[100,200,300,365,400,500,600,700,730,800,900,1000]},"look":null,"lines":["오늘 우리 {days}일이야!!","{days}일 축하해!! 사랑해 쟈기","벌써 {days}일이다 히히"]},{"id":"anniv1y","when":{"md":["07-01"],"fromYear":2027},"look":null,"gift":"anniv100","lines":["오늘 우리 {years}주년이야!!|사랑해 쟈기","{years}주년 축하해!! 히히|앞으로도 계속 같이 있자"]}];
   const SINCE = '2026-07-01', FAV = ['pasta', 'bibim', 'chicken', 'matcha', 'cake'];
   const webVoice = t => String(t).replace(/\{you\}/g, '쟈기').replace(/\{laugh\}/g, '히히');
@@ -852,6 +873,7 @@ window.KyuppiWeb = (() => {
       for (const f of FOODS) if (FAV.includes(f.key)) f.fav = true;
       window.KYUPPI_REL = 'couple'; window.ENDING_STYLE = webVoice; window.onEndingSeen = () => {};
       window.callYou = () => '쟈기';
+      window.styleText = webVoice; // 게임 쪽에서 만든 말(회사 메시지·도시락 답장 등)도 쟈기·히히로
       // 일 시키기: 웹 캐릭터(큐삐)는 개발자 (대사에 '갠플젝'·'회의'가 나오는 그 직업)
       window.KYUPPI_JOB = 'developer';
       window.KYUPPI_TONE = 'aegyo'; // 쟈기·히히 말투
@@ -981,17 +1003,99 @@ window.KyuppiWeb = (() => {
 
   // ---------------- 표정·자세 ----------------
   // 동물답게: 눈 뜸·감음·반쯤·동그랗게 (하트·웃는 눈 같은 사람 표정은 없다)
-  const FACE = { idle: 'open', smile: 'open', blep: 'open', wide: 'wide', grumpy: 'half', sleepy: 'half', content: 'closed', happy: 'closed', love: 'closed', purr: 'closed', sleep: 'closed', blink: 'closed', eat: 'closed', yawn: 'closedMouth', meow: 'openMouth' };
-  const EYES = { open: 'DWED', openMouth: 'DWED', closed: 'BBDD', closedMouth: 'BBDD', half: 'DDED', wide: 'DWDD' };
+  const FACE = { idle: 'open', smile: 'open', blep: 'open', wide: 'wide', grumpy: 'half', sleepy: 'half', content: 'closed', happy: 'closed', love: 'closed', purr: 'closed', sleep: 'closed', blink: 'closed', eat: 'closed', chew: 'closed', yawn: 'closedMouth', meow: 'openMouth', hiss: 'wideMouth' };
+  const EYES = { open: 'DWED', openMouth: 'DWED', closed: 'BBDD', closedMouth: 'BBDD', half: 'DDED', wide: 'DWDD', wideMouth: 'DWDD' };
   const POSE = {
-    cat: { sit: 'sit', sit2: 'sit2', walk: 'walk1', walk2: 'walk2', loaf: 'loaf', crouch: 'crouch', stretch: 'stretch', roll: 'side', roll2: 'side', eat: 'eat1', eat2: 'eat2', held: 'sit', sleep: 'sleep1', sleep2: 'sleep2', groom: 'groom1', groom2: 'groom2', wash: 'groom1', wash2: 'groom2', stand: 'stand', hop: 'walk2' },
+    cat: { sit: 'sit', sit2: 'sit2', walk: 'walk1', walk2: 'walk2', loaf: 'loaf', crouch: 'crouch', stretch: 'stretch', roll: 'side', roll2: 'side', eat: 'eat1', eat2: 'eat2', sleep: 'sleep1', sleep2: 'sleep2', groom: 'groom1', groom2: 'groom2', wash: 'groom1', wash2: 'groom2', stand: 'stand', hop: 'walk2' },
     dog: { wag: 'wag1', wag2: 'wag2' },
     rabbit: { hop: 'hop1', hop2: 'hop2', walk: 'hop1', walk2: 'hop2' },
     bird: { fly: 'fly1', fly2: 'fly2', sing: 'sing', peck: 'peck', hop: 'hop1', walk: 'hop1', walk2: 'hop2', sit: 'perch', eat: 'peck', eat2: 'eat2' },
     turtle: { shell: 'shell', walk: 'walk1', walk2: 'walk2' },
     fish: { swim: 'swim1', swim2: 'swim2', walk: 'swim1', walk2: 'swim2' },
   };
+  // 고양이를 들어 올렸을 때: 앉은 그림의 머리만 떼어서 매달린 몸(held)·버둥거리는 몸(held2)을 붙인다
+  const HELD_BODY = {
+    held: [
+      'OO...........OO',
+      'OMO.........OMO',
+      '.OBO.......OBO.',
+      '..OBO.....OBO..',
+      '...OBBBBBBBO...',
+      '....OBBBBBO....',
+      '....OBLLLBO....',
+      '....OBLLLBO....',
+      '....OBBBBBO....',
+      '....OBOOOBO....',
+      '....OBOQOBO....',
+      '....OMOQOMO....',
+      '.....O.QO.O....',
+      '.......OQO.....',
+      '........O......',
+    ],
+    held2: [
+      '...............',
+      '...............',
+      'OOO.........OOO',
+      'OMBO.......OBMO',
+      '.OOOBBBBBBBOOO.',
+      '....OBBBBBO....',
+      '....OBLLLBO....',
+      '....OBLLLBO....',
+      '...OBBBBBBBO...',
+      '..OBBOOOOOBBO..',
+      '.OBO..OQO..OBO.',
+      '.OMO.OQO...OMO.',
+      '..O..OQO....O..',
+      '....OQO........',
+      '.....O.........',
+    ],
+  };
+  const heldCache = {};
+  function heldFrame(b, pose) {
+    const key = b.f.sit + ':' + pose;
+    if (heldCache[key]) return heldCache[key];
+    const src = DATA.art[b.f.sit], [hx, hy] = b.h.sit, head = [];
+    for (let y = 0; y <= hy + 9 && y < src.length; y++) {
+      let r = src[y].slice(hx, hx + 11).padEnd(11, '.');
+      const a = r.search(/[^.]/);
+      if (y >= hy + 5 && a >= 0) { // 얼굴 아랫부분: 오른쪽에 붙은 몸통 조각은 떼어 낸다
+        let e = a; while (r[e + 1] === 'O') e++;
+        const run = e - a >= 2;
+        if (!run) { e = r.indexOf('O', e + 1); if (e < 0) e = r.length - 1; }
+        r = r.slice(0, e + 1).padEnd(11, '.');
+        if (run) { head.push(r); break; }
+      }
+      if (y === hy + 9) break;
+      head.push(r);
+    }
+    while (head.length && !/[^.]/.test(head[0])) head.shift();
+    const top = src.findIndex(r => /[^.]/.test(r)), c = head.length - 1, body = HELD_BODY[pose], H = c - 3 + body.length;
+    const out = [];
+    for (let y = 0; y < Math.max(head.length, H); y++) {
+      const hr = ('..' + (head[y] || '') + '..').padEnd(15, '.'), br = body[y - (c - 3)] || '';
+      let row = '';
+      for (let x = 0; x < 15; x++) row += hr[x] !== '.' ? hr[x] : br[x] && br[x] !== '.' ? br[x] : '.';
+      out.push(row);
+    }
+    return (heldCache[key] = { rows: out, head: [2, hy - Math.max(0, top)] });
+  }
+  // 등 돌린 모습: 앉은 그림에서 눈·코·입·귀 속을 털색으로 덮어 뒤통수처럼 (몸은 반대쪽을 보게 뒤집어 그린다)
+  const FACE_CH = /[abcdNZkKEP]/g;
   function frameOf(kind, look, pose) {
+    if (pose === 'back') {
+      const f = frameOf(kind, look, 'sit'), hy = f.head ? f.head[1] : 0;
+      const rows = f.rows.map((r, y) => {
+        let t = r.replace(FACE_CH, 'B');
+        // 턱 밑 털 뭉치 사이 선(입처럼 보인다)도 털로
+        if (y >= hy + 6 && y <= hy + 10) t = t.replace(/(?<=[^.O])O(?=[^.O])/g, 'B');
+        return t;
+      });
+      return { rows, head: f.head, breed: f.breed };
+    }
+    if (kind === 'cat' && (pose === 'held' || pose === 'held2')) {
+      const sp = DATA.sp.cat, breed = sp[look.breed] ? look.breed : Object.keys(sp)[0], b = sp[breed];
+      if (b.h && b.f.sit != null) { const h = heldFrame(b, pose); return { rows: h.rows, head: h.head, breed }; }
+    }
     const sp = DATA.sp[kind] || DATA.sp.cat, breed = sp[look.breed] ? look.breed : Object.keys(sp)[0], b = sp[breed];
     const name = (POSE[kind] && POSE[kind][pose]) || POSE.cat[pose] || pose;
     const i = b.f[name] != null ? b.f[name] : b.f.sit != null ? b.f.sit : Object.values(b.f)[0];
@@ -1009,7 +1113,7 @@ window.KyuppiWeb = (() => {
   function build(kind, look, pose, face, acc) {
     look = look || {};
     const f = frameOf(kind, look, pose), st = FACE[face] || 'open', e = EYES[st];
-    const m = palette(kind, look), mouthOpen = st === 'openMouth' || st === 'closedMouth' || face === 'eat';
+    const m = palette(kind, look), mouthOpen = st === 'openMouth' || st === 'closedMouth' || st === 'wideMouth' || face === 'eat';
     const k = mouthOpen ? m.K : kind === 'dog' ? m.N : m.Z;
     const map = c => (c === 'a' ? m[e[0]] : c === 'b' ? m[e[1]] : c === 'c' ? m[e[2]] : c === 'd' ? m[e[3]] : c === 'k' ? k : m[c]);
     const out = f.rows.map(r => [...r].map(c => (c === '.' ? null : map(c) || null)));
@@ -1100,9 +1204,13 @@ const PAL = {
 };
 
 const W32 = 32, H32 = 32;
+// 머리 위 여유 줄: 높은 모자(마법사·요리사·고깔·토끼 귀…)가 잘리지 않게 g[-1]..g[-HR]에 그린다
+const HR = 8;
 
-function blank() { return Array.from({ length: H32 }, () => Array(W32).fill('.')); }
-function put(g, x, y, c) { if (x >= 0 && x < W32 && y >= 0 && y < H32) g[y][x] = c; }
+function blank() { const g = Array.from({ length: H32 }, () => Array(W32).fill('.')); for (let y = 1; y <= HR; y++) g[-y] = Array(W32).fill('.'); return g; }
+function put(g, x, y, c) { if (x >= 0 && x < W32 && y >= -HR && y < H32 && g[y]) g[y][x] = c; }
+// 여유 줄까지 같이 복사
+function cloneG(g) { const o = g.map(r => r.slice()); for (let y = 1; y <= HR; y++) if (g[-y]) o[-y] = g[-y].slice(); return o; }
 function hline(g, y, x0, x1, c) { for (let x = x0; x <= x1; x++) put(g, x, y, c); }
 
 // 머리(헤어 볼륨) 행별 범위 — 위쪽 돔
@@ -1412,24 +1520,24 @@ function recolorUniform(g) {
 }
 
 function drawFrog(g) {
-  // 개구리 머리띠: 머리 위 초록 눈 두 개
-  for (const [x, y, c] of [[9, 0, 'X'], [10, 0, 'X'], [11, 0, 'X'],
-    [8, 1, 'X'], [9, 1, 'W'], [10, 1, 'W'], [11, 1, 'W'], [12, 1, 'X'],
-    [8, 2, 'X'], [9, 2, 'W'], [10, 2, 'E'], [11, 2, 'W'], [12, 2, 'X'],
-    [8, 3, 'X'], [9, 3, 'X'], [10, 3, 'X'], [11, 3, 'X'], [12, 3, 'X'],
-    [8, 4, 'x'], [9, 4, 'x'], [10, 4, 'x'], [11, 4, 'x'], [12, 4, 'x']]) { put(g, x, y, c); put(g, 31 - x, y, c); }
+  // 개구리 머리띠: 머리 위로 솟은 초록 눈 두 개 (여유 줄까지)
+  for (const [x, y, c] of [[9, -3, 'X'], [10, -3, 'X'], [11, -3, 'X'],
+    [8, -2, 'X'], [9, -2, 'W'], [10, -2, 'W'], [11, -2, 'W'], [12, -2, 'X'],
+    [8, -1, 'X'], [9, -1, 'W'], [10, -1, 'E'], [11, -1, 'W'], [12, -1, 'X'],
+    [8, 0, 'X'], [9, 0, 'X'], [10, 0, 'X'], [11, 0, 'X'], [12, 0, 'X'],
+    [9, 1, 'x'], [10, 1, 'x'], [11, 1, 'x'], [12, 1, 'x'], [11, 2, 'x'], [12, 2, 'x']]) { put(g, x, y, c); put(g, 31 - x, y, c); }
 }
 function drawRabbit(g) {
-  // 토끼 머리띠 (쟈기 꺼): 길쭉한 흰 귀
-  const px = [[9, 0, 'W'], [10, 0, 'W']];
-  for (let y = 1; y <= 5; y++) px.push([8, y, 'W'], [9, y, y < 5 ? 'P' : 'W'], [10, y, 'W']);
-  px.push([8, 6, 'W'], [9, 6, 'W'], [10, 6, 'W'], [11, 6, 'W']);
+  // 토끼 머리띠: 머리 위로 길게 솟은 귀
+  const px = [[9, -7, 'W']];
+  for (let y = -6; y <= 2; y++) px.push([8, y, 'W'], [9, y, y < 2 && y > -6 ? 'P' : 'W'], [10, y, 'W']);
+  px.push([8, 3, 'W'], [9, 3, 'W'], [10, 3, 'W'], [11, 3, 'W']);
   for (const [x, y, c] of px) { put(g, x, y, c); put(g, 31 - x, y, c); }
 }
 
 function drawCatEars(g) {
-  for (const [x, y, c] of [[8, 0, 'P'], [8, 1, 'P'], [9, 1, 'P'], [8, 2, 'P'], [9, 2, 'p'], [10, 2, 'P'], [8, 3, 'P'], [9, 3, 'p'], [10, 3, 'p'], [11, 3, 'P'],
-    [8, 4, 'P'], [9, 4, 'P'], [10, 4, 'P'], [11, 4, 'P'], [12, 4, 'P']]) { put(g, x, y, c); put(g, 31 - x, y, c); }
+  for (const [x, y, c] of [[8, -2, 'P'], [8, -1, 'P'], [9, -1, 'P'], [8, 0, 'P'], [9, 0, 'p'], [10, 0, 'P'], [8, 1, 'P'], [9, 1, 'p'], [10, 1, 'p'], [11, 1, 'P'],
+    [8, 2, 'P'], [9, 2, 'P'], [10, 2, 'P'], [11, 2, 'P'], [12, 2, 'P']]) { put(g, x, y, c); put(g, 31 - x, y, c); }
 }
 function drawMaidBand(g) {
   hline(g, 5, 7, 24, 'W');
@@ -1441,7 +1549,8 @@ function drawBeanie(g) {
   for (const [y, [a, b]] of Object.entries(rows)) hline(g, +y, a, b, 'P');
   for (let x = 5; x <= 26; x++) put(g, x, 6, x % 2 ? 'p' : 'P');
   hline(g, 1, 13, 15, 'W');
-  put(g, 15, 0, 'W'); put(g, 16, 0, 'W');
+  // 꼭대기 방울
+  for (const [x, y] of [[15, -3], [16, -3], [14, -2], [15, -2], [16, -2], [17, -2], [15, -1], [16, -1]]) put(g, x, y, 'W');
 }
 function drawGlasses(g) {
   for (const x0 of [9, 17]) {
@@ -1452,24 +1561,26 @@ function drawGlasses(g) {
 }
 
 function drawSantaHat(g) {
-  const rows = { 1: [11, 20], 2: [9, 22], 3: [7, 24], 4: [6, 25], 5: [5, 26] };
+  const rows = { '-2': [14, 18], '-1': [12, 20], 0: [11, 21], 1: [10, 22], 2: [9, 23], 3: [8, 24], 4: [7, 25], 5: [6, 26] };
   for (const [y, [a, b]] of Object.entries(rows)) hline(g, +y, a, b, 'M');
-  hline(g, 0, 15, 22, 'M'); put(g, 23, 1, 'M'); put(g, 24, 1, 'W'); put(g, 25, 1, 'W'); put(g, 24, 0, 'W'); put(g, 25, 0, 'W');
-  for (let x = 5; x <= 26; x++) put(g, x, 6, 'W');
+  // 끝이 오른쪽으로 접혀 내려온다 + 방울
+  for (const [x, y] of [[17, -4], [18, -4], [18, -3], [19, -3], [20, -3], [20, -2], [21, -2], [22, -1], [23, 0]]) put(g, x, y, 'M');
+  for (const [x, y] of [[23, 1], [24, 1], [24, 0], [25, 0], [24, 2], [23, 2]]) put(g, x, y, 'W');
+  for (let x = 5; x <= 26; x++) { put(g, x, 6, 'W'); put(g, x, 7, x % 3 ? 'W' : 'A'); }
 }
 function drawBearEars(g) {
-  for (const [x, y, c] of [[7, 1, 'D'], [8, 1, 'D'], [9, 1, 'D'], [6, 2, 'D'], [7, 2, 'U'], [8, 2, 'U'], [9, 2, 'D'], [10, 2, 'D'],
-    [6, 3, 'D'], [7, 3, 'U'], [8, 3, 'U'], [9, 3, 'D'], [10, 3, 'D'], [7, 4, 'D'], [8, 4, 'D'], [9, 4, 'D']]) { put(g, x, y, c); put(g, 31 - x, y, c); }
+  for (const [x, y, c] of [[7, -1, 'D'], [8, -1, 'D'], [9, -1, 'D'], [6, 0, 'D'], [7, 0, 'U'], [8, 0, 'U'], [9, 0, 'D'], [10, 0, 'D'],
+    [6, 1, 'D'], [7, 1, 'U'], [8, 1, 'U'], [9, 1, 'D'], [10, 1, 'D'], [7, 2, 'D'], [8, 2, 'D'], [9, 2, 'D'], [10, 2, 'D']]) { put(g, x, y, c); put(g, 31 - x, y, c); }
 }
 function drawRibbon(g) {
   for (const [x, y, c] of [[19, 2, 'P'], [20, 2, 'P'], [24, 2, 'P'], [25, 2, 'P'], [18, 3, 'P'], [19, 3, 'P'], [20, 3, 'P'], [21, 3, 'P'], [23, 3, 'P'], [24, 3, 'P'], [25, 3, 'P'], [26, 3, 'P'],
     [22, 3, 'p'], [21, 4, 'p'], [22, 4, 'p'], [23, 4, 'p'], [18, 4, 'P'], [19, 4, 'P'], [20, 4, 'P'], [24, 4, 'P'], [25, 4, 'P'], [26, 4, 'P'], [19, 5, 'P'], [20, 5, 'P'], [24, 5, 'P'], [25, 5, 'P']]) put(g, x, y, c);
 }
 function drawStrawHat(g) {
-  const rows = { 1: [11, 20], 2: [10, 21], 3: [9, 22], 4: [9, 22] };
+  const rows = { '-2': [12, 19], '-1': [11, 20], 0: [11, 20], 1: [10, 21], 2: [10, 21], 3: [10, 21] };
   for (const [y, [a, b]] of Object.entries(rows)) hline(g, +y, a, b, 'U');
-  hline(g, 5, 9, 22, 'M'); hline(g, 6, 3, 28, 'U'); hline(g, 7, 2, 29, 'u');
-  for (const x of [12, 15, 18]) put(g, x, 2, 'u');
+  hline(g, 4, 10, 21, 'M'); hline(g, 5, 3, 28, 'U'); hline(g, 6, 2, 29, 'u');
+  for (const [x, y] of [[13, 0], [16, -1], [18, 1], [12, 2]]) put(g, x, y, 'u');
 }
 function drawFlowerBand(g) {
   const cols = ['P', 'W', 'Z'];
@@ -1477,13 +1588,19 @@ function drawFlowerBand(g) {
   put(g, 25, 5, 'X'); put(g, 6, 5, 'X');
 }
 function drawChefHat(g) {
-  for (const [y, a, b] of [[0, 11, 20], [1, 9, 22], [2, 9, 22], [3, 10, 21], [4, 11, 20], [5, 10, 21]]) hline(g, y, a, b, 'W');
-  hline(g, 6, 9, 22, 'A'); put(g, 13, 1, 'A'); put(g, 18, 2, 'A'); put(g, 15, 3, 'A');
+  // 볼록한 요리사 모자: 머리 위로 높게
+  const rows = { '-5': [12, 19], '-4': [10, 21], '-3': [9, 22], '-2': [9, 22], '-1': [9, 22], 0: [10, 21], 1: [10, 21], 2: [10, 21], 3: [10, 21] };
+  for (const [y, [a, b]] of Object.entries(rows)) hline(g, +y, a, b, 'W');
+  for (const [x, y] of [[13, -3], [12, -2], [18, -4], [19, -3], [15, -1], [14, 1], [17, 2]]) put(g, x, y, 'A');
+  hline(g, 4, 9, 22, 'W'); hline(g, 5, 9, 22, 'W'); hline(g, 6, 9, 22, 'A');
 }
 function drawPartyHat(g) {
-  for (const [y, a, b] of [[1, 20, 20], [2, 19, 21], [3, 18, 21], [4, 17, 22], [5, 16, 22], [6, 15, 23]]) hline(g, y, a, b, y % 2 ? 'P' : 'Y');
-  put(g, 20, 0, 'Z'); put(g, 19, 0, 'Z'); put(g, 21, 0, 'Z'); hline(g, 7, 15, 23, 'p');
-  put(g, 18, 4, 'Z'); put(g, 20, 6, 'Z');
+  // 고깔: 머리 위에 비스듬히 서 있는 뿔
+  const rows = [[-3, 18, 18], [-2, 17, 18], [-1, 17, 19], [0, 16, 19], [1, 16, 20], [2, 15, 20], [3, 15, 21]];
+  for (const [y, a, b] of rows) hline(g, y, a, b, (y + 4) % 2 ? 'P' : 'Y');
+  hline(g, 4, 14, 22, 'p');
+  for (const [x, y] of [[18, -5], [17, -4], [18, -4], [19, -4]]) put(g, x, y, 'Z');
+  put(g, 17, 0, 'Z'); put(g, 19, 2, 'Z');
 }
 function drawGoggles(g) {
   hline(g, 6, 6, 25, 'N'); hline(g, 7, 6, 25, 'N');
@@ -1498,18 +1615,18 @@ function drawCap(g) {
   for (const x of [11, 20]) put(g, x, 4, 'n');
 }
 function drawDevil(g) {
-  for (const [x, y, c] of [[9, 0, 'M'], [9, 1, 'M'], [10, 1, 'M'], [9, 2, 'M'], [10, 2, 'M'], [10, 3, 'm'], [11, 3, 'M'], [10, 4, 'm'], [11, 4, 'm'], [12, 4, 'M']]) { put(g, x, y, c); put(g, 31 - x, y, c); }
+  for (const [x, y, c] of [[9, -3, 'M'], [9, -2, 'M'], [10, -2, 'M'], [9, -1, 'M'], [10, -1, 'M'], [10, 0, 'M'], [11, 0, 'M'], [10, 1, 'm'], [11, 1, 'M'], [11, 2, 'm'], [12, 2, 'M']]) { put(g, x, y, c); put(g, 31 - x, y, c); }
 }
 function drawHalo(g) {
-  hline(g, 0, 12, 19, 'Z'); put(g, 11, 1, 'Z'); put(g, 20, 1, 'Z'); hline(g, 2, 12, 19, 'z');
-  for (let x = 12; x <= 19; x++) if (g[1][x] === 'H' || g[1][x] === '.') put(g, x, 1, '.');
+  // 머리 위에 떠 있는 링
+  hline(g, -5, 12, 19, 'Z'); put(g, 11, -4, 'Z'); put(g, 20, -4, 'Z'); hline(g, -3, 12, 19, 'z');
 }
 function drawWizard(g) {
-  for (const [y, a, b] of [[0, 18, 19], [1, 17, 19], [2, 15, 19], [3, 13, 19], [4, 11, 20], [5, 9, 22]]) hline(g, y, a, b, 'b');
-  put(g, 20, 0, 'b'); put(g, 21, 1, 'q');
-  hline(g, 6, 3, 28, 'q'); hline(g, 5, 4, 8, 'q'); hline(g, 5, 23, 27, 'q');
-  for (const [x, y] of [[15, 3], [14, 4], [15, 4], [16, 4], [15, 5]]) put(g, x, y, 'Z');
-  put(g, 18, 2, 'W');
+  // 끝이 꺾인 높은 고깔 + 넓은 챙
+  for (const [y, a, b] of [[-7, 22, 23], [-6, 20, 22], [-5, 18, 21], [-4, 17, 20], [-3, 16, 20], [-2, 15, 19], [-1, 14, 19], [0, 13, 19], [1, 12, 20], [2, 11, 20], [3, 10, 21], [4, 9, 22]]) hline(g, y, a, b, 'b');
+  hline(g, 5, 3, 28, 'q'); hline(g, 4, 4, 8, 'q'); hline(g, 4, 23, 27, 'q');
+  for (const [x, y] of [[15, 1], [14, 2], [15, 2], [16, 2], [15, 3]]) put(g, x, y, 'Z');
+  put(g, 18, -2, 'W'); put(g, 17, -1, 'W');
 }
 function drawDogEars(g) {
   for (const [x, y, c] of [[5, 5, 'D'], [6, 5, 'D'], [4, 6, 'D'], [5, 6, 'e'], [6, 6, 'D'], [3, 7, 'D'], [4, 7, 'e'], [5, 7, 'D'], [3, 8, 'D'], [4, 8, 'e'], [5, 8, 'D'],
@@ -1561,9 +1678,10 @@ function drawHeadset(g) {
 }
 
 function drawCrown(g) {
-  for (const x of [12, 15, 16, 19]) put(g, x, 0, 'Z');
-  hline(g, 1, 12, 19, 'Z'); hline(g, 2, 12, 19, 'Z'); hline(g, 3, 12, 19, 'z');
-  put(g, 15, 2, 'R'); put(g, 16, 2, 'R'); put(g, 13, 2, 'T'); put(g, 18, 2, 'T');
+  // 머리 위에 올라앉은 왕관: 뾰족 세 개 + 보석
+  for (const [x, y] of [[11, -3], [15, -4], [16, -4], [20, -3], [11, -2], [12, -2], [15, -3], [16, -3], [19, -2], [20, -2], [14, -2], [17, -2]]) put(g, x, y, 'Z');
+  hline(g, -1, 11, 20, 'Z'); hline(g, 0, 11, 20, 'Z'); hline(g, 1, 11, 20, 'z');
+  put(g, 15, 0, 'R'); put(g, 16, 0, 'R'); put(g, 13, 0, 'T'); put(g, 18, 0, 'T');
 }
 
 function drawClip(g) {
@@ -1573,12 +1691,12 @@ function drawClip(g) {
 }
 
 function outline(g) {
-  const o = g.map(r => r.slice());
-  for (let y = 0; y < H32; y++) for (let x = 0; x < W32; x++) {
+  const o = cloneG(g), y0 = g[-1] ? -HR : 0;
+  for (let y = y0; y < H32; y++) for (let x = 0; x < W32; x++) {
     if (g[y][x] !== '.') continue;
     const n = [[1, 0], [-1, 0], [0, 1], [0, -1]].some(([dx, dy]) => {
       const nx = x + dx, ny = y + dy;
-      return nx >= 0 && nx < W32 && ny >= 0 && ny < H32 && g[ny][nx] !== '.';
+      return nx >= 0 && nx < W32 && ny >= y0 && ny < H32 && g[ny] && g[ny][nx] !== '.';
     });
     if (n) o[y][x] = 'O';
   }
@@ -2031,9 +2149,10 @@ const HEAD_FX = {
     hline(g, 4, 11, 20, 'f'); hline(g, 3, 13, 18, 'f');
   },
   lightStick(g) {
+    // 응원봉 머리띠: 더듬이가 머리 위로 높이 (여유 줄까지)
     hline(g, 5, 7, 24, 'b');
-    for (const x of [10, 21]) { for (let y = 1; y <= 4; y++) put(g, x, y, 'A'); }
-    for (const [cx, c] of [[10, 'P'], [21, 'Z']]) { put(g, cx - 1, 0, c); put(g, cx + 1, 0, c); hline(g, 1, cx - 1, cx + 1, c); put(g, cx, 2, c); put(g, cx, 0, '%'); }
+    for (const x of [10, 21]) { for (let y = -2; y <= 4; y++) put(g, x, y, 'A'); }
+    for (const [cx, c] of [[10, 'P'], [21, 'Z']]) { put(g, cx - 1, -4, c); put(g, cx + 1, -4, c); hline(g, -5, cx - 1, cx + 1, c); hline(g, -3, cx - 1, cx + 1, c); put(g, cx, -4, '%'); }
   },
   headband(g) {
     hline(g, 8, 4, 27, 'M'); hline(g, 9, 4, 27, 'M'); hline(g, 8, 5, 26, 'M');
@@ -2068,6 +2187,442 @@ function EXTRA_LOOK(g, opts) {
   if (HEAD_FX[opts.headgear]) HEAD_FX[opts.headgear](g);
   for (const id of EXTRA_ACC_IDS) if (opts[id]) ACC_FX[id](g);
 }
+
+// 직접 그린 캐릭터: 도트 편집기로 만든 face.custom 을 게임 캐릭터로 그린다.
+// sprites.js · face.js · look-extra.js 다음에 붙는 일반 스크립트. buildKyuppi · applyFace · resetFace 를 감싼다.
+// 유저는 기본 모습 한 장(레이어 3장: 뒷머리 · 몸 · 머리·얼굴)만 그리고 눈 · 입 · 팔 자리를 표시한다.
+// 표정(깜빡 · 웃음 · 울음 · 졸림 …)은 원래 큐삐 표정 기호를 표시한 자리에 맞춰 옮겨 찍고,
+// 팔 동작(만세 · 한 팔 · 가리기)은 표시한 팔을 지우고 시스템 팔을 그 옷 색으로 그린다.
+// 모자 · 안경은 머리 꼭대기 · 눈 위치에 맞춰 옮긴다. 옷장 옷을 입히면 몸 레이어 대신 그 옷을 입힌다.
+/* global FACE_COLORS, PAL, EYES, MOUTHS, OUTFIT_FX, FACE_NOW, HEAD_FX, ACC_FX, blank, put, outline, drawBody, drawHead, drawBlush, recolorDenim, recolorUniform, drawScarf, drawGlasses, drawSunglasses, drawHeartGlasses, drawBandaid, drawMustache, drawTease, drawClip, buildKyuppi, applyFace, resetFace */
+(function () {
+  const ALPHA = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ-_';
+  const N = 32, SZ = N * N, MAXC = 64, LAYERS = ['back', 'body', 'front'];
+  const CH = i => String.fromCharCode(0xE000 + i); // 그림 색은 팔레트에 안 겹치는 글자로 넣는다
+  const HEX = /^#[0-9a-f]{6}$/i;
+  const clone = g => cloneG(g); // 머리 위 여유 줄(모자)까지
+  const lum = hex => { const n = parseInt(String(hex || '#000000').slice(1), 16); return ((n >> 16 & 255) * 0.299 + (n >> 8 & 255) * 0.587 + (n & 255) * 0.114) / 255; };
+  function tone(hex, f) {
+    const n = parseInt(hex.slice(1), 16), m = v => Math.max(0, Math.min(255, Math.round(v * f)));
+    return '#' + [m(n >> 16 & 255), m(n >> 8 & 255), m(n & 255)].map(v => v.toString(16).padStart(2, '0')).join('');
+  }
+
+  // ---------- 저장 형식 검사 (상대 폰에서 온 데이터도 이걸 거친다) ----------
+  const okBox = b => (Array.isArray(b) && b.length === 4 && b.every(n => Number.isInteger(n) && n >= 0 && n < N) &&
+    b[0] <= b[2] && b[1] <= b[3] && b[2] - b[0] < 10 && b[3] - b[1] < 10) ? b.slice() : null;
+  const okId = s => (typeof s === 'string' && /^[A-Za-z0-9_]{1,30}$/.test(s)) ? s : null;
+  function clean(c) {
+    if (!c || typeof c !== 'object' || c.v !== 1 || !Array.isArray(c.pal) || c.pal.length > MAXC || !c.pal.every(h => typeof h === 'string' && HEX.test(h))) return null;
+    const n = c.pal.length;
+    const lay = s => {
+      if (typeof s !== 'string' || s.length !== SZ) return null;
+      for (let i = 0; i < SZ; i++) { const ch = s[i]; if (ch !== '.') { const k = ALPHA.indexOf(ch); if (k < 0 || k >= n) return null; } }
+      return s;
+    };
+    const L = {}; for (const k of LAYERS) { L[k] = lay(c[k]); if (L[k] === null) return null; }
+    const arms = Array.isArray(c.arms) ? [...new Set(c.arms.filter(i => Number.isInteger(i) && i >= 0 && i < SZ))].slice(0, 240) : [];
+    return {
+      v: 1, pal: c.pal.map(h => h.toLowerCase()), ...L,
+      eyeL: okBox(c.eyeL), eyeR: okBox(c.eyeR), mouth: okBox(c.mouth), arms,
+      ol: c.ol === 0 || c.ol === false ? 0 : 1,
+      top0: Number.isInteger(c.top0) ? Math.max(0, Math.min(24, c.top0)) : 1,
+      bo: okId(c.bo), po: okId(c.po),
+      hc: Array.isArray(c.hc) && c.hc.length === 3 && c.hc.every(h => typeof h === 'string' && HEX.test(h)) ? c.hc.map(h => h.toLowerCase()) : null,
+    };
+  }
+
+  // ---------- 원래 큐삐 몸에서 팔 위치 · 만세 팔 · 가리는 손 ----------
+  let GEO = null;
+  function geo() {
+    if (GEO) return GEO;
+    const d = blank(), u = blank(), cv = blank();
+    drawBody(d, 'down'); drawBody(u, 'up'); drawBody(cv, 'cover');
+    const mask = [[], []], up = [[], []], cover = [];
+    for (let y = 0; y < N; y++) for (let x = 0; x < N; x++) {
+      const s = x < 16 ? 0 : 1;
+      if (y >= 25 && d[y][x] !== '.' && d[y][x] !== u[y][x]) mask[s].push(y * N + x);
+      if (y <= 24 && u[y][x] !== '.' && u[y][x] !== d[y][x]) up[s].push([x, y, u[y][x]]);
+      if (cv[y][x] !== '.' && cv[y][x] !== d[y][x]) cover.push([x, y, cv[y][x]]);
+    }
+    GEO = { mask, up, cover };
+    return GEO;
+  }
+  // 표정 기호: 원래 큐삐 눈·입을 빈 칸에 그려서 칸 목록으로 (왼눈 x<16, 오른눈 x>=16)
+  const PAT = new Map();
+  function pattern(kind, name) {
+    const key = kind + ':' + name;
+    if (PAT.has(key)) return PAT.get(key);
+    const t = blank();
+    try { (kind === 'eye' ? EYES : MOUTHS)[name](t); } catch (e) { /* 없는 표정 */ }
+    const out = [[], []];
+    for (let y = 0; y < N; y++) for (let x = 0; x < N; x++) {
+      const c = t[y][x]; if (c === '.' || c === 'S' || c === 's') continue;
+      if (kind === 'mouth' && Math.abs(x - 15.5) > 5) continue; // 냠냠 볼 같은 먼 칸은 뺀다
+      out[x < 16 ? 0 : 1].push([x, y, c]);
+    }
+    PAT.set(key, out);
+    return out;
+  }
+
+  // ---------- 지금 쓰는 그림 ----------
+  let NOW = null, NOW_KEY = null;
+  const shades = new Map(); let shadeN = 0;
+  function shade(ch, f) {
+    const hex = PAL[ch]; if (!hex) return ch;
+    const k = hex + ':' + f;
+    if (!shades.has(k)) { const c = String.fromCharCode(0xE100 + shadeN++); PAL[c] = tone(hex, f); shades.set(k, c); }
+    return shades.get(k);
+  }
+  const count = list => { const m = new Map(); for (const c of list) if (c && c !== '.') m.set(c, (m.get(c) || 0) + 1); return m; };
+  const best = (m, score = (k, v) => v) => { let b = null, s = -Infinity; for (const [k, v] of m) { const t = score(k, v); if (t > s) { s = t; b = k; } } return b; };
+  const inBox = (b, x, y) => !!b && x >= b[0] && x <= b[2] && y >= b[1] && y <= b[3];
+  function cells(g, x0, y0, x1, y1, skip) {
+    const out = [];
+    for (let y = Math.max(0, y0); y <= Math.min(N - 1, y1); y++) for (let x = Math.max(0, x0); x <= Math.min(N - 1, x1); x++) if (!skip || !skip(x, y)) out.push(g[y][x]);
+    return out;
+  }
+  const boxOf = list => {
+    if (!list.length) return null;
+    const xs = list.map(i => i % N), ys = list.map(i => (i / N) | 0);
+    return [Math.min(...xs), Math.min(...ys), Math.max(...xs), Math.max(...ys)];
+  };
+  const cx = b => (b[0] + b[2]) / 2, cy = b => (b[1] + b[3]) / 2;
+  const rnd = v => (Math.abs(v % 1) === 0.5 ? Math.trunc(v) : Math.round(v)); // 반 칸은 가운데 쪽으로 (왼눈·오른눈이 똑같이)
+
+  function use(custom) {
+    const c = clean(custom);
+    if (!c) { NOW = null; NOW_KEY = null; return null; }
+    const key = JSON.stringify(c);
+    shades.clear(); shadeN = 0;
+    c.pal.forEach((h, i) => { PAL[CH(i)] = h; });
+    if (NOW && NOW_KEY === key) { setPal(NOW); return NOW; }
+    const toGrid = s => { const g = blank(); for (let i = 0; i < SZ; i++) if (s[i] !== '.') g[(i / N) | 0][i % N] = CH(ALPHA.indexOf(s[i])); return g; };
+    const C = Object.assign({}, c, { L: {} });
+    for (const k of LAYERS) C.L[k] = toGrid(c[k]);
+    const comp = blank(); for (const k of LAYERS) lay(comp, C.L[k]);
+    C.comp = comp;
+    const boxes = [C.eyeL, C.eyeR, C.mouth].filter(Boolean);
+    // 피부: 눈·입 둘레에서 제일 많은 색 (표시가 없으면 얼굴 자리 가운데)
+    let skin = null;
+    if (boxes.length) {
+      const x0 = Math.min(...boxes.map(b => b[0])) - 3, x1 = Math.max(...boxes.map(b => b[2])) + 3;
+      const y0 = Math.min(...boxes.map(b => b[1])) - 1, y1 = Math.max(...boxes.map(b => b[3])) + 2;
+      skin = best(count(cells(comp, x0, y0, x1, y1, (x, y) => boxes.some(b => inBox(b, x, y)))));
+    }
+    C.skin = skin || best(count(cells(comp, 10, 13, 21, 21))) || 'S';
+    // 눈 색: 상자 안에서 피부 말고 많은 색, 어두운 색일수록 우선 (흰 반짝이보다 눈동자)
+    const dark = b => { if (!b) return 'E'; const m = count(cells(comp, b[0], b[1], b[2], b[3])); m.delete(C.skin); return best(m, (k, v) => v * (1.6 - lum(PAL[k]))) || 'E'; };
+    C.eyeC = [dark(C.eyeL), dark(C.eyeR)];
+    if (C.mouth) { const m = count(cells(comp, C.mouth[0], C.mouth[1], C.mouth[2], C.mouth[3])); m.delete(C.skin); C.mouthC = best(m) || 'l'; }
+    // 머리 꼭대기, 머리색 (수염·삐친 머리카락에 쓴다)
+    let top = -1;
+    for (let y = 0; y < N && top < 0; y++) for (let x = 6; x <= 25; x++) if (C.L.front[y][x] !== '.' || C.L.back[y][x] !== '.') { top = y; break; }
+    C.top = top < 0 ? C.top0 : top;
+    const hm = count(cells(C.L.front, 6, C.top, 25, C.top + 5)); hm.delete(C.skin); C.hair = best(hm);
+    // 팔: 표시한 칸을 눈 사이 가운데를 기준으로 왼팔·오른팔로
+    const mid = C.eyeL && C.eyeR ? (cx(C.eyeL) + cx(C.eyeR)) / 2 : 15.5;
+    C.mid = mid;
+    C.arm = [C.arms.filter(i => i % N < mid), C.arms.filter(i => i % N >= mid)];
+    C.armBox = C.arm.map(boxOf);
+    C.sleeve = C.arm.map(list => best(count(list.map(i => comp[(i / N) | 0][i % N])), (k, v) => (k === C.skin ? -1 : v)) || C.skin);
+    NOW = C; NOW_KEY = key; setPal(C);
+    return C;
+  }
+  function setPal(C) {
+    // 옷장 옷의 손·목, 표정 기호가 쓰는 색을 이 그림 피부·머리에 맞춘다
+    // 프리셋 색이면 원래 짝(그림자·하이라이트)을 그대로 쓴다
+    const FC = typeof FACE_COLORS !== 'undefined' ? FACE_COLORS : { skin: {}, hair: {} };
+    const pair = (list, hex) => Object.values(list).find(v => v[0] === hex);
+    const sk = PAL[C.skin];
+    if (sk) { const p = pair(FC.skin, sk); PAL.S = sk; PAL.s = p ? p[1] : tone(sk, 0.9); }
+    const hr = C.hair && PAL[C.hair];
+    if (C.hc) { PAL.H = C.hc[0]; PAL.h = C.hc[1]; PAL.d = C.hc[2]; } // 프리셋에서 시작한 그림: 원래 머리색
+    else if (hr) { const p = pair(FC.hair, hr); PAL.H = hr; PAL.h = p ? p[1] : tone(hr, 1.3); PAL.d = p ? p[2] : tone(hr, 0.7); }
+  }
+  function lay(dst, src, behind) {
+    for (let y = 0; y < N; y++) for (let x = 0; x < N; x++) { const c = src[y][x]; if (c !== '.' && (!behind || dst[y][x] === '.')) dst[y][x] = c; }
+  }
+
+  // 팔 칸 지우기: 그 칸이 있는 맨 위 레이어에서. 몸통 앞에 그린 팔이면(양옆이 다 칠해져 있으면) 안쪽 색으로 메운다
+  function eraseArm(L, list, side, onlySkin, gone) {
+    const set = new Set(list), dir = side ? -1 : 1; // 몸 가운데 쪽
+    for (const i of list) {
+      const x = i % N, y = (i / N) | 0;
+      for (const k of ['front', 'body', 'back']) {
+        const cur = L[k][y][x]; if (cur === '.') continue;
+        if (onlySkin && cur !== NOW.skin) break;
+        let inner = null, outer = false;
+        for (let xx = x + dir; xx >= 0 && xx < N; xx += dir) { if (set.has(y * N + xx)) continue; if (L[k][y][xx] !== '.') inner = L[k][y][xx]; break; }
+        for (let xx = x - dir; xx >= 0 && xx < N; xx -= dir) { if (set.has(y * N + xx)) continue; outer = L[k][y][xx] !== '.'; break; }
+        L[k][y][x] = inner && outer ? inner : '.';
+        gone.push(i);
+        break;
+      }
+    }
+  }
+  function armMap(side) {
+    const sl = NOW.sleeve[side] || NOW.sleeve[1 - side] || NOW.skin;
+    return { N: sl, n: shade(sl, 0.78), C: sl, c: shade(sl, 0.78), S: NOW.skin, s: shade(NOW.skin, 0.88) };
+  }
+  function drawUp(g, side, fresh) {
+    const b = NOW.armBox[side]; if (!b) return;
+    const dx = side ? b[2] - 22 : b[0] - 9, dy = b[1] - 25, map = armMap(side);
+    for (const [x, y, c] of geo().up[side]) {
+      const X = x + dx, Y = y + dy;
+      if (X < 0 || X >= N || Y < 0 || Y >= N) continue;
+      g[Y][X] = map[c] || c; fresh.push(Y * N + X);
+    }
+  }
+  function drawCover(g, fresh) {
+    const [bl, br] = NOW.armBox; if (!bl && !br) return;
+    const mx = bl && br ? (cx(bl) + cx(br)) / 2 : NOW.mid, by = Math.max(bl ? bl[3] : 0, br ? br[3] : 0);
+    const dx = rnd(mx - 15.5), dy = by - 28;
+    for (const [x, y, c] of geo().cover) {
+      const X = x + dx, Y = y + dy, map = armMap(x < 16 ? 0 : 1);
+      if (X < 0 || X >= N || Y < 0 || Y >= N) continue;
+      g[Y][X] = map[c] || c; fresh.push(Y * N + X);
+    }
+  }
+  // 피부색으로 덮기 (눈·입을 바꿔 찍기 전에)
+  function wipe(g, b) { for (let y = b[1]; y <= b[3]; y++) for (let x = b[0]; x <= b[2]; x++) if (g[y][x] !== '.') g[y][x] = NOW.skin; }
+  function eyes(g, name) {
+    if (name === 'open' || !EYES[name] || !NOW.eyeL || !NOW.eyeR) return;
+    const pat = pattern('eye', name);
+    [NOW.eyeL, NOW.eyeR].forEach((b, s) => {
+      const dx = rnd(cx(b) - (s ? 19.5 : 11.5)), dy = b[3] - 17;
+      if (name !== 'sad') wipe(g, b);
+      for (const [x, y, c] of pat[s]) {
+        if (name === 'sad' && c !== 'T') continue; // 우는 눈: 그린 눈 그대로 + 눈물
+        put(g, x + dx, y + dy, c === 'E' ? NOW.eyeC[s] : c);
+      }
+    });
+  }
+  function mouth(g, name) {
+    const b = NOW.mouth;
+    if (!b || name === 'neutral' || name === 'smile' || !MOUTHS[name]) return; // 평소 입은 그린 그대로
+    const dx = rnd(cx(b) - 15.5), dy = rnd(cy(b) - 19.5), pat = pattern('mouth', name);
+    wipe(g, b);
+    for (const side of pat) for (const [x, y, c] of side) put(g, x + dx, y + dy, c === 'l' || c === 'L' ? NOW.mouthC : c);
+    if (name === 'chew') { // 볼 빵빵: 입 높이에서 얼굴 양옆 바깥 한 칸을 피부로
+      const m = Math.round(cx(b));
+      for (const y of [19 + dy, 20 + dy]) {
+        if (y < 0 || y >= N) continue;
+        for (const dir of [-1, 1]) {
+          let x = m; while (x >= 0 && x < N && g[y][x] !== '.') x += dir;
+          if (x >= 0 && x < N && g[y][x] === '.' && [1, 2, 3].some(k => g[y][x - dir * k] === NOW.skin)) g[y][x] = NOW.skin;
+        }
+      }
+    }
+  }
+  function blushBig(g) {
+    if (!NOW.eyeL || !NOW.eyeR) return;
+    const t = blank(); drawBlush(t, true);
+    const okc = c => c === NOW.skin || PAL[c] === PAL.B || PAL[c] === '#f7a8a3';
+    [NOW.eyeL, NOW.eyeR].forEach((b, s) => {
+      const dx = rnd(cx(b) - (s ? 19.5 : 11.5)), dy = b[3] - 17;
+      for (let y = 0; y < N; y++) for (let x = 0; x < N; x++) {
+        if (t[y][x] === '.' || (x < 16 ? 0 : 1) !== s) continue;
+        const X = x + dx, Y = y + dy;
+        if (X >= 0 && X < N && Y >= 0 && Y < N && okc(g[Y][X])) g[Y][X] = t[y][x];
+      }
+    });
+  }
+  // 소품: 빈 칸에 원래 자리로 그려 보고, 이 그림에 맞게 옮겨 얹는다
+  function over(g, fn, off, fresh, keep) {
+    const t = blank();
+    try { fn(t); } catch (e) { return; }
+    for (let y = -HR; y < N; y++) for (let x = 0; x < N; x++) {
+      const c = t[y] && t[y][x]; if (!c || c === '.') continue;
+      const X = x + off[0], Y = y + off[1];
+      if (X < 0 || X >= N || Y < -HR || Y >= N || !g[Y] || (keep && keep(X, Y))) continue;
+      g[Y][X] = c; if (Y >= 0) fresh.push(Y * N + X); else topFresh.push([X, Y]);
+    }
+  }
+  let topFresh = [];
+  const HEADGEAR = () => ({
+    headset: typeof drawHeadset === 'function' && drawHeadset, crown: typeof drawCrown === 'function' && drawCrown,
+    frog: typeof drawFrog === 'function' && drawFrog, rabbit: typeof drawRabbit === 'function' && drawRabbit,
+    santaHat: typeof drawSantaHat === 'function' && drawSantaHat, bearEars: typeof drawBearEars === 'function' && drawBearEars,
+    ribbon: typeof drawRibbon === 'function' && drawRibbon, straw: typeof drawStrawHat === 'function' && drawStrawHat,
+    flower: typeof drawFlowerBand === 'function' && drawFlowerBand, cat: typeof drawCatEars === 'function' && drawCatEars,
+    maidBand: typeof drawMaidBand === 'function' && drawMaidBand, beanie: typeof drawBeanie === 'function' && drawBeanie,
+    cap: typeof drawCap === 'function' && drawCap, chefHat: typeof drawChefHat === 'function' && drawChefHat,
+    partyHat: typeof drawPartyHat === 'function' && drawPartyHat, goggles: typeof drawGoggles === 'function' && drawGoggles,
+    devil: typeof drawDevil === 'function' && drawDevil, halo: typeof drawHalo === 'function' && drawHalo,
+    wizard: typeof drawWizard === 'function' && drawWizard, dogEars: typeof drawDogEars === 'function' && drawDogEars,
+    earmuffs: typeof drawEarmuffs === 'function' && drawEarmuffs,
+  });
+  const BODY_OUTFITS = id => id === 'raglan' || id === 'denim' || id === 'uniform' || !!(typeof OUTFIT_FX !== 'undefined' && OUTFIT_FX[id]);
+
+  function build(opts) {
+    const C = NOW;
+    const { eyes: ey = 'open', mouth: mo = 'neutral', arms = 'down', blush = true, clip = false, headgear = 'none', ring = false, glasses = false, scarf = false, tease = null, sunglasses = false, heartGlasses = false, bandaid = false, mustache = false } = opts;
+    let outfit = opts.outfit || 'mine';
+    if (outfit === 'mine' && C.bo && BODY_OUTFITS(C.bo)) outfit = C.bo; // 몸을 안 고쳤으면 원래 옷으로 (팔 동작이 제일 깔끔)
+    const L = { back: clone(C.L.back), body: clone(C.L.body), front: clone(C.L.front) };
+    const g = blank(), fresh = [], gone = []; topFresh = [];
+    // 소품 자리: 눈 기준 · 입 기준 · 머리 꼭대기 기준 · 몸 기준(팔 표시, 없으면 눈)
+    const hasEyes = C.eyeL && C.eyeR;
+    const E = hasEyes ? [rnd((cx(C.eyeL) + cx(C.eyeR)) / 2 - 15.5), Math.round((C.eyeL[3] + C.eyeR[3]) / 2 - 17)] : [0, 0];
+    const M = C.mouth ? [rnd(cx(C.mouth) - 15.5), rnd(cy(C.mouth) - 19.5)] : E;
+    const H = [E[0], Math.max(-4, Math.min(12, C.top - C.top0))];
+    const [al, ar] = C.armBox;
+    const B = al && ar ? [rnd((al[0] + ar[2]) / 2 - 15.5), Math.min(al[1], ar[1]) - 25] : E;
+    const raise = arms === 'up' ? [0, 1] : arms === 'upL' ? [0] : arms === 'upR' ? [1] : [];
+    if (outfit === 'mine' || !BODY_OUTFITS(outfit)) {
+      if (C.arms.length) {
+        for (const s of raise) eraseArm(L, C.arm[s], s, false, gone);
+        if (arms === 'cover') { eraseArm(L, C.arm[0], 0, true, gone); eraseArm(L, C.arm[1], 1, true, gone); }
+      }
+      lay(g, L.back); lay(g, L.body); lay(g, L.front);
+      if (C.arms.length) { for (const s of raise) drawUp(g, s, fresh); if (arms === 'cover') drawCover(g, fresh); }
+      if (scarf) over(g, drawScarf, B, fresh, (x, y) => y < 23 + B[1] && L.front[y][x] !== '.');
+      if (ring && !raise.includes(1) && arms !== 'cover') {
+        const hands = C.arm[1].filter(i => g[(i / N) | 0][i % N] === C.skin).sort((a, b) => b - a);
+        if (hands.length) { const i = hands[hands.length > 1 ? 1 : 0]; g[(i / N) | 0][i % N] = 'Z'; }
+      }
+    } else {
+      const b = blank();
+      drawBody(b, arms);
+      if (outfit === 'denim') recolorDenim(b);
+      if (outfit === 'uniform') recolorUniform(b);
+      if (OUTFIT_FX[outfit]) OUTFIT_FX[outfit](b);
+      if (scarf) drawScarf(b);
+      if (ring && b[28][21] === 'S') put(b, 21, 28, 'Z');
+      // 그림을 옮겨 그렸으면 옷도 그 몸 자리로 (프리셋에서 시작해 안 옮긴 그림은 B = 0)
+      const bo = C.bo && outfit === C.bo ? [0, 0] : B;
+      lay(g, L.back);
+      for (let y = 0; y < N; y++) for (let x = 0; x < N; x++) {
+        const c = b[y][x], X = x + bo[0], Y = y + bo[1];
+        if (c === '.' || X < 0 || X >= N || Y < 0 || Y >= N) continue;
+        g[Y][X] = c; fresh.push(Y * N + X);
+      }
+      const neck = 23 + bo[1];
+      for (let y = 0; y < N; y++) for (let x = 0; x < N; x++) {
+        const c = L.front[y][x]; if (c === '.') continue;
+        if (y < neck || g[y][x] === '.') g[y][x] = c; // 목 아래로 그린 건 옷 뒤로
+      }
+    }
+    eyes(g, ey);
+    mouth(g, mo);
+    if (blush === 'big') blushBig(g);
+    if (bandaid) over(g, drawBandaid, E, fresh);
+    if (mustache && mo !== 'chew') over(g, drawMustache, M, fresh);
+    if (sunglasses && ey !== 'sleep') over(g, drawSunglasses, E, fresh);
+    else if (heartGlasses && ey !== 'sleep') over(g, drawHeartGlasses, E, fresh);
+    else if (glasses) over(g, t => drawGlasses(t), E, fresh);
+    if (tease) over(g, t => drawTease(t, tease), tease === 'messy' ? H : E, fresh);
+    if (clip) over(g, drawClip, H, fresh);
+    const hg = HEADGEAR()[headgear];
+    if (hg) over(g, hg, H, fresh);
+    if (typeof HEAD_FX !== 'undefined' && HEAD_FX[headgear]) over(g, HEAD_FX[headgear], H, fresh);
+    if (typeof ACC_FX !== 'undefined') for (const id of Object.keys(ACC_FX)) if (opts[id]) over(g, ACC_FX[id], id === 'earrings' ? E : (outfit === C.bo ? [0, 0] : B), fresh);
+    if (C.ol) return outline(g);
+    // 테두리를 직접 그린 그림: 새로 그린 팔·소품 둘레와 팔을 지운 자리만 테두리
+    const o = clone(g);
+    const edge = (x, y) => { if (x >= 0 && x < N && y >= -HR && y < N && g[y] && g[y][x] === '.') o[y][x] = 'O'; };
+    for (const i of fresh) { const x = i % N, y = (i / N) | 0; edge(x + 1, y); edge(x - 1, y); edge(x, y + 1); edge(x, y - 1); }
+    // 머리 위로 올라간 모자 둘레도
+    const edgeT = (x, y) => { if (x >= 0 && x < N && y >= -HR && g[y] && g[y][x] === '.') o[y][x] = 'O'; };
+    for (const [x, y] of topFresh) { edgeT(x + 1, y); edgeT(x - 1, y); edgeT(x, y + 1); edgeT(x, y - 1); }
+    for (const i of gone) {
+      const x = i % N, y = (i / N) | 0;
+      if (g[y][x] === '.' && [[1, 0], [-1, 0], [0, 1], [0, -1]].some(([a, b]) => g[y + b] && g[y + b][x + a] && g[y + b][x + a] !== '.')) o[y][x] = 'O';
+    }
+    return o;
+  }
+
+  // ---------- 편집기에서 쓰는 것 ----------
+  // 지금 프리셋 캐릭터를 레이어 3장 + 표시로 (편집 시작점)
+  function fromPreset(face, look) {
+    const keep = Object.assign({}, FACE_NOW);
+    origApply(Object.assign({}, face || {}, { custom: undefined }));
+    NOW = null; NOW_KEY = null;
+    const hex = c => (c === '.' ? null : (PAL[c] || null));
+    const head = blank(); drawHead(head); EYES.open(head); MOUTHS.smile(head); drawBlush(head, false);
+    let outfit = (look && look.outfit) || 'raglan';
+    if (!BODY_OUTFITS(outfit)) outfit = 'raglan';
+    const body = blank(); drawBody(body, 'down');
+    if (outfit === 'denim') recolorDenim(body);
+    if (outfit === 'uniform') recolorUniform(body);
+    if (OUTFIT_FX[outfit]) OUTFIT_FX[outfit](body);
+    const layers = { back: Array(SZ).fill(null), body: Array(SZ).fill(null), front: Array(SZ).fill(null) };
+    const eye = [[], []], mo = [];
+    for (let y = 0; y < N; y++) for (let x = 0; x < N; x++) {
+      const i = y * N + x, c = head[y][x];
+      if (c !== '.') (y >= 23 ? layers.back : layers.front)[i] = hex(c);
+      if (body[y][x] !== '.') layers.body[i] = hex(body[y][x]);
+      if ((c === 'E' || c === 'W') && y >= 12 && y <= 18) eye[x < 16 ? 0 : 1].push(i);
+      if ((c === 'l' || c === 'L' || c === 'R') && y >= 18 && y <= 22 && x >= 12 && x <= 19) mo.push(i);
+    }
+    let top0 = 1;
+    for (let y = 0; y < N; y++) if (layers.front.slice(y * N + 6, y * N + 26).some(Boolean)) { top0 = y; break; }
+    const arms = [...geo().mask[0], ...geo().mask[1]].filter(i => layers.body[i]);
+    const hc = [PAL.H, PAL.h, PAL.d];
+    // 원래 얼굴로 되돌리기
+    origApply(keep); use(keep.custom);
+    return { layers, marks: { eyeL: boxOf(eye[0]), eyeR: boxOf(eye[1]), mouth: boxOf(mo), arms }, ol: 1, top0, bo: outfit, bodyOrig: layers.body.join(','), hc };
+  }
+  // 편집 문서(칸마다 #색 또는 null) → 저장 형식
+  function encode(doc) {
+    const pal = [], idx = new Map();
+    const code = h => { if (!h) return '.'; h = h.toLowerCase(); if (!idx.has(h)) { if (pal.length >= MAXC) return null; idx.set(h, pal.length); pal.push(h); } return ALPHA[idx.get(h)]; };
+    const out = { v: 1, pal };
+    for (const k of LAYERS) {
+      let s = '';
+      for (let i = 0; i < SZ; i++) { const ch = code(doc.layers[k][i]); if (ch === null) throw new Error('색은 ' + MAXC + '개까지 쓸 수 있어'); s += ch; }
+      out[k] = s;
+    }
+    const m = doc.marks || {};
+    out.eyeL = m.eyeL || null; out.eyeR = m.eyeR || null; out.mouth = m.mouth || null;
+    out.arms = [...(m.arms || [])].filter(i => out.body[i] !== '.' || out.front[i] !== '.' || out.back[i] !== '.').sort((a, b) => a - b);
+    out.ol = doc.ol ? 1 : 0;
+    out.top0 = Number.isInteger(doc.top0) ? doc.top0 : 1;
+    out.bo = doc.bo && doc.bodyOrig === doc.layers.body.join(',') ? doc.bo : null; // 몸을 안 고쳤을 때만
+    if (doc.po) out.po = doc.po;
+    if (doc.hc) out.hc = doc.hc;
+    return clean(out);
+  }
+  function decode(custom) {
+    const c = clean(custom); if (!c) return null;
+    const layers = {};
+    for (const k of LAYERS) layers[k] = [...c[k]].map(ch => (ch === '.' ? null : c.pal[ALPHA.indexOf(ch)]));
+    // 몸을 안 고친 그림은 계속 '안 고침'으로 본다
+    return { layers, marks: { eyeL: c.eyeL, eyeR: c.eyeR, mouth: c.mouth, arms: c.arms.slice() }, ol: c.ol, top0: c.top0, bo: c.bo, bodyOrig: c.bo ? layers.body.join(',') : null, po: c.po, hc: c.hc };
+  }
+  // 미리보기: 이 얼굴 + 그림으로 한 장 (전역 얼굴은 원래대로 돌려놓는다)
+  function grid(face, custom, opts) {
+    const keep = Object.assign({}, FACE_NOW);
+    applyFace(Object.assign({}, face || {}, { custom }));
+    try {
+      const g = buildKyuppi(opts || {}), pal = {};
+      for (const row of g) for (const ch of row) if (ch !== '.' && !(ch in pal)) pal[ch] = PAL[ch];
+      return { grid: g, pal };
+    } finally { applyFace(keep); }
+  }
+
+  // ---------- 감싸기 ----------
+  const origBuild = buildKyuppi, origApply = applyFace, origReset = resetFace;
+  // eslint-disable-next-line no-global-assign
+  buildKyuppi = function (opts = {}) {
+    if (NOW) { try { return build(opts); } catch (e) { if (typeof console !== 'undefined') console.warn('custom char', e); } }
+    return origBuild(opts);
+  };
+  // 그림은 넘긴 얼굴에 있을 때만 쓴다 (다른 얼굴 항목처럼 남아 있지 않게)
+  // eslint-disable-next-line no-global-assign
+  applyFace = function (face) {
+    const r = origApply(face);
+    const c = face && face.custom ? face.custom : undefined;
+    FACE_NOW.custom = c;
+    use(c);
+    return r;
+  };
+  // eslint-disable-next-line no-global-assign
+  resetFace = function () { origReset(); NOW = null; NOW_KEY = null; };
+  const api = { fromPreset, encode, decode, grid, clean, use, active: () => !!NOW, ALPHA, MAXC };
+  if (typeof window !== 'undefined') { window.resetFace = resetFace; window.applyFace = applyFace; window.buildKyuppi = buildKyuppi; window.KyuppiCustom = api; }
+  if (typeof globalThis !== 'undefined') globalThis.KyuppiCustom = api;
+})();
 
 
 // 소품 픽셀 스프라이트
@@ -3560,10 +4115,11 @@ if (typeof module !== 'undefined') module.exports = { ITEM_PAL, ITEMS };
 
 // ---------- 루이: 흰색 터키쉬 앙고라, 파란 눈 ----------
 // 몸통 위에 머리(표정, 장식 포함)를 붙여서 그린다. 머리는 정면, 몸은 왼쪽을 본다.
+// 얼굴: 코를 눈 아랫줄 높이에 두고 입을 바로 밑에 붙여 턱을 한 줄 줄였다 (맨 윗줄은 비워 몸과 닿는 자리는 그대로)
 const CAT_HEAD = [
+  ".........",
   ".OO...OO.",
   "OPWOOOWPO",
-  "OWWWWWWWO",
   "OWWWWWWWO",
   "OWWWWWWWO",
   "OgWWWWWgO",
@@ -3574,15 +4130,15 @@ const CAT_HEAD = [
 ];
 const CAT_NOSE = [4, 5, 'p'];
 const CAT_EYES = {
-  open: [[2, 3, 'T'], [2, 4, 'n'], [6, 3, 'T'], [6, 4, 'n']],
-  happy: [[1, 4, 'n'], [2, 3, 'n'], [3, 4, 'n'], [5, 4, 'n'], [6, 3, 'n'], [7, 4, 'n']],
-  closed: [[1, 3, 'n'], [2, 4, 'n'], [3, 3, 'n'], [5, 3, 'n'], [6, 4, 'n'], [7, 3, 'n']],
-  line: [[1, 4, 'n'], [2, 4, 'n'], [3, 4, 'n'], [5, 4, 'n'], [6, 4, 'n'], [7, 4, 'n']],
-  blink: [[1, 4, 'n'], [2, 4, 'n'], [6, 4, 'n'], [7, 4, 'n']],
-  wide: [[1, 3, 'T'], [2, 3, 'T'], [1, 4, 'T'], [2, 4, 'n'], [6, 3, 'T'], [7, 3, 'T'], [6, 4, 'n'], [7, 4, 'T']],
-  love: [[1, 3, 'R'], [3, 3, 'R'], [2, 4, 'R'], [5, 3, 'R'], [7, 3, 'R'], [6, 4, 'R']],
-  wink: [[2, 3, 'T'], [2, 4, 'n'], [5, 4, 'n'], [6, 3, 'n'], [7, 4, 'n']],
-  flat: [[1, 3, 'n'], [2, 3, 'n'], [3, 3, 'n'], [2, 4, 'T'], [5, 3, 'n'], [6, 3, 'n'], [7, 3, 'n'], [6, 4, 'T']],
+  open: [[2, 4, 'T'], [2, 5, 'n'], [6, 4, 'T'], [6, 5, 'n']],
+  happy: [[1, 5, 'n'], [2, 4, 'n'], [3, 5, 'n'], [5, 5, 'n'], [6, 4, 'n'], [7, 5, 'n']],
+  closed: [[1, 4, 'n'], [2, 5, 'n'], [3, 4, 'n'], [5, 4, 'n'], [6, 5, 'n'], [7, 4, 'n']],
+  line: [[1, 5, 'n'], [2, 5, 'n'], [3, 5, 'n'], [5, 5, 'n'], [6, 5, 'n'], [7, 5, 'n']],
+  blink: [[1, 5, 'n'], [2, 5, 'n'], [6, 5, 'n'], [7, 5, 'n']],
+  wide: [[1, 4, 'T'], [2, 4, 'T'], [1, 5, 'T'], [2, 5, 'n'], [6, 4, 'T'], [7, 4, 'T'], [6, 5, 'n'], [7, 5, 'T']],
+  love: [[1, 4, 'R'], [3, 4, 'R'], [2, 5, 'R'], [5, 4, 'R'], [7, 4, 'R'], [6, 5, 'R']],
+  wink: [[2, 4, 'T'], [2, 5, 'n'], [5, 5, 'n'], [6, 4, 'n'], [7, 5, 'n']],
+  flat: [[1, 4, 'n'], [2, 4, 'n'], [3, 4, 'n'], [2, 5, 'T'], [5, 4, 'n'], [6, 4, 'n'], [7, 4, 'n'], [6, 5, 'T']],
 };
 const CAT_MOUTH = {
   none: [],
@@ -3607,16 +4163,18 @@ const CAT_FACES = {
   yawn: ['closed', 'yawn'],
   grumpy: ['flat', 'frown'],
   purr: ['happy', 'none', true],
-  eat: ['closed', 'smile'],
+  eat: ['blink', 'meow'], // 오물오물: chew(입 닫음)와 번갈아
+  chew: ['blink', 'smile'],
+  hiss: ['wide', 'yawn'], // 하악: 눈 크게, 입 쩍
   blink: ['blink', 'none'], // 눈 깜빡임: 짧은 가로줄 (v 모양 감은 눈은 다른 표정처럼 보여서)
 };
 const CAT_ACC = {
   bell: [[2, 7, 'u'], [3, 7, 'u'], [4, 7, 'u'], [5, 7, 'u'], [6, 7, 'u'], [4, 8, 'Z']],
-  ribbon: [[5, 0, 'P'], [6, 1, 'R'], [7, 0, 'P'], [5, 1, 'P'], [7, 1, 'P']],
+  ribbon: [[5, 1, 'P'], [6, 2, 'R'], [7, 1, 'P'], [5, 2, 'P'], [7, 2, 'P']],
   bowtie: [[2, 8, 'V'], [3, 8, 'V'], [4, 8, 'O'], [5, 8, 'V'], [6, 8, 'V'], [2, 7, 'V'], [6, 7, 'V']],
   scarf: [[1, 7, 'u'], [2, 7, 'u'], [3, 7, 'U'], [4, 7, 'u'], [5, 7, 'u'], [6, 7, 'U'], [7, 7, 'u'], [5, 8, 'u'], [5, 9, 'U']],
-  crown: [[3, 0, 'Z'], [5, 0, 'Z'], [3, 1, 'Z'], [4, 1, 'Z'], [5, 1, 'Z']],
-  flower: [[7, 1, 'P'], [6, 2, 'P'], [7, 2, 'Z'], [8, 2, 'P'], [7, 3, 'P']],
+  crown: [[3, 1, 'Z'], [5, 1, 'Z'], [3, 2, 'Z'], [4, 2, 'Z'], [5, 2, 'Z']],
+  flower: [[7, 2, 'P'], [6, 3, 'P'], [7, 3, 'Z'], [8, 3, 'P'], [7, 4, 'P']],
 };
 const CAT_BODY = {
   sit: [[
@@ -3741,20 +4299,35 @@ const CAT_BODY = {
     '........OWWWWWWgOWWO.',
     '........OOOOOOOOOOO..',
   ], 0, 1],
+  // 밥 먹기: 고개를 밥그릇까지 숙이고(머리가 바닥에 닿게) 엉덩이는 든 채로, eat2는 고개를 한 칸 들었다 (번갈아 오물오물)
   eat: [[
-    '..............',
-    '..............',
-    '..........OO..',
-    '.........OWWO.',
-    '.........OWgO.',
-    '........OWWO..',
-    '........OWWO..',
-    '..OOOOOOWWgO..',
-    '..OWWWWWWgO...',
-    '.OWWgWWWgWO...',
-    '.OWOWWOWOWO...',
-    '..OOOOOOOO....',
-  ], 0, 2],
+    '................',
+    '..............O.',
+    '.............OWO',
+    '.............OWO',
+    '........OOOOOOWO',
+    '.......OWWWWWWgO',
+    '.......OWWWWWWWO',
+    '.......OWWWWWWgO',
+    '........OWWWWWgO',
+    '........OWOOOWWO',
+    '........OWO.OWgO',
+    '........OOO.OOO.',
+  ], 0, 4],
+  eat2: [[
+    '................',
+    '..............O.',
+    '.............OWO',
+    '.............OWO',
+    '........OOOOOOWO',
+    '.......OWWWWWWgO',
+    '.......OWWWWWWWO',
+    '.......OWWWWWWgO',
+    '........OWWWWWgO',
+    '........OWOOOWWO',
+    '........OWO.OWgO',
+    '........OOO.OOO.',
+  ], 0, 3],
   held: [[
     '.............',
     '.............',
@@ -3772,6 +4345,26 @@ const CAT_BODY = {
     '....OO.OOOWO.',
     '.........OWO.',
     '..........O..',
+  ], 2, 0],
+  // 들렸을 때 버둥: 앞발은 허우적, 뒷발은 벌렸다 오므렸다, 꼬리는 반대로 휙 (held와 번갈아)
+  held2: [[
+    '.............',
+    '.............',
+    '.............',
+    'OO.........OO',
+    'OWO.......OWO',
+    '.OWO.....OWO.',
+    '..OOO...OOO..',
+    '....OWWWO....',
+    '....OWWWO....',
+    '....OWWWO....',
+    '....OWgWO....',
+    '....OWWWO....',
+    '...OWOOOWO...',
+    '...OO...OO...',
+    '..O..........',
+    '.OWO.........',
+    '..O..........',
   ], 2, 0],
 };
 // 그루밍할 때 얼굴 앞에 올라오는 앞발
@@ -3823,6 +4416,23 @@ const CAT_SLEEP = [[
   'OWWWWWWWWWggWO',
   '.OOOOOOOOOOOO.',
 ]];
+// 등 돌리고 앉은 모습 (삐졌을 때·모른 척할 때). 얼굴 대신 뒤통수, 꼬리는 옆으로 말았다
+const CAT_BACK = [
+  '.OO....OO.....',
+  'OWWO..OWWO....',
+  'OWWWOOWWWO....',
+  'OWWWWWWWWO....',
+  'OWWWWWWWWO....',
+  'OgWWWWWWgO....',
+  '.OWWWWWWO.....',
+  'OWWWWWWWWO....',
+  'OWWWWWWWWO....',
+  'OWWWWWWWWO..O.',
+  'OWWWWWWWWO.OWO',
+  'OgWWWWWWgOOWgO',
+  'OgWWWWWWWgWWO.',
+  '.OOOOOOOOOOO..',
+];
 const CAT_HW = CAT_HEAD[0].length, CAT_HH = CAT_HEAD.length;
 const catBlank = (w, h) => Array.from({ length: h }, () => Array(w).fill('.'));
 function catHead(face, acc) {
@@ -3847,6 +4457,7 @@ function catPaste(dst, src, ox, oy, flipV) {
 const g2 = rows => rows.map(r => r.split(''));
 function catGrid(pose, face, acc) {
   if (pose === 'sleep' || pose === 'sleep2') return CAT_SLEEP[pose === 'sleep2' ? 1 : 0].map(r => r);
+  if (pose === 'back') return CAT_BACK.map(r => r);
   const [rows, hx, hy, flip] = CAT_BODY[pose] || CAT_BODY.sit;
   const body = g2(rows), head = catHead(face, acc);
   const ox = Math.max(0, -hx), oy = Math.max(0, -hy);
@@ -4390,6 +5001,7 @@ if (typeof catGrid === 'function' && typeof CAT_HEAD !== 'undefined') {
   // eslint-disable-next-line no-global-assign
   catGrid = function (pose, face, acc, kind) {
     const k = kind || petKind();
+    if (k !== 'cat' && pose === 'back') { pose = 'sit'; face = 'grumpy'; } // 등 돌린 그림은 고양이만 (다른 동물은 뿌루퉁한 얼굴로)
     return k === 'cat' ? catGrid0(pose, face, acc) : petGrid(k, pose, face, acc, { CAT_HEAD, CAT_NOSE, CAT_BODY, CAT_SLEEP, catGrid0, catHead });
   };
 }
@@ -4557,7 +5169,7 @@ const LINES = {
   // 루이 (고양이 말풍선)
   catMeow: ['냥', '냐앙', '냥냥', '냐아', '먀', '냥!'],
   catPurr: ['골골골..', '골골골골', '그르릉..'],
-  catHeld: ['냥!?', '냐아앙..', '..냥', '냥냥!!'],
+  catHeld: ['냥!?', '냐아앙..', '..냥', '냥냥!!', '(버둥버둥)', '놔 줘냥!!'],
   catHungry: ['냐아앙..', '냥.. (배고픔)', '먀아..'],
   // 루이를 보는 큐삐
   churu: ['{cat} 츄르 먹자!!', '{cat}야 츄르~', '츄르 타임 히히'],
@@ -4569,6 +5181,8 @@ const LINES = {
   catRoll: ['{cat} 뒹굴뒹굴한다 히히', '{cat} 배 보여준다!!', '귀여워 죽겠다..'],
   catHungryK: ['{cat} 배고프대..', '{cat} 밥 줘야겠다'],
   catZoom: ['{cat} 우다다 한다!!', '왜 갑자기 뛰어 히히'],
+  catSulk: ['{cat} 삐졌나봐..', '{cat}야 왜 그래..', '{cat} 등 돌렸오..'], catSwat: ['앗! {cat}한테 맞았오', '{cat} 앞발 매워..', '아야.. {cat} 화났나봐'],
+  catHiss: ['헉 {cat} 화났오..!', '{cat} 무셔워..', '미안미안..!'], catMakeUp: ['{cat} 화 풀렸다!', '휴.. {cat} 기분 풀렸오', '{cat} 다시 왔다 히히'],
   catFur: ['{cat}털 날린다 히히', '여기도 {cat}털..'],
   catLevel: ['{cat}랑 더 친해졌오!!', '{cat}가 나 더 좋아하나봐 히히'],
   catHide: ['{cat} 어디 갔지?', '숨숨집에 숨었다 히히'],
@@ -5225,7 +5839,22 @@ function gridCanvas(grid, pal) {
 }
 function kyuppi(opts) {
   const key = JSON.stringify(opts);
-  if (!spriteCache.has(key)) spriteCache.set(key, gridCanvas(buildKyuppi(opts).map(r => r.join ? r.join('') : r), PAL));
+  if (!spriteCache.has(key)) {
+    const g = buildKyuppi(opts), row = r => (r ? (r.join ? r.join('') : r) : '.'.repeat(32));
+    spriteCache.set(key, gridCanvas(g.map(row), PAL));
+    // 머리 위 여유 줄(높은 모자)은 따로: 없으면 null
+    const top = []; for (let y = -HR; y < 0; y++) top.push(row(g[y]));
+    spriteCache.set('top:' + key, top.some(r => /[^. ]/.test(r)) ? gridCanvas(top, PAL) : null);
+  }
+  return spriteCache.get(key);
+}
+// 머리 위(모자) 부분: 캐릭터를 (x, y)에 w×h로 그렸으면 그 위 HR줄에 같은 비율로
+function kyuppiTop(opts) { kyuppi(opts); return spriteCache.get('top:' + JSON.stringify(opts)); }
+function drawTop(ctx, opts, x, y, w = 32, h = 32) { const t = kyuppiTop(opts); if (t) { const th = Math.round(HR * h / 32); ctx.drawImage(t, x, y - th, w, th); } }
+// 모자까지 한 장 (미리보기·썸네일): 32 × (32 + HR)
+function kyuppiFull(opts) {
+  const key = 'full:' + JSON.stringify(opts);
+  if (!spriteCache.has(key)) { const c = document.createElement('canvas'); c.width = 32; c.height = 32 + HR; const x = c.getContext('2d'); x.drawImage(kyuppi(opts), 0, HR); drawTop(x, opts, 0, HR); spriteCache.set(key, c); }
   return spriteCache.get(key);
 }
 function item(name) {
@@ -5391,44 +6020,12 @@ function drawRoom(now) {
     }
   }
   if (ceil && typeof CEIL_FX !== 'undefined' && CEIL_FX[ceil]) CEIL_FX[ceil](bx, now, LW, LH, item);
-  // 창문 (오늘 날씨에 따라)
-  const wy = FLOOR - 37, wx = weatherToday();
-  bx.fillStyle = '#2b2230'; bx.fillRect(4, wy, 15, 12);
-  bx.fillStyle = night ? '#34406a' : wx === 'sunny' ? '#bfe6f7' : '#cfd6e2'; bx.fillRect(5, wy + 1, 13, 10);
-  if (T.view === 'sea') {
-    bx.fillStyle = night ? '#24305a' : '#5fb3e0'; bx.fillRect(5, wy + 6, 13, 5);
-    bx.fillStyle = '#ffffff'; const wv = Math.floor(now / 500) % 3; for (let x = 5 + wv; x < 18; x += 3) bx.fillRect(x, wy + 7, 1, 1);
-  }
-  if (night) {
-    bx.fillStyle = '#f2cf5b'; bx.fillRect(13, wy + 2, 3, 3); bx.fillStyle = night ? '#34406a' : '#bfe6f7'; bx.fillRect(14, wy + 2, 2, 2);
-    bx.fillStyle = '#fff'; bx.fillRect(7, wy + 3, 1, 1); bx.fillRect(9, wy + 4, 1, 1); bx.fillRect(16, wy + 5, 1, 1);
-  } else {
-    if (wx === 'sunny') bx.fillStyle = '#ffd86b', bx.fillRect(14, wy + 2, 3, 3);
-    if (T.view !== 'sea') { bx.fillStyle = wx === 'sunny' ? '#fff' : '#eef1f5'; bx.fillRect(6, wy + 6, 5, 2); bx.fillRect(7, wy + 5, 3, 1); if (wx !== 'sunny') { bx.fillRect(11, wy + 3, 5, 2); bx.fillRect(12, wy + 2, 3, 1); } }
-  }
-  seasonWindow(wy, now, night, wx, T);
-  if (wx === 'rain' && !snowyNow()) { bx.fillStyle = '#8fb5d8'; for (let i = 0; i < 6; i++) { const y = (now / 70 + i * 5) % 9; bx.fillRect(5 + (i * 5 + 2) % 13, wy + 1 + Math.floor(y), 1, 2); } }
-  if (T.view === 'snow' || (T.view !== 'sea' && snowyNow())) { bx.fillStyle = '#ffffff'; for (let i = 0; i < 6; i++) { const y = (now / 120 + i * 7) % 10; bx.fillRect(5 + (i * 5) % 13, wy + 1 + Math.floor(y), 1, 1); } }
-  if (has(7) && night) {
-    // 창밖 불꽃놀이 (같이 못 본 불꽃놀이)
-    const t = Math.floor(now / 150), cxw = 7 + (Math.floor(now / 1800) * 5) % 9, cyw = wy + 3 + (Math.floor(now / 1800) * 3) % 4;
-    const r = t % 12, colors = ['#ff9fc6', '#ffd86b', '#9fd3f0'];
-    if (r < 6) {
-      bx.fillStyle = colors[Math.floor(now / 1800) % 3];
-      for (const [dx, dy] of [[1, 0], [-1, 0], [0, 1], [0, -1], [1, 1], [-1, -1], [1, -1], [-1, 1]]) {
-        const px = cxw + dx * Math.ceil(r / 2), py = cyw + dy * Math.ceil(r / 2);
-        if (px > 4 && px < 18 && py > wy && py < wy + 11 && px !== 11 && py !== wy + 6) bx.fillRect(px, py, 1, 1);
-      }
-    }
-  }
-  bx.fillStyle = '#2b2230'; bx.fillRect(11, wy + 1, 1, 10); bx.fillRect(5, wy + 6, 13, 1);
+  // 창문 (오늘 날씨에 따라). 모양은 꾸미기 → 방 → 창문에서 고른다
+  drawWindow(now, night, weatherToday(), T);
   // 바닥 + 러그
   bx.fillStyle = T.floor; bx.fillRect(0, FLOOR, LW, LH - FLOOR);
   bx.fillStyle = T.line; bx.fillRect(0, FLOOR, LW, 1);
-  if (roomOf('rug')) { // 러그는 사서 깐다 (색은 벽지 따라)
-    bx.fillStyle = T.rug; bx.fillRect(18, FLOOR + 4, 28, 6); bx.fillRect(16, FLOOR + 5, 32, 4);
-    bx.fillStyle = T.rug2; for (let x = 19; x < 46; x += 3) bx.fillRect(x, FLOOR + 6, 1, 2);
-  }
+  drawRug(T); // 러그는 사서 깐다 (기본 러그는 벽지 색을 따라)
   // 가구
   const wall = roomOf('wallR');
   if (wall) { const [x, dy] = FURN_POS[wall]; bx.drawImage(item(wall), x, Math.max(2, FLOOR + dy) + (wall === 'balloons' ? Math.floor(now / 900) % 2 : 0)); }
@@ -5601,15 +6198,16 @@ function render(now) {
     // 화면 바로 앞까지 다가와서 유리를 두드린다 (안아 줄 때도)
     const t = now - anim.start, k = Math.min(1, t / 450) * (t > anim.until - anim.start - 450 ? Math.max(0, (anim.until - anim.start - t) / 450) : 1), w = Math.round(32 * (1 + 0.55 * k));
     const x0 = cx + (Math.round(LW / 2 - w / 2) - cx) * k;
-    bx.imageSmoothingEnabled = false; bx.drawImage(kyuppi(face), Math.round(x0), Math.round(cy + (LH - w + 4 - cy) * k), w, w);
+    bx.imageSmoothingEnabled = false; bx.drawImage(kyuppi(face), Math.round(x0), Math.round(cy + (LH - w + 4 - cy) * k), w, w); drawTop(bx, face, Math.round(x0), Math.round(cy + (LH - w + 4 - cy) * k), w, w);
   }
-  else if (squash) { bx.imageSmoothingEnabled = false; bx.drawImage(kyuppi(face), cx - 2, cy + 5, 36, 27); }
+  else if (squash) { bx.imageSmoothingEnabled = false; bx.drawImage(kyuppi(face), cx - 2, cy + 5, 36, 27); drawTop(bx, face, cx - 2, cy + 5, 36, 27); }
   else if (dsx < 1) {
     const w = Math.max(2, Math.round(32 * dsx));
     bx.imageSmoothingEnabled = false;
-    bx.drawImage(kyuppi(face), cx + Math.round((32 - w) / 2), cy, w, 32);
+    bx.drawImage(kyuppi(face), cx + Math.round((32 - w) / 2), cy, w, 32); drawTop(bx, face, cx + Math.round((32 - w) / 2), cy, w, 32);
   } else {
     const wc = weightClass(s.weight);
+    drawTop(bx, face, cx, cy);
     if (!wc) bx.drawImage(kyuppi(face), cx, cy);
     else {
       // 몸무게에 따라 목 아래(19줄부터)만 옆으로 넓히거나 좁힌다
@@ -5630,11 +6228,22 @@ function render(now) {
   }
   // 약 먹는 중: 입에 알약
   if (anim.type === 'medicine' && now - anim.start < 1100) bx.drawImage(item('medicine'), cx + 12, cy + 18);
-  // 아플 때: 이마에 그늘 줄, 감기면 체온계
+  // 아플 때: 감기면 이마에 물수건 + 빨간 볼, 배탈 같은 건 이마에 그늘 줄
+  // (예전엔 감기면 입에 체온계를 물렸는데 담배처럼 보여서 바꿨다)
   if (s.sick && !s.asleep && !anim.type) {
-    bx.fillStyle = '#8f86c9';
-    for (const [x, y0] of [[12, 11], [15, 10], [18, 11]]) bx.fillRect(cx + x, cy + y0 + (Math.floor(now / 600) % 2), 1, 3);
-    if (s.sick.kind === 'cold') { bx.fillStyle = '#2b2230'; bx.fillRect(cx + 17, cy + 19, 6, 3); bx.fillStyle = '#ffffff'; bx.fillRect(cx + 17, cy + 20, 4, 1); bx.fillStyle = '#ff5c8a'; bx.fillRect(cx + 21, cy + 20, 1, 1); }
+    if (s.sick.kind === 'cold') {
+      // 접은 물수건: 테두리 + 하늘색 천 + 위쪽 반짝 + 아래 접힌 줄
+      bx.fillStyle = '#2b2230'; bx.fillRect(cx + 10, cy + 7, 12, 5);
+      bx.fillStyle = '#cdeaf7'; bx.fillRect(cx + 11, cy + 8, 10, 3);
+      bx.fillStyle = '#ffffff'; for (const x of [12, 15, 18]) bx.fillRect(cx + x, cy + 8, 2, 1);
+      bx.fillStyle = '#8fc3dc'; bx.fillRect(cx + 11, cy + 10, 10, 1);
+      bx.fillStyle = '#ff7f93'; bx.fillRect(cx + 9, cy + 18, 3, 2); bx.fillRect(cx + 20, cy + 18, 3, 2);
+      // 물방울 하나가 가끔 똑
+      const t = now % 2400; if (t < 900) { bx.fillStyle = '#8fd0f0'; bx.fillRect(cx + 21, cy + 12 + Math.floor(t / 300), 1, 1); }
+    } else {
+      bx.fillStyle = '#8f86c9';
+      for (const [x, y0] of [[12, 11], [15, 10], [18, 11]]) bx.fillRect(cx + x, cy + y0 + (Math.floor(now / 600) % 2), 1, 3);
+    }
   }
   // 부탁이 있으면 머리 위에 느낌표
   if (s.req && !s.asleep && !anim.type && Math.floor(now / 500) % 2) bx.drawImage(item('excl'), cx + 24, cy + 1);
@@ -5798,7 +6407,13 @@ function present() {
 // ---------- 말풍선 ----------
 let bubbleTimer = 0, lastSpoke = 0;
 let sayId = 0;
+let hintTimer = 0;
+function gameHint(text, ms = 2400) {
+  const h = $('gameHint'); h.textContent = String(text).replace(/\|/g, ' '); h.classList.add('show');
+  clearTimeout(hintTimer); hintTimer = setTimeout(() => h.classList.remove('show'), Math.max(ms, 900 + h.textContent.length * 60));
+}
 function say(text, ms = 2800) {
+  if (document.body.classList.contains('gaming')) { $('bubble').classList.remove('show'); return gameHint(text, ms); } // 미니게임 중엔 가운데를 가리지 않게
   const b = $('bubble'), parts = String(text).split('|'), id = ++sayId;
   const show = i => {
     if (id !== sayId) return;
@@ -5905,7 +6520,7 @@ function track(key, n = 1) {
 }
 function checkAch() {
   const s = state;
-  for (const a of ACHS) if (!s.ach.includes(a.id) && a.test()) { s.ach.push(a.id); toast('업적 달성! "' + a.name + '" 다이어리에서 코인 받아'); }
+  for (const a of ACHS) if (!s.ach.includes(a.id) && a.test()) { s.ach.push(a.id); toast('업적 달성! "' + a.name + '" 레벨 → 업적에서 코인 받아'); }
 }
 function missionReady() {
   const d = state.daily, w = state.weekly;
@@ -5917,7 +6532,12 @@ function updateBadges() {
   const mis = missionReady(), ach = state.ach.some(id => !state.achClaimed.includes(id));
   $('misDot').hidden = !mis; $('achDot').hidden = !ach; $('lvDot').hidden = !(mis || ach);
   $('talkDot').hidden = state.pendingTalk == null;
+  $('diaryDot').hidden = !diaryNew();
 }
+// 새 일기(밤 12시가 지나 쓴 것)가 있으면 다이어리 버튼에 점
+const diaryCount = () => Object.values(state.diary || {}).filter(e => e && e.t).length;
+const diaryNew = () => diaryCount() > (state.diarySeen ?? diaryCount());
+function markDiarySeen() { state.diarySeen = diaryCount(); save(); }
 function runCheckin() {
   const s = state, now = Date.now(), k = dayKey(now), c = s.checkin;
   if (c.last === k) return false;
@@ -6012,7 +6632,7 @@ function checkLevelUp() {
     say('레벨업!! 이제 ' + stageName() + josa(state.name, '이야', '야') + '!', 3800);
     toast('Lv.' + nl + ' ' + L.title + ': ' + L.unlock);
     toast('레벨업 선물! 하트 코인 +' + gain);
-    if (nl >= 15 && from < 15) toast('다이어리에 두 번째 편지가 왔어');
+    if (nl >= 15 && from < 15) toast('레벨 창에 두 번째 편지가 왔어');
     setTimeout(() => say(pick(LINES.levelHi), 2800), 4200);
     checkAch(); updateUI(); save();
   }, 1200);
@@ -6462,7 +7082,7 @@ function dance() {
 // ---------- 옷장 ----------
 let wardTab = 'outfit';
 const WARD_LINES = { frog: '개굴개굴 ㅋㅋㅋ', rabbit: '쟈기 꺼 빌렸오 히히', maid: '부끄러워..', tuxedo: '멋져?', pajama: '잘 준비 완료', cat: '냥..?', glasses: '똑똑해 보여?', ring: '반짝반짝 죠아', clip: '히히 귀여어?', crown: '만렙 남친!', maidBand: '부끄럽넹..' };
-const lookURL = look => kyuppi(Object.assign({ eyes: 'open', mouth: 'smile' }, look)).toDataURL();
+const lookURL = look => kyuppiFull(Object.assign({ eyes: 'open', mouth: 'smile' }, look)).toDataURL();
 const priceTag = p => '<span class="price"><img class="px" src="' + icons.iconCoin + '" alt="">' + p + '</span>';
 function lockNote(x) {
   if (x.lv && !has(x.lv)) return '<small>Lv.' + x.lv + ' ' + LEVELS[x.lv - 1].title + '</small>';
@@ -6494,7 +7114,7 @@ const swatch = t => '<span class="swatch" style="background:linear-gradient(' + 
 function renderWardrobe() {
   const w = wear();
   const pc = $('wardPreview').getContext('2d');
-  pc.clearRect(0, 0, 32, 32); pc.drawImage(kyuppi(Object.assign({ eyes: 'happy', mouth: 'smile' }, w)), 0, 0);
+  pc.clearRect(0, 0, 32, 32 + HR); pc.drawImage(kyuppiFull(Object.assign({ eyes: 'happy', mouth: 'smile' }, w)), 0, 0);
   const on = [OUTFITS.find(x => x.id === w.outfit).name, w.headgear !== 'none' ? HEADS.find(x => x.id === w.headgear).name : '', ...ACCS.filter(a => w[a.id]).map(a => a.name)].filter(Boolean);
   $('wardNow').textContent = wardTab === 'room' ? '벽지: ' + themeOf().name + '. 상점에서 산 가구도 여기서 바꿀 수 있어' : '지금 입은 것: ' + on.join(', ');
   document.querySelectorAll('#wardTabs [data-tab]').forEach(t => t.setAttribute('aria-selected', String(t.dataset.tab === wardTab)));
@@ -7012,6 +7632,7 @@ function startGame(mode = 'catch') {
   if (hold.on) { hold.on = false; hold.grab = false; hold.pending = null; }
   Object.assign(game, { active: true, mode, dur: mode === 'run' ? 40000 : mode === 'hide' ? 30000 : 20000, t0: performance.now(), score: 0, px: 16, target: 16, items: [], nextSpawn: 0, last: performance.now(), holes: [], hammer: null, nextPop: performance.now() + 700,
     py: 0, vy: 0, lives: 3, hitUntil: 0, obs: [], nextObs: performance.now() + 1000, dist: 0 });
+  $('hud').classList.add('show'); $('screen').classList.add('playing'); document.body.classList.add('gaming'); $('bubble').classList.remove('show');
   if (mode === 'whack') {
     const ys = [Math.round(LH * 0.42), Math.round(LH * 0.74)];
     game.holes = ys.flatMap(y => [4, 25, 46].map(x => ({ x, y, kind: null, t: 0, dur: 0, hit: 0 })));
@@ -7019,11 +7640,10 @@ function startGame(mode = 'catch') {
   } else if (mode === 'run') say('탭하면 점프! 서류랑 응아 피해줘!', 2400);
   else if (mode === 'hide') { game.hid = hideSpots(); game.miss = 0; say('방에 숨겨 둔 거 6개 찾아 줘!', 2600); }
   else say('하트랑 파스타 받아줘! 서류는 피하기!', 2600);
-  $('hud').classList.add('show'); $('screen').classList.add('playing'); document.body.classList.add('gaming');
   sfx.happy();
 }
 function endGame() {
-  game.active = false; $('hud').classList.remove('show'); $('screen').classList.remove('playing'); document.body.classList.remove('gaming');
+  game.active = false; $('hud').classList.remove('show'); $('gameHint').classList.remove('show'); $('screen').classList.remove('playing'); document.body.classList.remove('gaming');
   const s = state, mode = game.mode, sc = game.score, win = mode === 'hide' ? (game.hid || []).every(o => o.found) : sc >= (mode === 'catch' ? 12 : 15);
   s.fun = clamp(s.fun + (win ? 35 : 20)); s.energy = clamp(s.energy - 12); s.full = clamp(s.full - 6);
   addLove(win ? 3 : 1); care();
@@ -7118,6 +7738,48 @@ function renderCatch(now, el, dt) {
   const moving = Math.abs(diff) > 1;
   bx.drawImage(kyuppi(Object.assign({ eyes: 'open', mouth: moving ? 'o' : 'smile', arms: 'up' }, wear())), cx, cy);
 }
+// 뿅망치 머리: 지금 캐릭터(직접 그린 그림 포함)의 머리를 18칸 폭으로 줄여 쓴다.
+// 그냥 줄이면 눈·입이 빠질 수 있어서, 표정이 바뀌는 칸(눈·입)이 걸린 칸은 그 색을 먼저 쓴다
+const miniHeads = new Map();
+function miniHead(hit) {
+  const w = wear(), key = JSON.stringify(w) + (hit ? ':hit' : '');
+  if (miniHeads.has(key)) return miniHeads.get(key);
+  let out = null;
+  try {
+    const rows = o => buildKyuppi(Object.assign({ arms: 'down', blush: true }, w, o)).map(r => (r.join ? r.join('') : r));
+    const A = rows(hit ? { eyes: 'dizzy', mouth: 'open' } : { eyes: 'open', mouth: 'smile' }), B = rows({ eyes: 'sleep', mouth: 'o' });
+    const N = A.length, empty = c => c === '.' || c === ' ';
+    let y0 = 0; while (y0 < N && [...A[y0]].every(empty)) y0++;
+    const y1 = 22; let x0 = 32, x1 = 0;
+    for (let y = y0; y <= y1; y++) for (let x = 0; x < 32; x++) if (!empty(A[y][x])) { x0 = Math.min(x0, x); x1 = Math.max(x1, x); }
+    // 구멍(14칸)보다 양옆 2칸씩 넓게 18칸: 그려진 머리를 70%쯤으로만 줄여서 얼굴이 알아보이게
+    const sw = x1 - x0 + 1, sh = y1 - y0 + 1, W = 18, IW = 16, H = Math.min(17, Math.max(11, Math.round(sh * IW / sw))) + 1;
+    const g = [];
+    for (let ty = 0; ty < H; ty++) {
+      let line = '';
+      for (let tx = 0; tx < W; tx++) {
+        if (tx === 0 || tx === W - 1 || ty === 0) { line += '.'; continue; } // 테두리 자리
+        const ix = tx - 1, iy = ty - 1, IH = H - 1;
+        const ax = x0 + Math.floor(ix * sw / IW), bx2 = x0 + Math.max(Math.floor((ix + 1) * sw / IW) - 1, Math.floor(ix * sw / IW));
+        const ay = y0 + Math.floor(iy * sh / IH), by = y0 + Math.max(Math.floor((iy + 1) * sh / IH) - 1, Math.floor(iy * sh / IH));
+        // 칸 안에서: 눈·입(표정 칸) > 가운데 칸(테두리 아니면) > 아무 색 칸. 테두리는 줄인 뒤 새로 두른다
+        let pickC = A[Math.floor((ay + by) / 2)][Math.floor((ax + bx2) / 2)], feat = null, any = null;
+        for (let y = ay; y <= by; y++) for (let x = ax; x <= bx2; x++) {
+          const c = A[y][x]; if (empty(c) || c === 'O') continue;
+          if (A[y][x] !== B[y][x]) feat = c; if (!any) any = c;
+        }
+        line += feat || (empty(pickC) || pickC === 'O' ? (any || '.') : pickC);
+      }
+      g.push(line);
+    }
+    // 1칸 테두리를 다시 두른다 (줄이면 점선처럼 끊기니까)
+    const G = g.map(r => [...r]), O2 = G.map(r => r.slice());
+    for (let y = 0; y < G.length; y++) for (let x = 0; x < W; x++) if (G[y][x] === '.' && [[1, 0], [-1, 0], [0, 1], [0, -1]].some(([a, b]) => G[y + b] && G[y + b][x + a] && G[y + b][x + a] !== '.')) O2[y][x] = 'O';
+    out = gridCanvas(O2.map(r => r.join('')), PAL);
+  } catch (e) { out = item(hit ? 'miniHeadHit' : 'miniHead'); }
+  miniHeads.set(key, out);
+  return out;
+}
 function renderWhack(now, el) {
   bx.fillStyle = '#cfe6b5'; bx.fillRect(0, 0, LW, LH);
   bx.fillStyle = '#bcd9a0';
@@ -7139,11 +7801,11 @@ function renderWhack(now, el) {
       if (now > end + 140) h.kind = null;
       else {
         const up = Math.max(0, Math.min(1, (now - h.t) / 120, (end + 140 - now) / 140));
-        const spr = h.kind === 'paper' ? 'paper' : h.hit ? 'miniHeadHit' : 'miniHead';
-        const sw = ITEMS[spr][0].length, sh = ITEMS[spr].length, top = Math.round(h.y + 1 - (sh + (h.kind === 'gold' ? 2 : 0)) * up);
+        const img = h.kind === 'paper' ? item('paper') : miniHead(!!h.hit);
+        const sw = img.width, sh = img.height, top = Math.round(h.y + 1 - (sh + (h.kind === 'gold' ? 2 : 0)) * up);
         bx.save(); bx.beginPath(); bx.rect(h.x - 2, 0, 18, h.y + 1); bx.clip();
-        if (h.kind === 'gold') { bx.drawImage(item('miniCrown'), h.x + 4, top); bx.drawImage(item(spr), h.x, top + 2); }
-        else bx.drawImage(item(spr), h.x + Math.round((14 - sw) / 2), top);
+        if (h.kind === 'gold') { bx.drawImage(item('miniCrown'), h.x + 4, top); bx.drawImage(img, h.x + Math.round((14 - sw) / 2), top + 2); }
+        else bx.drawImage(img, h.x + Math.round((14 - sw) / 2), top);
         bx.restore();
       }
     }
@@ -7191,7 +7853,7 @@ function whackTap(p) {
   game.hammer = { x: p.x, y: p.y, t: now };
   for (const h of game.holes) {
     if (!h.kind || h.hit || now - h.t < 60 || now > h.t + h.dur) continue;
-    const sh = h.kind === 'paper' ? 9 : 14;
+    const sh = h.kind === 'paper' ? 9 : 17;
     if (p.x >= h.x - 2 && p.x <= h.x + 16 && p.y >= h.y - sh - 3 && p.y <= h.y + 4) {
       h.hit = now;
       if (h.kind === 'paper') { game.score = Math.max(0, game.score - 2); say(pick(LINES.work), 1000); sfx.bad(); }
@@ -7531,7 +8193,10 @@ function updateUI() {
   }
   $('coins').textContent = s.coins; $('shopCoins').textContent = s.coins;
   $('louieBtn').hidden = !hasCat(); $('louieBtnName').textContent = catName();
+  // 버튼 그림은 지금 키우는 반려동물 (고양이 고정이 아니라 강아지·새·병아리…)
+  if (hasCat()) { const u = catPortrait('smile', 'none'), im = $('louieBtn').querySelector('img'); if (im.dataset.src !== u) { im.src = u; im.dataset.src = u; } }
   $('medBtn').hidden = !s.sick && !fakeSick();
+  $('danceBtn').hidden = !$('medBtn').hidden; // 아플 땐 춤 대신 약 주기 (아프면 춤을 못 춘다)
   { const r = s.req && s.req.until > Date.now() ? s.req : null, bar = $('reqBar'); bar.hidden = !r || s.asleep;
     if (r) { const R = REQS[r.k]; $('reqText').textContent = (R.label === '반려동물 밥 주기' ? catName() + ' 밥 주기' : R.label); $('reqLeft').textContent = Math.max(1, Math.round((r.until - Date.now()) / MIN)) + '분 남음'; } }
   updateBadges();
@@ -7540,7 +8205,7 @@ function updateUI() {
   const pct = N ? Math.round((s.love - L.need) / (N.need - L.need) * 100) : 100;
   const lb = $('lvBtn'); lb.textContent = 'Lv.' + s.level + ' ' + L.title; lb.style.setProperty('--p', pct + '%');
   lb.setAttribute('aria-label', 'Lv.' + s.level + ' ' + L.title + ', 성장 보기');
-  lb.setAttribute('aria-label', '다이어리 열기. 지금 Lv.' + s.level + ' ' + L.title + (N ? ', 다음 성장까지 애정도 ' + (N.need - s.love) : ''));
+  lb.setAttribute('aria-label', '성장 열기. 지금 Lv.' + s.level + ' ' + L.title + (N ? ', 다음 성장까지 애정도 ' + (N.need - s.love) : ''));
 
   const sb = $('btnSleep');
   sb.querySelector('span').textContent = s.asleep ? '깨우기' : '재우기';
@@ -7606,9 +8271,25 @@ function renderGrowth() {
 }
 
 // ---------- 사진 앨범 (용량 때문에 저장본과 따로 둔다) ----------
+// 앨범은 두 칸: 내가 찍은 것(사진 찍기·같이 찍은 사진·내가 그린 그림)과 저절로 남은 것(데이트 사진·그려 준 그림·꿈). 칸마다 12장
 const ALBUM_KEY = 'kyuppi-album', ALBUM_MAX = 12;
 function loadAlbum() { try { const a = JSON.parse(localStorage.getItem(ALBUM_KEY) || '[]'); return Array.isArray(a) ? a : []; } catch (e) { return []; } }
 function saveAlbum(a) { try { localStorage.setItem(ALBUM_KEY, JSON.stringify(a)); return true; } catch (e) { return false; } }
+// 예전 사진은 by가 없다: 같이 찍은 것·내가 그린 그림은 내 것, 데이트·꿈·아이가 그려 준 그림은 저절로 남은 것
+function albumKind(p) {
+  if (p.by) return p.by;
+  if (p.place === 'meet') return 'me';
+  if (p.place || /의 꿈:/.test(p.c || '')) return 'game';
+  if (p.c && state && state.name && p.c.startsWith(state.name)) return 'game';
+  return 'me';
+}
+// 넣기: 같은 칸이 꽉 차면 그 칸의 제일 오래된 것만 빠진다. 'ok' | 'full'(하나 빠짐) | false(저장 공간 부족)
+function addToAlbum(p, by) {
+  p.by = by;
+  const a = [p, ...loadAlbum()];
+  let n = 0; const out = a.filter(x => albumKind(x) !== by || ++n <= ALBUM_MAX);
+  return saveAlbum(out) ? (out.length < a.length ? 'full' : 'ok') : false;
+}
 function takePhoto() {
   closeSheets();
   if (game.active) return;
@@ -7616,20 +8297,28 @@ function takePhoto() {
   setTimeout(() => {
     const c = document.createElement('canvas'); c.width = LW * 3; c.height = LH * 3;
     const x = c.getContext('2d'); x.imageSmoothingEnabled = false; x.drawImage(buf, 0, 0, c.width, c.height);
-    const a = loadAlbum(); a.unshift({ u: c.toDataURL('image/png'), t: Date.now() });
-    const full = a.length > ALBUM_MAX; if (full) a.length = ALBUM_MAX;
-    if (!saveAlbum(a)) { toast('사진 저장 공간이 꽉 찼어. 앨범에서 몇 장 지워줘'); return; }
+    const r = addToAlbum({ u: c.toDataURL('image/png'), t: Date.now() }, 'me'), full = r === 'full';
+    if (!r) { toast('사진 저장 공간이 꽉 찼어. 앨범에서 몇 장 지워줘'); return; }
+    albumTab = 'me';
     const b = document.querySelector('.bezel'); b.classList.remove('flash'); void b.offsetWidth; b.classList.add('flash');
     beep(1800, 0.03, 'square', 0.03); beep(1200, 0.05, 'square', 0.03, 0.05);
-    track('photo'); toast(full ? '찰칵! 앨범이 꽉 차서 제일 오래된 사진은 빠졌어' : '찰칵! 다이어리 앨범에 저장했어'); afterAction();
+    track('photo'); toast(full ? '찰칵! 내가 찍은 사진이 꽉 차서 제일 오래된 건 빠졌어' : '찰칵! 다이어리 → 앨범에 저장했어'); afterAction();
   }, 450);
 }
 const fmtDate = t => { const d = new Date(t); return (d.getMonth() + 1) + '월 ' + d.getDate() + '일 ' + d.getHours() + ':' + String(d.getMinutes()).padStart(2, '0'); };
+let albumTab = 'me';
+// 저절로 남은 것은 무슨 사진인지 한 줄 (데이트 장소, 그림 제목)
+const albumCap = p => p.c ? (/그려 준 그림: /.test(p.c) ? '그림: ' + p.c.split('그려 준 그림: ')[1] : /의 꿈: /.test(p.c) ? '꿈: ' + p.c.split('의 꿈: ')[1] : p.c) : p.place === 'meet' ? '같이 찍음' : p.place ? ((PLACES.find(x => x.id === p.place) || {}).name || '데이트') : '';
 function renderAlbum() {
-  const a = loadAlbum();
-  $('paneAlbum').innerHTML = a.length
-    ? '<p class="checkin">사진 ' + a.length + ' / ' + ALBUM_MAX + '. 누르면 크게 볼 수 있어</p><div class="album-grid">' + a.map((p, i) => '<button type="button" class="album-ph" data-ph="' + i + '"><img src="' + p.u + '" alt="' + fmtDate(p.t) + ' 사진"></button>').join('') + '</div>'
-    : '<p class="checkin">아직 사진이 없어. 꾸미기에서 사진 찍기를 눌러봐</p>';
+  const a = loadAlbum().map((p, i) => ({ p, i, k: albumKind(p) })), mine = a.filter(x => x.k === 'me'), auto = a.filter(x => x.k === 'game');
+  const list = albumTab === 'me' ? mine : auto;
+  const seg = '<div class="album-seg" role="group" aria-label="앨범 종류"><button type="button" data-at="me" aria-pressed="' + (albumTab === 'me') + '">내가 찍은 것<small>' + mine.length + '</small></button>' +
+    '<button type="button" data-at="game" aria-pressed="' + (albumTab === 'game') + '">저절로 남은 것<small>' + auto.length + '</small></button></div>';
+  const shot = albumTab === 'me' ? '<button type="button" class="album-shot" id="albumShot"><img src="' + icons.iconCamera + '" alt="">지금 사진 찍기</button>' : '';
+  const hint = albumTab === 'me' ? '사진 찍기, 만나서 같이 찍은 사진, 내가 그려 준 그림이 들어가. ' : '데이트 사진, ' + esc(state.name) + josa(state.name, '이', '가') + ' 그려 준 그림, 꿈 그림이 저절로 들어가. ';
+  $('paneAlbum').innerHTML = seg + shot + '<p class="checkin">' + hint + list.length + ' / ' + ALBUM_MAX + '</p>' + (list.length
+    ? '<div class="album-grid">' + list.map(({ p, i }) => { const cap = albumTab === 'game' ? albumCap(p) : ''; return '<button type="button" class="album-ph" data-ph="' + i + '"><img src="' + p.u + '" alt="' + fmtDate(p.t) + ' 사진">' + (cap ? '<span class="cap">' + esc(cap) + '</span>' : '') + '</button>'; }).join('') + '</div>'
+    : '<p class="checkin">' + (albumTab === 'me' ? '아직 찍은 사진이 없어. 위 버튼으로 찍어 봐' : '아직 없어. 데이트를 가거나 같이 지내다 보면 생겨') + '</p>');
 }
 let photoIdx = -1, photoArm = false;
 function openPhoto(i) {
@@ -7779,13 +8468,12 @@ function endDate() {
     toast('산책 끝! ' + catName() + josa(catName(), '이', '가') + ' 엄청 좋아해');
     return afterAction();
   }
-  // 데이트 사진 (앨범에 자리가 있을 때만)
-  const a = loadAlbum();
+  // 데이트 사진: 앨범 '저절로 남은 것' 칸에 (꽉 차면 그 칸의 제일 오래된 게 빠진다. 내가 찍은 사진은 안 건드림)
   let photo = false;
-  if (a.length < ALBUM_MAX) {
+  {
     const c = document.createElement('canvas'); c.width = LW * 3; c.height = LH * 3;
     const x = c.getContext('2d'); x.imageSmoothingEnabled = false; x.drawImage(buf, 0, 0, c.width, c.height);
-    a.unshift({ u: c.toDataURL('image/png'), t: Date.now(), place: id }); photo = saveAlbum(a);
+    photo = !!addToAlbum({ u: c.toDataURL('image/png'), t: Date.now(), place: id }, 'game');
   }
   date.place = null; document.body.classList.remove('dating');
   s.dates[id] = (s.dates[id] || 0) + 1;
@@ -8109,7 +8797,8 @@ function catLook(now) {
   else if (m === 'yawn') face = 'yawn';
   else if (m === 'roll') { pose = Math.floor(now / 300) % 2 ? 'roll' : 'roll2'; face = 'happy'; }
   else if (m === 'rub' || m === 'hug') { pose = 'sit'; face = Math.floor(now / 1100) % 3 ? 'love' : 'purr'; }
-  else if (m === 'eat' || m === 'churu') { pose = Math.floor(now / 300) % 2 ? 'eat' : 'sit'; face = m === 'churu' && Math.floor(now / 300) % 2 ? 'blep' : 'eat'; }
+  else if (m === 'eat') { const t = Math.floor(now / 350) % 2; pose = t ? 'eat' : 'eat2'; face = t ? 'eat' : 'chew'; } // 고개 숙여 오물오물
+  else if (m === 'churu') { pose = 'sit'; face = Math.floor(now / 300) % 2 ? 'blep' : 'content'; } // 앉아서 할짝할짝
   else if (m === 'crouch') { pose = 'crouch'; face = 'wide'; }
   else if (m === 'jump') { pose = 'walk2'; face = 'wide'; }
   else if (m === 'brush') { pose = 'loaf'; face = Math.floor(now / 900) % 2 ? 'purr' : 'content'; }
@@ -8120,7 +8809,13 @@ function catLook(now) {
     const sp2 = m === 'zoom' ? 150 : 600, f4 = Math.floor(now / sp2) % 4;
     pose = m === 'nap' || m === 'sleep' ? 'sleep' : m === 'eat' ? 'eat' : 'swim' + (f4 + 1);
   }
-  if (kitty.held || kitty.falling) { pose = 'held'; face = kitty.falling ? 'wide' : catLv() >= 5 ? (Math.floor(now / 1200) % 3 ? 'happy' : 'blep') : now - kitty.heldAt > 1500 ? 'grumpy' : 'wide'; }
+  if (kitty.held || kitty.falling) {
+    // 고양이는 들면 버둥버둥 (친해지면 얌전히 안겨 있다). 처음엔 놀라서 마구, 그다음엔 띄엄띄엄 몸부림
+    const calm = catLv() >= 5 || (typeof petKind === 'function' && petKind() !== 'cat'), held = now - kitty.heldAt;
+    const kick = !calm && (held < 1600 || Math.floor(held / 900) % 3 === 0);
+    pose = kitty.falling ? 'held2' : kick ? (Math.floor(now / 130) % 2 ? 'held2' : 'held') : 'held';
+    face = kitty.falling ? 'wide' : calm ? (Math.floor(now / 1200) % 3 ? 'happy' : 'blep') : held > 1600 ? 'grumpy' : 'wide';
+  }
   if (kitty.faceUntil > now && pose !== 'sleep' && pose !== 'sleep2') face = kitty.face;
   if (now < kitty.blinkUntil && ['idle', 'smile', 'content', 'grumpy', 'sleepy', 'wide'].includes(face) && pose !== 'roll' && pose !== 'roll2' && !kitty.held) face = 'blink';
   return [pose, face];
@@ -8133,7 +8828,7 @@ function catFrame(now) {
   let x = Math.min(LW - w, Math.round(kitty.x)) + (kitty.mode === 'crouch' && Math.floor(now / 120) % 2 ? 1 : 0), y = LH - h + Math.round(kitty.y);
   if (PB().hop && pose === 'walk2' && (kitty.mode === 'walk' || kitty.mode === 'zoom')) y -= 2;
   if (kitty.mode === 'hug') { x = charPos.x + 9; y = charPos.y + 16; }
-  if (kitty.held || kitty.falling) { x = Math.round(kitty.hx); y = Math.round(kitty.hy); }
+  if (kitty.held || kitty.falling) { x = Math.round(kitty.hx) + (pose === 'held2' && kitty.held ? (Math.floor(now / 65) % 2 ? 1 : -1) : 0); y = Math.round(kitty.hy); }
   const flip = kitty.dir > 0 && !kitty.held && !kitty.falling && kitty.mode !== 'hug' && !PB().still;
   if (flip) { bx.save(); bx.translate(x + w, y); bx.scale(-1, 1); bx.drawImage(spr, 0, 0); bx.restore(); }
   else bx.drawImage(spr, x, y);
@@ -8340,10 +9035,19 @@ function checkXmas() {
   setTimeout(() => { if (!state.asleep) say(pick(LINES.xmas), 3000); }, 2600);
 }
 
-// ---------- 다이어리: 성장 · 오늘의 미션 · 업적 ----------
-let diaryTab = 'grow';
+// ---------- 성장(레벨 · 미션 · 업적 · 엔딩)과 다이어리(일기 · 앨범 · 기록): 같은 창, 여는 버튼에 따라 탭 묶음이 다르다 ----------
+let diaryTab = 'grow', diaryGroup = 'grow';
+const tabGroup = t => (document.querySelector('#diaryTabs [data-tab="' + t + '"]')?.dataset.group || 'grow');
+function openDiary(group, tab) {
+  diaryGroup = group;
+  diaryTab = tab || (tabGroup(diaryTab) === group ? diaryTab : group === 'memo' ? 'diary' : 'grow');
+  if (group === 'memo') markDiarySeen();
+  renderDiary(); openSheet('growBack');
+}
 function renderDiary() {
-  document.querySelectorAll('#diaryTabs [data-tab]').forEach(t => t.setAttribute('aria-selected', String(t.dataset.tab === diaryTab)));
+  $('growTitle').textContent = diaryGroup === 'memo' ? '다이어리' : '성장';
+  $('diaryTabs').setAttribute('aria-label', $('growTitle').textContent);
+  document.querySelectorAll('#diaryTabs [data-tab]').forEach(t => { t.hidden = (t.dataset.group || 'grow') !== diaryGroup; t.setAttribute('aria-selected', String(t.dataset.tab === diaryTab)); });
   $('paneGrow').hidden = diaryTab !== 'grow'; $('paneMission').hidden = diaryTab !== 'mission'; $('paneAch').hidden = diaryTab !== 'ach'; $('paneAlbum').hidden = diaryTab !== 'album'; $('paneRecord').hidden = diaryTab !== 'record'; $('paneDiary').hidden = diaryTab !== 'diary';
   if (diaryTab === 'grow') renderGrowth(); else if (diaryTab === 'mission') renderMissions(); else if (diaryTab === 'album') renderAlbum(); else if (diaryTab === 'record') renderRecord(); else if (diaryTab === 'diary') renderDiaryPane(); else renderAchs();
   updateBadges();
@@ -8497,7 +9201,11 @@ function bind() {
   $('louieActs').onclick = e => { const b = e.target.closest('[data-cact]'); if (b) catAction(b.dataset.cact); };
   $('louieDress').onclick = () => { closeSheets(); wardTab = 'louie'; renderWardrobe(); openSheet('wardBack'); };
   $('photoDel').onclick = deletePhoto;
-  $('paneAlbum').onclick = e => { const b = e.target.closest('[data-ph]'); if (b) openPhoto(+b.dataset.ph); };
+  $('paneAlbum').onclick = e => {
+    const at = e.target.closest('[data-at]'); if (at) { albumTab = at.dataset.at; return renderAlbum(); }
+    if (e.target.closest('#albumShot')) return takePhoto();
+    const b = e.target.closest('[data-ph]'); if (b) openPhoto(+b.dataset.ph);
+  };
   $('coinBtn').onclick = () => { if (game.active) return; shopArm = ''; renderShop(); openSheet('shopBack'); };
   $('shopTabs').onclick = e => { const t = e.target.closest('[data-tab]'); if (t) { shopTab = t.dataset.tab; shopArm = ''; renderShop(); } };
   $('shopGrid').onclick = e => { const b = e.target.closest('[data-id]'); if (b) shopPick(b.dataset.id); };
@@ -8510,7 +9218,8 @@ function bind() {
   $('talkBtn').addEventListener('pointerdown', e => e.stopPropagation());
   $('talkBtn').onclick = openChat;
   $('chatTabs').onclick = e => { const t = e.target.closest('[data-tab]'); if (t) { chat.tab = t.dataset.tab; renderChips(); } };
-  $('lvBtn').onclick = () => { updateBadges(); diaryTab = !$('misDot').hidden ? 'mission' : !$('achDot').hidden ? 'ach' : diaryTab; renderDiary(); openSheet('growBack'); };
+  $('lvBtn').onclick = () => { updateBadges(); openDiary('grow', !$('misDot').hidden ? 'mission' : !$('achDot').hidden ? 'ach' : null); };
+  $('diaryBtn').onclick = () => openDiary('memo');
   $('wardBtn').onclick = () => { renderWardrobe(); openSheet('wardBack'); };
   $('wardTabs').onclick = e => { const t = e.target.closest('[data-tab]'); if (t) { wardTab = t.dataset.tab; renderWardrobe(); } };
   $('wardGrid').onclick = e => { const b = e.target.closest('[data-id]'); if (b && !b.disabled) wardPick(b.dataset.id); };
@@ -8595,9 +9304,7 @@ function startDrawGift() {
   anim.onEnd = () => {
     let u = null; try { u = makeDrawing(); } catch (e) { u = null; }
     if (!u) return;
-    const a = loadAlbum(); a.unshift({ u, t: Date.now(), c: (s.name || '') + josa(s.name || '', '이', '가') + ' 그려 준 그림' });
-    if (a.length > ALBUM_MAX) a.length = ALBUM_MAX;
-    if (!saveAlbum(a)) { toast('앨범이 꽉 차서 그림을 못 넣었어'); return; }
+    if (!addToAlbum({ u, t: Date.now(), c: (s.name || '') + josa(s.name || '', '이', '가') + ' 그려 준 그림' }, 'game')) { toast('저장 공간이 꽉 차서 그림을 못 넣었어'); return; }
     startAnim('cheer', 1600); say(pick(LINES.drawDone), 2600); addLove(2); sfx.happy();
     for (let i = 0; i < 6; i++) spawn(i % 2 ? 'heart' : 'sparkle', charPos.x + rand(4, 26), charPos.y + rand(2, 14), rand(-8, 8), -rand(8, 14), 1300);
     track('drawGift'); afterAction();
@@ -9330,7 +10037,7 @@ function lifeOverlay(cx, cy, now) {
   if (t === 'sSnack') bx.drawImage(item('macaron'), cx + 22, cy + 19);
   if (t === 'brunch') { bx.drawImage(item('waffle'), cx + 21, cy + 18); if (Math.random() < 0.2) spawn('steam', cx + 23 + rand(0, 6), cy + 14, rand(-2, 2), -rand(5, 9), 900); }
   if (t === 'sWish' && Math.random() < 0.12) spawn('sparkle', cx + rand(6, 24), cy - 2, rand(-3, 3), -rand(3, 6), 900);
-  if (t === 'sStars') { const wy = FLOOR - 37; bx.fillStyle = Math.floor(now / 300) % 2 ? '#ffd86b' : '#ffffff'; for (const [x, y] of [[6, 2], [15, 4], [9, 7], [17, 8]]) if ((x + Math.floor(now / 400)) % 3) bx.fillRect(x, wy + y, 1, 1); }
+  if (t === 'sStars' && WINBOX) { const W = WINBOX; bx.fillStyle = Math.floor(now / 300) % 2 ? '#ffd86b' : '#ffffff'; for (const [x, y] of [[1, 1], [10, 3], [4, 6], [12, 7]]) if ((x + Math.floor(now / 400)) % 3 && x < W.w && y < W.h) bx.fillRect(W.x + x, W.y + y, 1, 1); }
   if (t === 'sGrowl' && k < 900 && Math.floor(now / 120) % 2) { bx.fillStyle = '#85707c'; bx.fillRect(cx + 26, cy + 24, 3, 1); bx.fillRect(cx + 27, cy + 22, 3, 1); }
   if (t === 'five' && k < 500) bx.drawImage(item('sparkle'), cx + (anim.data === 'L' ? 3 : 24), cy + 6);
   if (t === 'guitar') { bx.drawImage(item('guitar'), cx + 19, cy + 14); if (Math.random() < 0.08) spawn(Math.random() < 0.5 ? 'note' : 'note2', cx + rand(4, 28), cy + rand(0, 10), rand(-4, 4), -rand(6, 10), 1300); }
@@ -9543,8 +10250,7 @@ function maybeDreamTell() {
     say(fillX(lineOf('dreamTell', ['꿈 꿨는데!! {x} 나왔어']), dreamName(k)), 3200);
     let u = null; try { u = makeDream(k); } catch (e) { u = null; }
     if (!u) return;
-    const a = loadAlbum(); a.unshift({ u, t: Date.now(), c: state.name + '의 꿈: ' + dreamName(k) }); if (a.length > ALBUM_MAX) a.length = ALBUM_MAX;
-    if (saveAlbum(a)) toast('꿈 그림을 앨범에 넣었어'); dayLog().dream = dreamName(k); afterAction();
+    if (addToAlbum({ u, t: Date.now(), c: state.name + '의 꿈: ' + dreamName(k) }, 'game')) toast('꿈 그림을 앨범에 넣었어'); dayLog().dream = dreamName(k); afterAction();
   }, 3600);
 }
 function makeDream(k) {
@@ -9593,19 +10299,6 @@ function maybeBrunch() {
 }
 // ---------- 계절: 창밖 풍경, 계절 음식·가구 ----------
 const snowyNow = () => { const d = new Date(), m = d.getMonth(); return m === 11 || ((m === 0 || m === 1) && weatherToday() !== 'sunny'); };
-function seasonWindow(wy, now, night, wx, T) {
-  if (T.view === 'sea' || T.view === 'snow') return;
-  const se = seasonNow(), px = (c, x, y) => { bx.fillStyle = c; bx.fillRect(x, wy + y, 1, 1); };
-  if (se === 'spring') {
-    for (const [x, y, c] of [[5, 1, '#f7b8cc'], [6, 1, '#ff9fc6'], [5, 2, '#ff9fc6'], [7, 2, '#f7b8cc'], [6, 3, '#f7b8cc'], [8, 1, '#ffd3e0'], [5, 4, '#ff9fc6']]) px(c, x, y);
-    for (let i = 0; i < 3; i++) { const t = (now / 90 + i * 31) % 10; px('#ffb3cd', 6 + (i * 4 + Math.floor(t / 3)) % 11, 1 + Math.floor(t)); }
-  } else if (se === 'summer' && !night) {
-    for (const [x, y, c] of [[17, 1, '#76a64c'], [16, 1, '#9cc56f'], [17, 2, '#9cc56f'], [15, 2, '#76a64c'], [16, 3, '#76a64c'], [17, 3, '#9cc56f'], [14, 1, '#9cc56f']]) px(c, x, y);
-  } else if (se === 'fall') {
-    for (const [x, y, c] of [[16, 1, '#e0913f'], [17, 1, '#e8615f'], [15, 2, '#ffb23f'], [17, 2, '#e0913f'], [16, 3, '#e8615f'], [14, 1, '#ffb23f']]) px(c, x, y);
-    for (let i = 0; i < 3; i++) { const t = (now / 110 + i * 29) % 10; px(i % 2 ? '#e0913f' : '#e8615f', 7 + (i * 4 + Math.floor(t / 2)) % 10, 1 + Math.floor(t)); }
-  }
-}
 // ---------- 옷 취향: 좋아하는 스타일, 싫어하는 스타일, 계절에 안 맞는 옷 ----------
 const STYLE_KO = { cute: '귀여운 옷', chic: '시크한 옷', sporty: '운동복', formal: '단정한 옷', sleep: '잠옷', costume: '코스튬' };
 const STYLE_OF = (() => {
@@ -9725,6 +10418,10 @@ function openAct() {
   if (workAway()) {
     const w = s.work;
     cards.push(card('workEarly', icons.iconWork, w.name + ' 하러 갔어', fmtMin(workLeft()) + ' 뒤에 돌아와. 누르면 조기 퇴근시켜 (일당은 조금만)', ''));
+    // 일하는 동안 할 것: 도시락 보내기, 반려동물 돌보기, 몰래 방 꾸미기
+    cards.push(card('lunch', icons['food:' + ((FOODS.find(f => stock(f.key)) || FOODS[0]).key)] || icons.iconFood, '도시락 싸서 보내기', w.lunch ? '보냈어! 맛있게 먹는 중이래' : '냉장고에 있는 걸로 도시락을 싸서 회사로 보내 줘', '', !!w.lunch));
+    if (hasCat()) cards.push(card('petCare', catPortrait('smile', catAcc()), catName() + ' 돌봐 주기', catName() + josa(catName(), '이랑', '랑') + ' 집 보는 중. 밥 주고 놀아 줘', ''));
+    cards.push(card('secretRoom', icons.iconGear, '몰래 방 꾸미기', '돌아오면 깜짝 놀라게 방을 바꿔 놔', w.roomChanged ? '<small>바꿔 놨어. 오면 놀랄 거야</small>' : ''));
   } else {
     for (const g of GAMES.filter(g => g.act && (!g.show || g.show()))) { const b = g.best(); cards.push(card(g.id, icons[g.icon], nameIn(g.name), catLine(nameIn(g.desc)), b ? '<small class="best">' + b + '</small>' : '')); }
     const d = workDay();
@@ -9741,6 +10438,9 @@ function openAct() {
   $('actList').onclick = e => {
     const b = e.target.closest('[data-act]'); if (!b || b.disabled) return; const k = b.dataset.act;
     if (k === 'workEarly') { closeSheets(); return workReturn(true); }
+    if (k === 'lunch') return openLunch();
+    if (k === 'petCare') { closeSheets(); if (!hasCat()) return; renderLouie(); return openSheet('louieBack'); }
+    if (k === 'secretRoom') { closeSheets(); wardTab = 'room'; renderWardrobe(); return openSheet('wardBack'); }
     if (k === 'work') return openWork();
     if (k === 'drawFor') return openDrawPad();
     if (k === 'date') { closeSheets(); if (asleepBlock()) return; renderDates(); return openSheet('dateBack'); }
@@ -9841,12 +10541,19 @@ function lifeTick() {
 }
 
 // ---------- 일하러 가 있을 때 대화: 일하는 중인 걸 알고 몰래 답장한다 ----------
-const WORK_Q = { now: /(뭐|머|모)\s*(해|하|함|하고)|어디(야|에|임)?|바빠|일\s*(해|하|중)|회사|일하/, when: /언제\s*(와|끝|퇴근|올)|퇴근|몇\s*시|얼마나\s*(남|걸)/, tired: /힘들|피곤|지쳐|괜찮/, food: /밥|점심|저녁|먹었/ };
+const WORK_Q = { now: /(뭐|머|모)\s*(해|하|함|하고)|어디(야|에|임)?|바빠|일\s*(해|하|중)|회사|일하/, when: /언제\s*(와|끝|퇴근|올)|퇴근|몇\s*시|얼마나\s*(남|걸)/, tired: /힘들|피곤|지쳐|괜찮/, food: /밥|점심|저녁|먹었/,
+  // 지금 같이 하자는 부탁: 일하는 중이라 어렵다고(가끔은 몰래 하겠다고)
+  call: /전화|통화|영통|목소리/, ask: /놀자|놀래|만나|보자|나와|데이트|디코|게임\s*하|같이\s*(하|가|놀|보)|와\s*줘|올래|집에\s*와|빨리\s*와/ };
 {
   const replyTo0 = replyTo;
   replyTo = function (text, whole = text) {
     if (!workAway()) return replyTo0.apply(this, arguments);
     const w = state.work, x = w.name, n = fmtMin(workLeft()), f = t => fillX(String(t), x).replace(/\{n\}/g, n);
+    if (WORK_Q.call.test(whole) || WORK_Q.ask.test(whole)) {
+      const sneak = Math.random() < 0.3; // 가끔은 몰래 하겠다고
+      if (sneak) return { text: f(lineOf('workSneak', ['몰래 할게..|잠깐만이야'])), mood: 'shy' };
+      return { text: f(lineOf(WORK_Q.call.test(whole) && LINES.workCall ? 'workCall' : 'workBusy', ['지금 일 중이라 어려워..|끝나고 할게'])), mood: 'sad' };
+    }
     if (WORK_Q.when.test(whole)) return { text: f(lineOf('workChatWhen', ['{n} 뒤에 끝나!|조금만 기다려'])), mood: 'shy' };
     if (WORK_Q.now.test(whole)) return { text: f(lineOf('workChatNow', ['나 지금 {x} 하는 중이야!'])) + '|' + f(lineOf('workChatAside', ['몰래 답장하는 거야'])) };
     if (WORK_Q.tired.test(whole)) return { text: f(lineOf('workChatTired', ['응 좀 힘들어..|그래도 버티는 중'])), mood: 'sad' };
@@ -9878,6 +10585,146 @@ const WORK_Q = { now: /(뭐|머|모)\s*(해|하|함|하고)|어디(야|에|임)?
     if (chatting && !early) setTimeout(() => { if (!chat.busy) himSays(lineOf('workChatDone', ['끝났다!! 이제 집 가는 중|창 닫으면 갈게']), 'love', true); }, 400);
     return r;
   };
+}
+
+// ---------- 창문·러그 고르기: 꾸미기 → 방 → 창문 / 러그 ----------
+// 창문 그림: O 테두리, W 흰 틀, y·Y 나무, P·w 커튼, g 블라인드, _ 유리(바깥 풍경이 보이는 자리)
+// 창밖(하늘·해·달·구름·비·눈·바다·계절)은 유리 크기에 맞춰 따로 그리고 유리 모양으로 잘라 붙인다
+const WIN_ART = {
+  winBasic: { x: 4, y: 0, rows: [
+    'OOOOOOOOOOOOOOO', ...Array(5).fill('O______O______O'), 'OOOOOOOOOOOOOOO', ...Array(4).fill('O______O______O'), 'OOOOOOOOOOOOOOO'] },
+  winWide: { x: 2, y: 1, rows: [
+    'O'.repeat(28), ...Array(8).fill('O________O________O________O'), 'O'.repeat(28), 'O' + 'Y'.repeat(26) + 'O', 'O'.repeat(28)] },
+  winRound: { x: 4, y: -2, rows: [
+    '.....OOOOO.....', '...OOWWWWWOO...', '..OWW__W__WWO..', '.OW____W____WO.', '.OW____W____WO.', 'OW_____W_____WO', 'OW_____W_____WO', 'OWWWWWWWWWWWWWO',
+    'OW_____W_____WO', 'OW_____W_____WO', '.OW____W____WO.', '.OW____W____WO.', '..OWW__W__WWO..', '...OOWWWWWOO...', '.....OOOOO.....'] },
+  winArch: { x: 5, y: -2, rows: [
+    '....OOOOO....', '..OOWWWWWOO..', '.OWW__W__WWO.', '.OW___W___WO.', 'OW____W____WO', 'OW____W____WO', 'OW____W____WO', 'OWWWWWWWWWWWO',
+    'OW____W____WO', 'OW____W____WO', 'OW____W____WO', 'OW____W____WO', 'OW____W____WO', 'OW____W____WO', 'OWWWWWWWWWWWO', 'OYYYYYYYYYYYO', 'OOOOOOOOOOOOO'] },
+  winCurtain: { x: 1, y: -3, rows: [
+    '.OOOOOOOOOOOOOOOOOOO.', 'OPPPPPPPPPPPPPPPPPPPO', 'OPwPwPwPwPwPwPwPwPwPO', 'OPPOOOOOOOOOOOOOOOPPO', 'OPPP______O______PPPO', 'OPPP______O______PPPO', 'OPPw______O______wPPO',
+    'OPPP______O______PPPO', 'OPPOOOOOOOOOOOOOOOPPO', 'OPPP______O______PPPO', 'OPPw______O______wPPO', 'OPPP______O______PPPO', 'OPPP______O______PPPO', 'OPPOOOOOOOOOOOOOOOPPO',
+    '.OPPO...........OPPO.', '..OO.............OO..'] },
+  winBlind: { x: 4, y: 0, rows: [
+    'OOOOOOOOOOOOOOO', 'OWWWWWWWWWWWWWO', 'OgggggggggggggO', 'OWWWWWWWWWWWWWO', 'OgggggggggggggO', 'OWWWWWWWWWWWWWO', 'OOOOOOOOOOOOOOO', ...Array(4).fill('O______O______O'), 'OOOOOOOOOOOOOOO'] },
+  winTall: { x: 5, y: -1, rows: [
+    'OOOOOOOOOOO', ...Array(8).fill('O_________O'), 'OOOOOOOOOOO', ...Array(7).fill('O_________O'), 'OOOOOOOOOOO', 'OYYYYYYYYYO', 'OOOOOOOOOOO'] },
+  winHeart: { x: 4, y: -1, rows: [
+    '..OOO...OOO..', '.OPPPO.OPPPO.', 'OP___POP___PO', 'OP_________PO', 'OP_________PO', 'OP_________PO', '.OP_______PO.', '..OP_____PO..', '...OP___PO...', '....OP_PO....', '.....OPO.....', '......O......'] },
+  winDouble: { x: 2, y: 0, rows: [
+    'OOOOOOOO...OOOOOOOO', ...Array(4).fill('O______O...O______O'), 'OOOOOOOO...OOOOOOOO', ...Array(4).fill('O______O...O______O'), 'OOOOOOOO...OOOOOOOO', 'OYYYYYYO...OYYYYYYO', 'OOOOOOOO...OOOOOOOO'] },
+};
+const WIN_LIST = [
+  { id: 'winBasic', name: '네모 창문', lv: 1 }, { id: 'winWide', name: '가로로 긴 창', price: 90 }, { id: 'winDouble', name: '쌍둥이 창', price: 80 },
+  { id: 'winTall', name: '세로로 긴 창', price: 90 }, { id: 'winRound', name: '동그란 창', price: 100 }, { id: 'winArch', name: '아치 창', price: 120 },
+  { id: 'winCurtain', name: '커튼 창', price: 110 }, { id: 'winBlind', name: '블라인드 창', price: 80 }, { id: 'winHeart', name: '하트 창', price: 150 },
+];
+// 러그: 바닥에 까는 그림 (테두리 없이 진한 색 가장자리). 러그(기본)는 벽지 색을 따라간다
+const RUG_ART = (() => {
+  const G = (w, h, f) => Array.from({ length: h }, (_, y) => Array.from({ length: w }, (_, x) => f(x, y) || '.').join(''));
+  const ell = (x, y, w, h) => { const dx = (x + 0.5 - w / 2) / (w / 2), dy = (y + 0.5 - h / 2) / (h / 2); return dx * dx + dy * dy; };
+  return {
+    rugRound: G(30, 7, (x, y) => { const e = ell(x, y, 30, 7); return e > 1 ? '' : e > 0.62 ? 'B' : e > 0.42 ? 't' : 'b'; }),
+    rugStripe: G(32, 6, (x, y) => (x === 0 || x === 31 ? (y % 2 ? 'q' : '') : y === 0 || y === 5 ? 'U' : ['u', 'r', 'P', 'r'][Math.floor((x - 1) / 3) % 4])),
+    rugRainbow: G(30, 6, (x, y) => ((x === 0 || x === 29) && (y === 0 || y === 5) ? '' : ['u', 'J', 'j', 'M', 'b', 'f'][y])),
+    rugCheck: G(30, 6, (x, y) => ((x === 0 || x === 29) && (y === 0 || y === 5) ? '' : x === 0 || x === 29 || y === 0 || y === 5 ? 'c' : (Math.floor(x / 3) + Math.floor(y / 2)) % 2 ? 'C' : 'v')),
+    rugHeart: [
+      '...PPPPP.....PPPPP...', '.PPwwwwwPP.PPwwwwwPP.', 'PwwwwwwwwwPwwwwwwwwwP', 'PwwwwwwwwwwwwwwwwwwwP', '.PPwwwwwwwwwwwwwwwPP.', '...PPPwwwwwwwwwPPP...', '......PPPwwwPPP......', '.........PPP.........'],
+    rugCat: [
+      '.dd..............dd.', 'dPAd............dAPd', 'dAAAddddddddddddAAAd', 'dAAAAAAAAAAAAAAAAAAd', 'dAAAOAAAAAAAAAAOAAAd', 'dAAAAAAAAPPAAAAAAAAd', '.dAAAAAAOAAOAAAAAAd.', '..dddddddddddddddd..'],
+    rugFur: G(30, 7, (x, y) => { const e = ell(x, y, 30, 7), edge = 0.78 + ((x * 7 + y * 3) % 5) * 0.06; return e > edge ? '' : e > 0.6 ? 'g' : (x + y * 2) % 7 ? 'W' : 'F'; }),
+    rugStar: [
+      '..........ZZ..........', '.........ZssZ.........', 'ZZZZZZZZZssssZZZZZZZZZ', '.ZssssssssssssssssssZ.', '...ZZssssssssssssZZ...', '....ZssssZZZZssssZ....', '...ZsssZZ....ZZsssZ...', '..ZZZZ..........ZZZZ..'],
+  };
+})();
+const RUG_LIST = [
+  { id: 'rugRound', name: '동그란 러그', price: 60 }, { id: 'rugStripe', name: '줄무늬 러그', price: 60 }, { id: 'rugCheck', name: '체크 러그', price: 70 },
+  { id: 'rugFur', name: '복슬 러그', price: 80 }, { id: 'rugHeart', name: '하트 러그', price: 90 }, { id: 'rugCat', name: '고양이 러그', price: 100 },
+  { id: 'rugStar', name: '별 러그', price: 100 }, { id: 'rugRainbow', name: '무지개 러그', price: 120 },
+];
+(function registerWindowsRugs() {
+  for (const w of WIN_LIST) {
+    const a = WIN_ART[w.id];
+    ITEMS[w.id] = a.rows.map(r => r.replace(/_/g, 't')); // 아이콘: 유리는 하늘색
+    ITEMS[w.id + 'F'] = a.rows.map(r => r.replace(/_/g, '.')); // 방에 그릴 틀
+    if (!FURN.some(f => f.id === w.id)) FURN.push(Object.assign({ slot: 'window' }, w));
+  }
+  for (const r of RUG_LIST) { ITEMS[r.id] = RUG_ART[r.id]; if (!FURN.some(f => f.id === r.id)) FURN.push(Object.assign({ slot: 'rug' }, r)); }
+  if (!SLOTS.some(s => s.id === 'window')) SLOTS.splice(SLOTS.findIndex(s => s.id === 'wallR') + 1, 0, { id: 'window', name: '창문' });
+  // 창문을 한 번도 안 고른 방은 원래 네모 창문 (없음을 고르면 창문 없는 벽)
+  const roomOf0 = roomOf;
+  roomOf = slot => (slot === 'window' && state && state.room && state.room.window === undefined ? 'winBasic' : roomOf0(slot));
+})();
+let WINBOX = { x: 5, y: 0, w: 13, h: 10 }; // 지금 창문 유리 자리 (비밀 장면 별 그리기 등에 쓴다)
+const winCache = {};
+function winMask(id) {
+  if (winCache[id]) return winCache[id];
+  const a = WIN_ART[id], rows = a.rows;
+  let x0 = 1e9, y0 = 1e9, x1 = -1, y1 = -1;
+  rows.forEach((r, y) => [...r].forEach((c, x) => { if (c === '_') { x0 = Math.min(x0, x); y0 = Math.min(y0, y); x1 = Math.max(x1, x); y1 = Math.max(y1, y); } }));
+  const w = x1 - x0 + 1, h = y1 - y0 + 1, m = document.createElement('canvas'); m.width = w; m.height = h;
+  const mc = m.getContext('2d'); mc.fillStyle = '#000';
+  rows.forEach((r, y) => [...r].forEach((c, x) => { if (c === '_') mc.fillRect(x - x0, y - y0, 1, 1); }));
+  const v = document.createElement('canvas'); v.width = w; v.height = h;
+  return (winCache[id] = { gx: x0, gy: y0, w, h, mask: m, view: v });
+}
+// 창밖 풍경: 유리 크기(w×h)에 맞춰 그린다 (네모 창문 13×10에서는 예전 그림과 같은 자리)
+function drawWinView(c, w, h, now, night, wx, T) {
+  const P = (col, x, y, ww = 1, hh = 1) => { c.fillStyle = col; c.fillRect(x, y, ww, hh); };
+  P(night ? '#34406a' : wx === 'sunny' ? '#bfe6f7' : '#cfd6e2', 0, 0, w, h);
+  const sea = T.view === 'sea', sy = Math.max(3, Math.round(h / 2));
+  if (sea) { P(night ? '#24305a' : '#5fb3e0', 0, sy, w, h - sy); const wv = Math.floor(now / 500) % 3; for (let x = wv; x < w; x += 3) P('#ffffff', x, sy + 1); }
+  const sx = w - 4;
+  if (night) {
+    P('#f2cf5b', sx - 1, 1, 3, 3); P('#34406a', sx, 1, 2, 2);
+    for (const [x, y] of [[2, 2], [4, 3], [w - 2, 4], [Math.round(w / 2) + 3, 6]]) if (x < w && y < (sea ? sy : h)) P('#fff', x, y);
+  } else {
+    if (wx === 'sunny') P('#ffd86b', sx, 1, 3, 3);
+    if (!sea) {
+      const cl = wx === 'sunny' ? '#fff' : '#eef1f5', cy = Math.min(h - 3, 5);
+      P(cl, 1, cy, 5, 2); P(cl, 2, cy - 1, 3, 1);
+      if (wx !== 'sunny') { P(cl, 6, 2, 5, 2); P(cl, 7, 1, 3, 1); }
+      if (w >= 20) { P(cl, w - 10, cy + 1, 5, 2); P(cl, w - 9, cy, 3, 1); }
+    }
+  }
+  // 계절 (바다·눈 벽지는 따로)
+  if (T.view !== 'sea' && T.view !== 'snow') {
+    const se = seasonNow();
+    if (se === 'spring') {
+      for (const [x, y, col] of [[0, 0, '#f7b8cc'], [1, 0, '#ff9fc6'], [0, 1, '#ff9fc6'], [2, 1, '#f7b8cc'], [1, 2, '#f7b8cc'], [3, 0, '#ffd3e0'], [0, 3, '#ff9fc6']]) P(col, x, y);
+      for (let i = 0; i < 3; i++) { const t = (now / 90 + i * 31) % h; P('#ffb3cd', 1 + (i * 4 + Math.floor(t / 3)) % (w - 2), Math.floor(t)); }
+    } else if (se === 'summer' && !night) {
+      for (const [x, y, col] of [[w - 1, 0, '#76a64c'], [w - 2, 0, '#9cc56f'], [w - 1, 1, '#9cc56f'], [w - 3, 1, '#76a64c'], [w - 2, 2, '#76a64c'], [w - 1, 2, '#9cc56f'], [w - 4, 0, '#9cc56f']]) P(col, x, y);
+    } else if (se === 'fall') {
+      for (const [x, y, col] of [[w - 2, 0, '#e0913f'], [w - 1, 0, '#e8615f'], [w - 3, 1, '#ffb23f'], [w - 1, 1, '#e0913f'], [w - 2, 2, '#e8615f'], [w - 4, 0, '#ffb23f']]) P(col, x, y);
+      for (let i = 0; i < 3; i++) { const t = (now / 110 + i * 29) % h; P(i % 2 ? '#e0913f' : '#e8615f', 2 + (i * 4 + Math.floor(t / 2)) % (w - 3), Math.floor(t)); }
+    }
+  }
+  if (wx === 'rain' && !snowyNow()) for (let i = 0; i < Math.max(6, Math.round(w / 2)); i++) { const y = (now / 70 + i * 5) % (h - 1); P('#8fb5d8', (i * 5 + 2) % w, Math.floor(y), 1, 2); }
+  if (T.view === 'snow' || (!sea && snowyNow())) for (let i = 0; i < Math.max(6, Math.round(w / 2)); i++) { const y = (now / 120 + i * 7) % h; P('#ffffff', (i * 5) % w, Math.floor(y)); }
+  if (has(7) && night) { // 창밖 불꽃놀이 (같이 못 본 불꽃놀이)
+    const t = Math.floor(now / 150), k = Math.floor(now / 1800), cx = 2 + (k * 5) % Math.max(3, w - 4), cy = 2 + (k * 3) % Math.max(2, h - 6), r = t % 12;
+    if (r < 6) { c.fillStyle = ['#ff9fc6', '#ffd86b', '#9fd3f0'][k % 3]; for (const [dx, dy] of [[1, 0], [-1, 0], [0, 1], [0, -1], [1, 1], [-1, -1], [1, -1], [-1, 1]]) c.fillRect(cx + dx * Math.ceil(r / 2), cy + dy * Math.ceil(r / 2), 1, 1); }
+  }
+}
+function drawWindow(now, night, wx, T) {
+  const id = roomOf('window'); if (!id || !WIN_ART[id]) { WINBOX = null; return; }
+  const a = WIN_ART[id], m = winMask(id), ox = a.x, oy = FLOOR - 37 + a.y, vc = m.view.getContext('2d');
+  vc.globalCompositeOperation = 'source-over'; vc.clearRect(0, 0, m.w, m.h);
+  drawWinView(vc, m.w, m.h, now, night, wx, T);
+  vc.globalCompositeOperation = 'destination-in'; vc.drawImage(m.mask, 0, 0); vc.globalCompositeOperation = 'source-over';
+  bx.drawImage(m.view, ox + m.gx, oy + m.gy);
+  bx.drawImage(item(id + 'F'), ox, oy);
+  WINBOX = { x: ox + m.gx, y: oy + m.gy, w: m.w, h: m.h };
+}
+function drawRug(T) {
+  const id = roomOf('rug'); if (!id) return;
+  if (!RUG_ART[id]) { // 원래 러그: 벽지 색을 따라간다
+    bx.fillStyle = T.rug; bx.fillRect(18, FLOOR + 4, 28, 6); bx.fillRect(16, FLOOR + 5, 32, 4);
+    bx.fillStyle = T.rug2; for (let x = 19; x < 46; x += 3) bx.fillRect(x, FLOOR + 6, 1, 2);
+    return;
+  }
+  const spr = item(id); bx.drawImage(spr, Math.round((LW - spr.width) / 2), FLOOR + 3 + Math.max(0, 7 - spr.height));
 }
 
 // ===================== 생활 3: 그림 선물, 일기장, 반려동물 돌봐주기·모습·도감, 주말 장터, 기록 =====================
@@ -10082,7 +10929,7 @@ function giveDrawing() {
   if (px.filter(v => v >= 0).length < 3) { toast('조금만 더 그려 줘'); return; }
   if (s.asleep) { toast(nameJ('은', '는') + ' 자고 있어. 일어나면 줘'); return; }
   closeSheets();
-  const a = loadAlbum(); a.unshift({ u: artCanvas(px, title), t: Date.now(), c: youName() + josa(youName(), '이', '가') + ' 그려 준 그림' + (title ? ': ' + title : '') }); if (a.length > ALBUM_MAX) a.length = ALBUM_MAX; saveAlbum(a);
+  addToAlbum({ u: artCanvas(px, title), t: Date.now(), c: youName() + josa(youName(), '이', '가') + ' 그려 준 그림' + (title ? ': ' + title : '') }, 'me');
   s.myArts = [{ px: px.map(v => (v < 0 ? '.' : v.toString(16))).join(''), title, t: Date.now() }].concat(s.myArts || []).slice(0, 6);
   const first = !s.owned.includes('myArt'); if (first) s.owned.push('myArt');
   ensureArtFurn(); if (first && !roomOf('wallR')) s.room.wallR = 'myArt';
@@ -10371,6 +11218,581 @@ function marketItems() {
   const returnEvents0 = returnEvents;
   returnEvents = function (away) { if (workAway()) return false; return returnEvents0(away); };
 }
+// ===================== 미용실: 꾸미기 → 미용실 탭. 하트 코인을 내고 머리 모양·머리색·눈·눈썹을 바꾼다 =====================
+// 고르면 미리 보기만 바뀌고, '미용실 다녀오기'를 누르면 코인을 내고 미용실에 갔다가 바뀐 모습으로 돌아온다.
+// 원래 모습(처음 만든 얼굴)으로 돌아가는 건 공짜. 직접 그린 캐릭터는 그림이 얼굴이라 여기선 못 바꾼다
+const SALON_PARTS = {
+  hair: { name: '머리 모양', price: 120, list: [['bangs', '덮은 앞머리'], ['twoBlock', '투블럭'], ['sidePart', '가르마'], ['upHair', '올린 머리'], ['buzz', '아주 짧은 머리'], ['curlyShort', '짧은 펌'], ['bob', '단발'], ['bobNoBang', '앞머리 없는 단발'], ['long', '긴 생머리'], ['longNoBang', '긴 머리 (앞머리 없음)'], ['wave', '긴 웨이브'], ['ponytail', '포니테일'], ['bun', '똥머리'], ['twinTail', '양갈래']] },
+  hairColor: { name: '머리색', price: 90, list: [['black', '검정'], ['darkBrown', '진갈색'], ['brown', '갈색'], ['ash', '애쉬'], ['blonde', '밝은 탈색'], ['pink', '분홍'], ['red', '빨강'], ['blue', '파랑'], ['purple', '보라'], ['gray', '회색']] },
+  eyes: { name: '눈 (속눈썹·렌즈)', price: 150, list: [['open', '동그란 눈'], ['dot', '점 눈'], ['smile', '웃는 눈'], ['sharp', '날카로운 눈'], ['droopy', '처진 눈'], ['big', '큰 눈망울'], ['almond', '아몬드 눈'], ['mono', '홑꺼풀 눈'], ['double', '쌍꺼풀 눈'], ['sleepy', '졸린 눈']] },
+  brows: { name: '눈썹 정리', price: 60, list: [['none', '안 보이게'], ['thin', '얇은 눈썹'], ['thick', '진한 눈썹']] },
+};
+const salon = { base: null, orig: false, draft: null };
+const salonDrawn = () => typeof KyuppiCustom !== 'undefined' && KyuppiCustom.active();
+const salonClear = () => { spriteCache.clear(); miniHeads.clear(); };
+// 처음 얼굴(상대가 만든 그대로)을 기억해 두고, 미용실에서 바꾼 게 있으면 그 위에 얹는다
+function salonApply() {
+  if (!salon.base) { salon.base = Object.assign({}, FACE_NOW); salon.orig = drawHead === ORIG_DRAW_HEAD; }
+  const ch = state && state.salon;
+  if (salon.orig && (!ch || !Object.keys(ch).length)) resetFace(); else applyFace(Object.assign({}, salon.base, ch || {}));
+  salonClear();
+}
+// 지금 얼굴 + 바꿀 것 (고르는 중인 것)
+const salonNow = () => Object.assign({}, salon.base || FACE_NOW, state.salon || {});
+function withFace(face, fn) {
+  const keep = Object.assign({}, FACE_NOW), wasOrig = drawHead === ORIG_DRAW_HEAD;
+  applyFace(Object.assign({}, keep, face)); salonClear();
+  try { return fn(); } finally { if (wasOrig) resetFace(); else applyFace(keep); salonClear(); }
+}
+const salonChanges = () => { const d = salon.draft || {}, now = salonNow(); return Object.keys(SALON_PARTS).filter(k => d[k] !== undefined && d[k] !== now[k]); };
+const salonCost = () => salonChanges().reduce((n, k) => n + SALON_PARTS[k].price, 0);
+function renderSalonTab() {
+  const d = salon.draft = salon.draft || {}, now = salonNow(), w = wear();
+  const pc = $('wardPreview').getContext('2d');
+  pc.clearRect(0, 0, 32, 32 + HR);
+  withFace(Object.assign({}, now, d), () => pc.drawImage(kyuppiFull(Object.assign({ eyes: 'happy', mouth: 'smile' }, w)), 0, 0));
+  if (salonDrawn()) {
+    $('wardNow').textContent = '직접 그린 캐릭터는 그림이 얼굴이라 미용실에서 못 바꿔';
+    $('wardGrid').innerHTML = '<p class="shop-hint">얼굴을 바꾸고 싶으면 설정 → 캐릭터 다시 만들기에서 그림을 고칠 수 있어</p>';
+    return;
+  }
+  const ch = salonChanges(), cost = salonCost();
+  $('wardNow').textContent = ch.length ? '바꿀 것: ' + ch.map(k => SALON_PARTS[k].name).join(', ') + ' · 코인 ' + cost + '개' : '바꾸고 싶은 걸 골라 봐. 미리 보기만 바뀌고 코인은 다녀올 때 내';
+  let html = '<div class="salon-bar"><button type="button" class="salon-go" data-id="salon:go"' + (ch.length ? '' : ' disabled') + '>' + (ch.length ? '미용실 다녀오기 · 코인 ' + cost : '미용실 다녀오기') + '</button>' +
+    (ch.length ? '<button type="button" class="salon-undo" data-id="salon:undo">고른 거 취소</button>' : '') +
+    (state.salon && Object.keys(state.salon).length ? '<button type="button" class="salon-undo" data-id="salon:reset">처음 모습으로 (공짜)</button>' : '') + '</div>';
+  for (const [k, P] of Object.entries(SALON_PARTS)) {
+    const cur = d[k] !== undefined ? d[k] : now[k];
+    html += '<div class="room-slot"><b>' + P.name + ' <small>코인 ' + P.price + '</small></b><div class="room-grid">' + P.list.map(([id, name]) => {
+      const img = withFace(Object.assign({}, now, d, { [k]: id }), () => lookURL(Object.assign({}, w, { eyes: 'open', mouth: 'smile' })));
+      return '<button type="button" class="wcard" data-id="salon:' + k + ':' + id + '" aria-pressed="' + (cur === id) + '"><img src="' + img + '" alt="">' + name + (now[k] === id ? '<small>지금</small>' : '') + '</button>';
+    }).join('') + '</div></div>';
+  }
+  $('wardGrid').innerHTML = html;
+}
+function salonPick(id) {
+  const [, k, v] = id.split(':');
+  if (k === 'undo') { salon.draft = {}; sfx.tap(); return renderWardrobe(); }
+  if (k === 'reset') return salonReset();
+  if (k === 'go') return startSalon();
+  if (!SALON_PARTS[k]) return;
+  const d = salon.draft = salon.draft || {};
+  if (salonNow()[k] === v) delete d[k]; else d[k] = v;
+  sfx.tap(); renderWardrobe();
+}
+function startSalon() {
+  const s = state, ch = salonChanges(), cost = salonCost();
+  if (!ch.length) return;
+  if (s.asleep) { closeSheets(); return void asleepBlock(); }
+  if (workAway()) return toast(s.work.name + ' 하러 가 있어서 지금은 못 가');
+  if (s.sick) { closeSheets(); return void sickBlock(); }
+  if (s.coins < cost) { sfx.sad(); return toast('하트 코인이 ' + (cost - s.coins) + '개 모자라'); }
+  const pick1 = {}; for (const k of ch) pick1[k] = salon.draft[k];
+  addCoins(-cost); salon.draft = {};
+  s.salonPending = pick1; // 미용실에 있는 동안 앱을 꺼도 바뀐 모습으로 돌아오게
+  closeSheets();
+  if (hold.on) { hold.on = false; hold.grab = false; hold.pending = null; }
+  anim.type = null; anim.onEnd = null;
+  date.place = 'salon'; date.start = performance.now(); date.until = date.start + 9000; date.salonDone = false;
+  document.body.classList.add('dating');
+  say(lineOf('salonGo', ['미용실 다녀올게!']), 2400); sfx.tap();
+  setTimeout(() => { if (date.place === 'salon') say(lineOf('salonCut', ['싹둑싹둑..']), 2200); }, 2600);
+  afterAction();
+}
+function salonFinish() { // 바뀐 모습 적용 (미용실 장면 중간, 또는 앱을 다시 켰을 때)
+  const s = state, p = s.salonPending; if (!p) return;
+  s.salon = Object.assign({}, s.salon || {}, p); s.salonPending = null;
+  // 처음 얼굴과 같은 건 지워 둔다 (나중에 '처음 모습으로'가 깔끔하게)
+  for (const k of Object.keys(s.salon)) if (salon.base && salon.base[k] === s.salon[k] && !salon.orig) delete s.salon[k];
+  (s.salonLog = s.salonLog || []).push({ at: Date.now(), p });
+  salonApply(); save();
+}
+function salonReset() {
+  const s = state; if (!s.salon || !Object.keys(s.salon).length) return;
+  s.salon = {}; salon.draft = {}; salonApply(); closeSheets();
+  if (!s.asleep) { startAnim('cheer', 1400); say(lineOf('salonReset', ['원래대로 돌아왔어!']), 2400); }
+  sfx.tap(); afterAction();
+}
+// 미용실 장면: 거울·의자 앞에서 싹둑싹둑 → 반짝 → 바뀐 모습
+PLACE_FX.salon = function (R, g, now, H, F, LW) {
+  R('#fde8ef', 0, 0, LW, F); for (let x = 0; x < LW; x += 8) R('#f8d6e2', x, 0, 4, F);
+  R('#2b2230', 9, 6, 22, 20); R('#dff2fb', 10, 7, 20, 18); R('#ffffff', 12, 9, 3, 1); R('#ffffff', 12, 10, 1, 2); // 거울
+  R('#c9a27a', 36, 14, 22, 2); R('#2b2230', 36, 16, 22, 1); // 선반
+  for (const [x, c] of [[38, '#ff9fc6'], [42, '#9fd3f0'], [46, '#ffd86b'], [50, '#9cd67a'], [54, '#c98fb8']]) { R(c, x, 9, 3, 5); R('#2b2230', x + 1, 8, 1, 1); }
+  R('#e8615f', 46, F - 16, 10, 2); R('#2b2230', 50, F - 14, 2, 14); // 드라이기 걸이 대신 스탠드
+  R('#f1e6d8', 0, F, LW, H - F); for (let y = F; y < H; y += 3) for (let x = (y / 3) % 2 ? 0 : 3; x < LW; x += 6) R('#e2d2bf', x, y, 3, 3);
+  R('#8f86c9', 12, F - 10, 18, 3); R('#6f66a8', 12, F - 7, 18, 1); R('#2b2230', 20, F - 6, 2, 6); // 의자
+};
+DATE_LOOK.salon = { arms: 'down' };
+{
+  const endDate1 = endDate;
+  endDate = function () {
+    if (date.place !== 'salon') return endDate1.apply(this, arguments);
+    date.place = null; document.body.classList.remove('dating');
+    salonFinish(); track('salon');
+    startAnim('love', 2400);
+    for (let i = 0; i < 6; i++) spawn(i % 2 ? 'sparkle' : 'heart', charPos.x + rand(4, 26), charPos.y + rand(0, 12), rand(-6, 6), -rand(8, 14), 1400);
+    say(lineOf('salonBack', ['어때? 잘랐어 {laugh}']), 3200); sfx.happy();
+    toast('미용실 다녀왔어! 처음 모습으로는 꾸미기 → 미용실에서 공짜로 돌아갈 수 있어');
+    return afterAction();
+  };
+  const lifeOverlay1 = lifeOverlay;
+  lifeOverlay = function (cx, cy, now) {
+    const r = lifeOverlay1.apply(this, arguments);
+    if (date.place === 'salon') {
+      const k = (now - date.start) / Math.max(1, date.until - date.start);
+      if (k > 0.25 && k < 0.6) { // 가위가 머리 위에서 싹둑싹둑
+        const sx = cx + 8 + Math.round(Math.sin(now / 180) * 7), sy = cy - 2 + (Math.floor(now / 160) % 2);
+        bx.fillStyle = '#9aa0ad'; bx.fillRect(sx, sy, 1, 3); bx.fillRect(sx + 2, sy, 1, 3); bx.fillRect(sx + 1, sy + 2, 1, 1);
+        bx.fillStyle = '#e8615f'; bx.fillRect(sx - 1, sy + 3, 2, 2); bx.fillRect(sx + 2, sy + 3, 2, 2);
+        if (Math.random() < 0.12) spawn('sparkle', cx + rand(6, 24), cy + rand(0, 8), rand(-3, 3), rand(2, 6), 700);
+      }
+      if (k >= 0.6 && !date.salonDone) { date.salonDone = true; salonFinish(); for (let i = 0; i < 8; i++) spawn('sparkle', cx + rand(2, 28), cy + rand(-2, 14), rand(-8, 8), -rand(4, 12), 1100); beep(1175, 0.06, 'triangle', 0.05); beep(1568, 0.08, 'triangle', 0.04, 0.08); }
+      if (k > 0.58 && k < 0.66) { bx.fillStyle = 'rgba(255,255,255,0.7)'; bx.fillRect(0, 0, LW, LH); }
+    }
+    return r;
+  };
+  const renderWardrobe1 = renderWardrobe;
+  renderWardrobe = function () {
+    if (wardTab !== 'salon') return renderWardrobe1.apply(this, arguments);
+    document.querySelectorAll('#wardTabs [data-tab]').forEach(t => t.setAttribute('aria-selected', String(t.dataset.tab === wardTab)));
+    $('wardLouieTab').hidden = !hasCat(); $('wardLouieTab').textContent = catName();
+    return renderSalonTab();
+  };
+  const wardPick1 = wardPick;
+  wardPick = function (id) { if (wardTab === 'salon') return salonPick(id); return wardPick1.apply(this, arguments); };
+  const boot1 = boot;
+  boot = function () {
+    boot1();
+    if (state.salonPending) salonFinish(); // 미용실 가 있는 동안 꺼졌으면 다녀온 걸로
+    salonApply();
+  };
+  (function salonCss() {
+    const st = document.createElement('style');
+    st.textContent = '.salon-bar{grid-column:1/-1;display:flex;flex-wrap:wrap;gap:6px;margin:2px 0 8px}.salon-bar button{border:0;border-radius:12px;padding:8px 12px;font-size:14px;box-shadow:0 3px 0 var(--shell-deep)}' +
+      '.salon-go{background:#ff9fc6;color:#3a2030;flex:1 1 auto}.salon-go:disabled{opacity:.5}.salon-undo{background:var(--cream)}';
+    document.head.appendChild(st);
+  })();
+}
+// ===================== 반려동물 성격: 맨날 애교만 부리진 않는다 (등 돌리기·하악·앞발 치기·삐져서 구석) =====================
+const TEMPERS = {
+  sweet: { name: '애교쟁이', desc: '쓰다듬는 걸 엄청 좋아해', petMax: 9, back: 0.3, swat: 0, hiss: 0 },
+  tsun: { name: '츤데레', desc: '싫은 척하다가 슬쩍 와서 비벼', petMax: 4, back: 1.6, swat: 0.6, hiss: 0.2 },
+  grumpy: { name: '까칠이', desc: '귀찮게 하면 하악! 간식엔 약해', petMax: 3, back: 1.2, swat: 1, hiss: 0.8 },
+  shy: { name: '겁쟁이', desc: '놀라면 구석으로 도망가', petMax: 5, back: 0.8, swat: 0.1, hiss: 0.3 },
+  free: { name: '자유로운 영혼', desc: '불러도 못 들은 척해', petMax: 6, back: 1, swat: 0.4, hiss: 0.1 },
+};
+const ANGRY = { cat: '하악!!', dog: '으르렁..', rabbit: '(발 쿵쿵!)', hamster: '찍!!', bird: '꽥!!' };
+function temperOf() {
+  const c = state.cat; if (!c) return TEMPERS.sweet;
+  if (!c.temper || !TEMPERS[c.temper]) { const keys = Object.keys(TEMPERS); c.temper = keys[hashStr(String(state.catName || '') + (state.createdAt || 0) + petKind()) % keys.length]; }
+  return TEMPERS[c.temper];
+}
+const petCanSulk = () => hasCat() && !PB().still && petKind() !== 'turtle';
+const ksay2 = (key, p, fb) => { if (!state.asleep && Math.random() < p && !anim.type) say(catLine(lineOf(key, fb)), 2200); };
+// 사람(캐릭터) 반대쪽을 보고 앉는다
+function petTurnAway(ms, sulk) {
+  kitty.dir = kitty.x + 7 > charPos.x + 16 ? 1 : -1;
+  catSet('back', ms, { sulk: !!sulk }); catFace('grumpy', ms);
+}
+function petSulk(why) {
+  if (!petCanSulk()) return;
+  const left = charPos.x + 16 > LW / 2, corner = left ? 0 : LW - 14; // 캐릭터에서 먼 구석
+  catGoTo(corner, () => { kitty.dir = left ? -1 : 1; catSet('back', rand(20000, 35000), { sulk: true }); catSay(petText('흥..'), 1600); });
+  ksay2('catSulk', 0.7, ['{cat} 삐졌나 봐..']);
+  if (why) state.cat.sulkWhy = why;
+}
+function petSwat() {
+  kitty.dir = kitty.x + 7 > charPos.x + 16 ? -1 : 1; // 사람 쪽을 보고 탁!
+  catSet('swat', 900); catSay(petText(petKind() === 'cat' ? '탁!' : '흥!'), 900); beep(330, 0.05, 'square', 0.04);
+  setTimeout(() => ksay2('catSwat', 0.8, ['앗! {cat}한테 맞았다']), 400);
+}
+function petHiss(ms = 1600) {
+  kitty.dir = kitty.x + 7 > charPos.x + 16 ? -1 : 1;
+  catSet('hiss', ms); catSay(ANGRY[petKind()] || '흥!!', ms); beep(180, 0.12, 'sawtooth', 0.03);
+  setTimeout(() => ksay2('catHiss', 0.7, ['헉 {cat} 화났다..']), 500);
+}
+{
+  // 모습: 등 돌리기(back), 하악(웅크리고 입 쩍), 앞발 치기(앞발 들었다 내렸다)
+  const catLook1 = catLook;
+  catLook = function (now) {
+    const m = kitty.mode;
+    if (!kitty.held && !kitty.falling && (m === 'back' || m === 'hiss' || m === 'swat')) {
+      if (m === 'back') return ['back', 'grumpy'];
+      if (m === 'hiss') return ['crouch', 'hiss'];
+      return [Math.floor(now / 110) % 2 ? 'groom' : 'sit', 'grumpy'];
+    }
+    return catLook1(now);
+  };
+  // 하악·앞발 칠 때 몸이 파르르
+  const catFrame1 = catFrame;
+  catFrame = function (now) {
+    const m = kitty.mode;
+    if ((m === 'hiss' || m === 'swat') && !kitty.held && !kitty.falling) { const x0 = kitty.x; kitty.x += Math.floor(now / 60) % 2 ? 0.6 : -0.6; try { return catFrame1(now); } finally { if (kitty.mode === m) kitty.x = x0; } }
+    return catFrame1(now);
+  };
+  // 혼자 있을 때: 성격 따라 가끔 모른 척(등 돌리기), 기분이 나쁘면 구석에서 삐침
+  const catThink1 = catThink;
+  catThink = function (now) {
+    const s = state, c = s.cat;
+    if (!petCanSulk() || s.asleep || isNight()) return catThink1(now);
+    const T = temperOf();
+    if (c.mood < 30 && Math.random() < 0.35) return petSulk('mood');
+    if (Math.random() < 0.06 * T.back) { petTurnAway(rand(5000, 9000)); if (Math.random() < 0.4) catSay(petText('흥'), 1200); return; }
+    return catThink1(now);
+  };
+  // 쓰다듬기: 너무 많이 하면 성격 따라 앞발 치기·하악·도망. 삐져 있을 땐 잘 안 받아 준다
+  const patKitty1 = patKitty;
+  patKitty = function () {
+    const now = performance.now(), c = state.cat;
+    if (!petCanSulk() || state.asleep) return patKitty1.apply(this, arguments);
+    const T = temperOf(), m = kitty.mode;
+    if (m === 'hiss' || m === 'swat') return; // 화난 중엔 손 안 대는 게 좋아
+    if (m === 'back') {
+      const k = Math.random();
+      const annoyed = now < (kitty.annoyedUntil || 0);
+      if (kitty.sulk || annoyed) { // 삐짐·방금 귀찮아함: 쓰다듬어도 쉽게 안 풀린다 (간식·빗질·장난감이 잘 통한다)
+        if (k < T.hiss * 0.5) return petHiss();
+        if (annoyed || k < 0.75) { catSay(petText('흥!'), 1000); kitty.heartUntil = 0; return; }
+      } else if (k < T.swat * 0.4) return petSwat();
+      kitty.sulk = false; catSet('sit', 3000); catFace('content', 1800); catSay(petText(c.temper === 'tsun' ? '..이번만이다냥' : '냥..'), 1600);
+      ksay2('catMakeUp', 0.6, ['{cat} 화 풀렸다!']);
+      return patKitty1.apply(this, arguments);
+    }
+    kitty.pats = (kitty.pats || []).filter(t => now - t < 4000); kitty.pats.push(now);
+    if (kitty.pats.length > T.petMax && catLv() < 8) {
+      kitty.pats = [];
+      const k = Math.random() * (T.swat + T.hiss + T.back + 0.01);
+      if (k < T.swat) return petSwat();
+      if (k < T.swat + T.hiss) return petHiss();
+      if (c.temper === 'shy') { kitty.zoomLeft = 2; catGoTo(kitty.x < 24 ? LW - 15 : 0); kitty.mode = 'zoom'; return catSay(petText('냥!?'), 1000); }
+      petTurnAway(rand(4000, 7000)); kitty.annoyedUntil = now + 3500; return catSay(petText('그만해라냥'), 1400);
+    }
+    return patKitty1.apply(this, arguments);
+  };
+  // 들었다 놓으면: 아직 안 친하면 성격 따라 하악·삐짐
+  const catDrop1 = catDrop;
+  catDrop = function () {
+    const held = performance.now() - (kitty.heldAt || 0), r = catDrop1.apply(this, arguments);
+    if (petCanSulk() && catLv() < 5 && petKind() === 'cat') {
+      const T = temperOf();
+      if (held > 2500 || Math.random() < T.hiss * 0.4) kitty.afterLand = Math.random() < T.hiss ? 'hiss' : 'sulk';
+    }
+    return r;
+  };
+  const catUpdate1 = catUpdate;
+  catUpdate = function (now, dt) {
+    const r = catUpdate1(now, dt);
+    if (kitty.afterLand && !kitty.falling && !kitty.held && kitty.mode !== 'jump') {
+      const a = kitty.afterLand; kitty.afterLand = null;
+      if (a === 'hiss' && kitty.mode === 'sit') petHiss(); else if (a === 'sulk' && kitty.mode === 'sit') petSulk('held');
+    }
+    if (kitty.mode !== 'back' && kitty.sulk) kitty.sulk = false;
+    return r;
+  };
+}
+{
+  const catMoodText1 = catMoodText;
+  catMoodText = function () {
+    if (!petCanSulk()) return catMoodText1();
+    const T = temperOf();
+    const t = kitty.mode === 'back' && kitty.sulk ? '삐져서 구석에 있어. 간식·빗질·장난감으로 달래 줘' : kitty.mode === 'hiss' ? '화났어! 잠깐 내버려 둬' : catMoodText1();
+    return t + ' · 성격: ' + T.name + ' (' + T.desc + ')';
+  };
+}
+// ===================== 자세: 뒷모습(back)·앉기(sit) — 가구 앞에서 혼자 놀 때 =====================
+// 앞모습 그림을 바꿔서 만든다. 뒷모습은 얼굴 자리를 머리색으로 덮고(긴 머리는 등까지), 앉기는 다리를 접고 두 줄 내려앉는다.
+// 직접 그린 캐릭터도 같은 규칙: 얼굴 옆(옆머리)에 제일 많이 쓴 색을 머리색으로 본다
+function kyuppiPose(g, o) {
+  const out = {}, row = y => (g[y] ? (g[y].join ? g[y].slice() : [...g[y]]) : Array(32).fill('.'));
+  for (let y = -HR; y < 32; y++) out[y] = row(y);
+  const solid = c => c && c !== '.' && c !== 'O';
+  if (o.back) {
+    const cnt = {};
+    for (let y = 9; y <= 16; y++) for (const x of [4, 5, 6, 7, 24, 25, 26, 27]) { const c = out[y][x]; if (solid(c) && !'SsBEWLlRTQ'.includes(c)) cnt[c] = (cnt[c] || 0) + 1; }
+    const hair = (Object.entries(cnt).sort((a, b) => b[1] - a[1])[0] || ['H'])[0];
+    for (let y = 9; y <= 22; y++) for (let x = 5; x <= 26; x++) if (solid(out[y][x])) out[y][x] = hair;
+    // 긴 머리·묶은 머리: 어깨 옆으로 내려온 만큼 등을 덮는다
+    let longTo = 0;
+    for (let y = 23; y <= 30; y++) if ([3, 4, 5, 6, 25, 26, 27, 28].some(x => out[y][x] === hair)) longTo = y;
+    for (let y = 23; y <= longTo; y++) for (let x = 8; x <= 23; x++) if (solid(out[y][x])) out[y][x] = hair;
+    if (hair === 'H') for (const x of [10, 15, 21]) for (let y = 13; y <= Math.max(19, longTo - 1); y++) if (out[y][x] === 'H' && (y + x) % 3) out[y][x] = 'd'; // 머리결
+  }
+  if (o.sit) {
+    const s = {};
+    for (let y = -HR; y < 32; y++) s[y] = Array(32).fill('.');
+    for (let y = -HR; y <= 28; y++) if (y + 2 < 32) s[y + 2] = out[y].slice();
+    // 접은 다리 (책상다리)
+    const legs = s[31];
+    for (let x = 7; x <= 24; x++) legs[x] = x === 7 || x === 24 ? 'O' : x <= 9 || x >= 22 ? 'g' : 'G';
+    s[30][7] = s[30][7] === '.' ? 'O' : s[30][7]; s[30][24] = s[30][24] === '.' ? 'O' : s[30][24];
+    for (let y = -HR; y < 32; y++) out[y] = s[y];
+  }
+  const res = []; for (let y = 0; y < 32; y++) res[y] = out[y]; for (let y = 1; y <= HR; y++) res[-y] = out[-y];
+  return res;
+}
+{
+  const kyuppi1 = kyuppi;
+  kyuppi = function (opts) {
+    if (!opts || (!opts.back && !opts.sit)) return kyuppi1(opts);
+    const key = JSON.stringify(opts);
+    if (!spriteCache.has(key)) {
+      const g = kyuppiPose(buildKyuppi(opts), opts), row = r => (r ? (r.join ? r.join('') : r) : '.'.repeat(32));
+      spriteCache.set(key, gridCanvas(g.map(row), PAL));
+      const top = []; for (let y = -HR; y < 0; y++) top.push(row(g[y]));
+      spriteCache.set('top:' + key, top.some(r => /[^. ]/.test(r)) ? gridCanvas(top, PAL) : null);
+    }
+    return spriteCache.get(key);
+  };
+}
+// ===================== 혼자 있을 때: 가구랑 논다 (TV 보기·게임·피아노·책·기타·낮잠·인형·반려동물) =====================
+// 한동안 아무것도 안 누르면 방에 있는 가구로 가서 혼자 논다. 그때 누르면 깜짝 놀란다
+const IDLE_ACTS = [
+  { id: 'tv', furn: ['tv', 'projector'], back: true, key: 'idleTv', fb: ['이거 재밌다 {laugh}', '다음 화 궁금해..'] },
+  { id: 'game', furn: ['desk', 'consoleSet', 'monitor2'], back: true, key: 'idleGame', fb: ['한 판만 더..', '이겼다!!'] },
+  { id: 'piano', furn: ['piano'], back: true, key: 'idlePiano', fb: ['♪ 도레미..', '연습 중이야'] },
+  { id: 'read', furn: ['bookshelf', 'mangaShelf', 'albumShelf'], key: 'idleRead', fb: ['이 책 재밌다..', '한 장만 더 읽고..'] },
+  { id: 'guitar', furn: ['guitar'], key: 'idleGuitar', fb: ['♪ 띵가띵가', '코드 연습 중'] },
+  { id: 'nap', furn: ['beanbag', 'bunkBed', 'tent'], key: 'idleNap', fb: ['잠깐만 눈 붙일게..', '하암..'] },
+  { id: 'plush', furn: ['teddy', 'capybara', 'frogPlush'], key: 'idlePlush', fb: ['폭신폭신..', '얘 안고 있으면 좋아 {laugh}'] },
+  { id: 'pet', pet: true, key: 'idlePet', fb: ['{cat}야 이리 와!', '{cat}랑 놀자 {laugh}'] },
+];
+const IDLE_WALK = 1100;
+let idleNext = 0;
+function idleFurn(ids) {
+  for (const slot of ['floorL', 'floorR']) { const id = roomOf(slot); if (id && ids.includes(id) && FURN_POS[id] && ITEMS[id]) { const [x] = FURN_POS[id]; return { id, slot, x, w: ITEMS[id][0].length }; } }
+  return null;
+}
+function idleChoices() {
+  const out = [];
+  for (const a of IDLE_ACTS) {
+    if (a.pet) { if (hasCat() && !PB().still && !['nap', 'sleep', 'hide', 'top'].includes(kitty.mode) && !kitty.held && !kitty.falling) out.push({ a, to: homeX() }); continue; }
+    const f = idleFurn(a.furn); if (!f) continue;
+    // 뒷모습(TV·게임·피아노)은 가구가 보이게 오른쪽에 비켜 앉고, 기타·빈백은 그 자리에, 책장은 옆에서, 인형은 옆에 붙어서
+    let to = a.back ? f.x + f.w - 8 : a.id === 'nap' || a.id === 'guitar' ? f.x + f.w / 2 - 16 : a.id === 'plush' ? f.x - 22 : f.slot === 'floorL' ? f.x + f.w - 9 : f.x - 20;
+    out.push({ a, f, to: Math.max(-6, Math.min(LW - 26, Math.round(to))) });
+  }
+  return out;
+}
+function startIdleAct(force) {
+  const list = idleChoices(); if (!list.length) return false;
+  const c = force ? list.find(x => x.a.id === force) || list[0] : pick(list), dur = c.a.id === 'nap' ? 20000 : c.a.id === 'pet' ? 9000 : rand(13000, 17000);
+  startAnim('idle', dur, { act: c.a.id, to: c.to, said: 0 });
+  if (c.a.pet) catGoTo(c.to + 18, () => { kitty.dir = -1; catSet('rub', 7000); });
+  return true;
+}
+const idleAct = () => (anim.type === 'idle' && anim.data ? IDLE_ACTS.find(a => a.id === anim.data.act) : null);
+const idlePhase = now => { const k = now - anim.start, d = anim.until - anim.start; return k < IDLE_WALK ? 'in' : k > d - IDLE_WALK ? 'out' : 'on'; };
+LIFE_ANIMS.add('idle'); LIFE_ANIMS.add('startle');
+{
+  const lifeFace1 = lifeFace;
+  lifeFace = function (now) {
+    if (anim.type === 'startle') { const k = now - anim.start; return { eyes: k < 700 ? 'dot' : 'happy', mouth: k < 700 ? 'o' : 'open', arms: k < 700 ? 'up' : 'down', blush: 'big' }; }
+    const a = idleAct(); if (!a) return lifeFace1(now);
+    const ph = idlePhase(now), d = anim.data;
+    if (ph !== 'on') return { eyes: 'open', mouth: 'smile', arms: 'down' };
+    if (!d.said) { d.said = 1; say(catLine(lineOf(a.key, a.fb)), 2600); }
+    const blink = (now % 3200) < 140, t = now - anim.start;
+    switch (a.id) {
+      case 'tv': return { back: true, sit: true, arms: 'down' };
+      case 'game': return { back: true, sit: true, arms: Math.floor(now / 160) % 2 ? 'down' : 'cover' };
+      case 'piano': return { back: true, sit: true, arms: ['upL', 'down', 'upR', 'down'][Math.floor(now / 220) % 4] };
+      case 'read': return { sit: true, eyes: blink ? 'blink' : 'dot', mouth: Math.floor(now / 2600) % 3 ? 'neutral' : 'smile', arms: 'cover', blush: false };
+      case 'guitar': return { sit: true, eyes: 'happy', mouth: Math.floor(now / 500) % 2 ? 'smile' : 'open', arms: Math.floor(now / 250) % 2 ? 'upR' : 'down' };
+      case 'nap': return { sit: true, eyes: 'sleep', mouth: 'o', arms: 'down', blush: false };
+      case 'plush': return { sit: true, eyes: blink ? 'blink' : 'happy', mouth: 'smile', arms: 'cover', blush: 'big' };
+      case 'pet': {
+        if (d.swatAt && t - d.swatAt < 900) return { sit: true, eyes: 'dot', mouth: 'o', arms: 'up', blush: true }; // 앗!
+        if (d.swatAt) return { sit: true, eyes: 'happy', mouth: 'open', arms: 'down', blush: true };
+        return { sit: true, eyes: 'happy', mouth: Math.floor(now / 700) % 2 ? 'smile' : 'open', arms: Math.floor(now / 300) % 2 ? 'upR' : 'down', blush: true };
+      }
+    }
+    return lifeFace1(now);
+  };
+  const lifeMove1 = lifeMove;
+  lifeMove = function (now) {
+    if (anim.type === 'startle') return { dx: (anim.data && anim.data.dx) || 0, dy: now - anim.start < 250 ? -3 : 0 };
+    if (!idleAct()) return lifeMove1(now);
+    const k = now - anim.start, d = anim.until - anim.start, to = anim.data.to - homeX(), bob = Math.floor(now / 130) % 2 ? -1 : 0;
+    const f = k < IDLE_WALK ? k / IDLE_WALK : k > d - IDLE_WALK ? (d - k) / IDLE_WALK : 1;
+    return { dx: Math.round(to * f), dy: f < 1 ? bob : 0 };
+  };
+  const lifeOverlay2 = lifeOverlay;
+  lifeOverlay = function (cx, cy, now) {
+    const r = lifeOverlay2.apply(this, arguments), a = idleAct();
+    if (!a || idlePhase(now) !== 'on') return r;
+    const d = anim.data, t = now - anim.start;
+    if (a.id === 'read') { // 책: 표지 + 넘어가는 장
+      bx.fillStyle = '#2b2230'; bx.fillRect(cx + 9, cy + 23, 14, 7); bx.fillStyle = '#e8615f'; bx.fillRect(cx + 10, cy + 24, 12, 5);
+      bx.fillStyle = '#fff8ef'; bx.fillRect(cx + 11, cy + 24, 4, 4); bx.fillRect(cx + 17, cy + 24, 4, 4);
+      if (Math.floor(now / 2400) % 2 && (now % 2400) < 300) { bx.fillStyle = '#ffffff'; bx.fillRect(cx + 15, cy + 22, 2, 6); }
+    }
+    if (a.id === 'guitar') { bx.drawImage(item('guitar'), cx + 18, cy + 16); if (Math.random() < 0.07) spawn(Math.random() < 0.5 ? 'note' : 'note2', cx + rand(8, 28), cy + rand(0, 8), rand(-4, 4), -rand(6, 10), 1300); }
+    if (a.id === 'piano' && Math.random() < 0.08) spawn(Math.random() < 0.5 ? 'note' : 'note2', cx + rand(4, 28), cy + rand(0, 6), rand(-4, 4), -rand(6, 10), 1300);
+    if (a.id === 'game' && Math.random() < 0.025) spawn('sparkle', cx + rand(4, 26), cy + rand(2, 10), rand(-3, 3), -rand(4, 8), 700);
+    if (a.id === 'tv' && Math.random() < 0.012) { spawn('heart', cx + rand(6, 24), cy + 4, rand(-3, 3), -rand(6, 9), 1100); if (t > 6000 && d.said === 1) { d.said = 2; say(catLine(lineOf(a.key, a.fb)), 2400); } }
+    if (a.id === 'nap' && Math.floor(now / 900) % 2) bx.drawImage(item('z'), cx + 24, cy - 2);
+    if (a.id === 'plush' && Math.random() < 0.03) spawn('heart', cx + rand(8, 24), cy + rand(4, 12), rand(-3, 3), -rand(6, 10), 1000);
+    if (a.id === 'pet') {
+      if (!d.swatAt && t > 3800 && state.cat && hasCat()) {
+        const T = temperOf();
+        if (Math.random() < Math.min(0.9, T.swat + T.hiss * 0.3 + 0.15)) { d.swatAt = t; petSwat(); setTimeout(() => { if (anim.type === 'idle') say(catLine(lineOf('idlePetSwat', ['앗! 맞았다 {laugh}'])), 2200); }, 900); }
+        else { d.swatAt = -1; spawn('heart', cx + 20, cy + 14, 0, -9, 1200); }
+      }
+    }
+    return r;
+  };
+  // 혼자 놀 때 누르면: 앗 깜짝이야!
+  const lifeTouch1 = lifeTouch;
+  lifeTouch = function (hp) {
+    if (anim.type === 'idle' && idlePhase(performance.now()) === 'on') {
+      const dx = anim.data.to - homeX();
+      startAnim('startle', 1600, { dx }); say(lineOf('idleStartle', ['앗 깜짝이야!']), 2200); sfx.tap();
+      return;
+    }
+    return lifeTouch1.apply(this, arguments);
+  };
+  // 10초마다: 한동안(25초) 안 누르고 있으면 가구랑 놀기 (60초에 한 번쯤)
+  const lifeTick1 = lifeTick;
+  lifeTick = function () {
+    const r = lifeTick1.apply(this, arguments), s = state, now = Date.now();
+    if (!s || s.boxed || s.asleep || s.sick || s.sulk || workAway() || s.workHome || lifeBusy() || lifeHidden() || fakeSick()) return r;
+    if (now - lastInput < 25000 || now < idleNext || (s.cryUntil || 0) > now || localStorage.getItem('kyuppi.noIdle')) return r; // noIdle: 자동 테스트용
+    if (Math.random() < 0.5 && startIdleAct()) idleNext = now + rand(45000, 80000);
+    return r;
+  };
+}
+// ===================== 일하러 가 있을 때: 도시락 보내기 · 회사에서 온 메시지 · 몰래 방 꾸미기 =====================
+ITEMS.riceBall = ['....OOO....', '...OWWWO...', '..OWWWWWO..', '.OWWWWWWWO.', 'OWWWWWWWWWO', 'OWWWVVVWWWO', 'OWWWVVVWWWO', '.OOOVVVOOO.'];
+const sty = t => (typeof window.styleText === 'function' ? window.styleText(t) : t);
+const LUNCH_MAX = 3;
+let lunchPick = [];
+(function lunchDom() {
+  const d = document.createElement('div'); d.className = 'sheet-back'; d.id = 'lunchBack';
+  d.innerHTML = '<div class="sheet" role="dialog" aria-modal="true" aria-labelledby="lunchBackT"><h2 id="lunchBackT">도시락 싸기</h2><p class="food-count" id="lunchInfo"></p>' +
+    '<div class="lunch-box" id="lunchBox"></div><div class="foods" id="lunchList"></div>' +
+    '<div class="photo-btns"><button type="button" class="close" id="lunchClear">비우기</button><button type="button" class="close lunch-send" id="lunchSend">회사로 보내기</button></div><button class="close" data-close>닫기</button></div>';
+  document.body.appendChild(d);
+  const st = document.createElement('style');
+  st.textContent = '.lunch-box{display:grid;grid-template-columns:repeat(3,1fr);gap:6px;background:#c9a27a;border:3px solid #2b2230;border-radius:12px;padding:8px;margin:6px 0 10px}' +
+    '.lunch-box span{background:#fff8ef;border-radius:8px;min-height:58px;display:flex;flex-direction:column;align-items:center;justify-content:center;font-size:12px;gap:2px}.lunch-box img{width:36px;height:auto;image-rendering:pixelated}' +
+    '.lunch-send{background:#ff9fc6!important}#lunchList button[disabled]{opacity:.45}';
+  document.head.appendChild(st);
+  $('lunchList').onclick = e => { const b = e.target.closest('[data-lunch]'); if (!b || b.disabled) return; if (lunchPick.length >= LUNCH_MAX) return toast('도시락은 ' + LUNCH_MAX + '칸까지야'); lunchPick.push(b.dataset.lunch); sfx.tap(); renderLunch(); };
+  $('lunchBox').onclick = e => { const b = e.target.closest('[data-i]'); if (!b) return; lunchPick.splice(+b.dataset.i, 1); renderLunch(); };
+  $('lunchClear').onclick = () => { lunchPick = []; renderLunch(); };
+  $('lunchSend').onclick = () => sendLunch();
+})();
+const lunchName = k => (k === 'riceBall' ? '주먹밥' : (FOODS.find(f => f.key === k) || { name: k }).name);
+const lunchIcon = k => (k === 'riceBall' ? iconURL('riceBall', 4) : icons['food:' + k] || iconURL('riceBall', 4));
+function openLunch() {
+  closeSheets();
+  if (!workAway()) return;
+  if (state.work.lunch) return toast('도시락은 한 번 보냈어. 맛있게 먹는 중이래');
+  lunchPick = []; renderLunch(); openSheet('lunchBack');
+}
+function renderLunch() {
+  const left = k => (k === 'riceBall' ? 9 : stock(k) - lunchPick.filter(x => x === k).length);
+  $('lunchInfo').textContent = '냉장고에 있는 걸로 ' + LUNCH_MAX + '칸 채워서 보내. 주먹밥은 언제든 만들 수 있어';
+  $('lunchBox').innerHTML = Array.from({ length: LUNCH_MAX }, (_, i) => lunchPick[i] ? '<span data-i="' + i + '" role="button" aria-label="' + esc(lunchName(lunchPick[i])) + ' 빼기"><img src="' + lunchIcon(lunchPick[i]) + '" alt="">' + esc(lunchName(lunchPick[i])) + '</span>' : '<span>빈칸</span>').join('');
+  const foods = ['riceBall', ...FOODS.filter(f => stock(f.key) > 0).map(f => f.key)];
+  $('lunchList').innerHTML = foods.map(k => '<button type="button" class="food" data-lunch="' + k + '"' + (left(k) > 0 ? '' : ' disabled') + '><img class="px" src="' + lunchIcon(k) + '" alt="">' + esc(lunchName(k)) + '<small>' + (k === 'riceBall' ? '공짜' : left(k) + '개') + '</small></button>').join('') +
+    (foods.length === 1 ? '<p class="shop-hint">냉장고가 비었어. 상점에서 음식을 사 두면 도시락에 넣을 수 있어</p>' : '');
+  $('lunchSend').disabled = !lunchPick.length;
+}
+function sendLunch() {
+  const s = state; if (!workAway() || !lunchPick.length || s.work.lunch) return;
+  for (const k of lunchPick) if (k !== 'riceBall') s.fridge[k] = Math.max(0, stock(k) - 1);
+  s.work.lunch = lunchPick.slice(); lunchPick = [];
+  closeSheets(); addLove(1); track('lunch'); sfx.happy();
+  const best = s.work.lunch.find(k => k !== 'riceBall') || 'riceBall', hate = s.work.lunch.some(k => (FOODS.find(f => f.key === k) || {}).hate);
+  const line = sty(lineOf(hate ? 'lunchHate' : 'lunchGot', hate ? ['헉 {menu} 들어있네..|그래도 다 먹을게'] : ['도시락 왔다!! {menu} 최고 {laugh}'])).replace(/\{menu\}/g, lunchName(hate ? s.work.lunch.find(k => (FOODS.find(f => f.key === k) || {}).hate) : best));
+  toast('도시락 보냈어! 조금 있다 답장이 올 거야');
+  setTimeout(() => {
+    if (!state.work) return;
+    state.chat.push({ w: 'him', t: line.replace(/\|/g, ' ') }); if (state.chat.length > 80) state.chat.splice(0, state.chat.length - 80);
+    toast(state.name + ': ' + line.replace(/\|/g, ' ')); beep(1319, 0.05); beep(1568, 0.06, 'square', 0.03, 0.08); save();
+  }, 2600);
+  afterAction();
+}
+// 회사에서 오는 메시지: 일하는 동안 한 번쯤, 고를 수 있는 답장
+const WORK_ASKS = [
+  { q: '점심 뭐 먹지..?|추천해 줘', choices: [{ label: '김치찌개!', replies: ['오 김치찌개 좋다|그걸로 먹을게'] }, { label: '돈까스', replies: ['돈까스 좋아!|바삭바삭 {laugh}'] }, { label: '샐러드', replies: ['샐러드..? 음..|알겠어 건강하게 먹을게'] }] },
+  { q: '회의 너무 길어..|졸려', choices: [{ label: '힘내!', replies: ['응 힘낼게..|{you} 덕분에 잠 깼어'] }, { label: '몰래 자', replies: ['{laugh} 들키면 어떡해'] }, { label: '끝나고 맛있는 거 먹자', replies: ['진짜?? 그럼 버틸 수 있어'], mood: 'love' }] },
+  { q: '{you} 지금 뭐 해?', choices: [{ label: '네 생각', replies: ['헤헤..|나도 일하면서 {you} 생각했어'], mood: 'shy' }, { label: '놀고 있어', replies: ['부럽다..|나도 놀고 싶어'] }, { label: '나도 일하는 중', replies: ['같이 힘내자!'] }] },
+  { q: '상사한테 칭찬 들었다!!', choices: [{ label: '대박 최고야', replies: ['헤헤 {laugh}|집 가서 자랑할게'], mood: 'love' }, { label: '역시!', replies: ['역시 나지?'] }] },
+  { q: '실수했어..|혼났어', choices: [{ label: '괜찮아 토닥토닥', replies: ['고마워..|조금 나아졌어'], mood: 'sad' }, { label: '누가 그랬어!', replies: ['{laugh} 내 편이네|힘났어'] }] },
+  { q: '퇴근하고 뭐 할까?', choices: [{ label: '맛있는 거 먹자', replies: ['좋아!! 빨리 끝내고 갈게'] }, { label: '푹 쉬자', replies: ['응응 같이 뒹굴자'] }, { label: '데이트!', replies: ['헉 좋아!! 기대된다'], mood: 'love' }] },
+  { q: '커피 한 잔 마시는 중|{you}도 마셨어?', choices: [{ label: '응 마셨어', replies: ['우리 커피 친구 {laugh}'] }, { label: '아직', replies: ['얼른 마셔! 졸려 보여'] }] },
+];
+function workAskNow() {
+  const s = state, i = s.workAsk; if (i == null || !WORK_ASKS[i]) return null;
+  const q = WORK_ASKS[i];
+  return { q: sty(q.q), choices: q.choices.map(c => ({ label: c.label, mood: c.mood, replies: c.replies.map(sty) })) };
+}
+{
+  const startWork1 = startWork;
+  startWork = function (id) {
+    const r = startWork1.apply(this, arguments), w = state.work;
+    if (w && !w.askAt) {
+      const dur = w.until - w.at;
+      w.askAt = w.at + Math.max(40000, Math.min(dur - 60000, dur * rand(0.25, 0.55)));
+      w.room0 = JSON.stringify(state.room);
+    }
+    return r;
+  };
+  const lifeTick2 = lifeTick;
+  lifeTick = function () {
+    const r = lifeTick2.apply(this, arguments), s = state, now = Date.now(), w = s && s.work;
+    if (w && workAway() && w.askAt && now >= w.askAt && !w.asked && now < w.until - 20000) {
+      w.asked = true;
+      const used = s.workAsksUsed = (s.workAsksUsed || []).slice(-4);
+      const free = WORK_ASKS.map((_, i) => i).filter(i => !used.includes(i));
+      s.workAsk = pick(free.length ? free : WORK_ASKS.map((_, i) => i)); used.push(s.workAsk);
+      const q = workAskNow();
+      toast(s.name + josa(s.name, '이', '가') + ' 회사에서 메시지 보냈어: "' + q.q.split('|')[0] + '"'); beep(1319, 0.05); beep(1568, 0.06, 'square', 0.03, 0.08);
+      updateBadges(); save();
+    }
+    if (w && w.room0 && !w.roomChanged && JSON.stringify(s.room) !== w.room0) w.roomChanged = true;
+    return r;
+  };
+  const updateBadges1 = updateBadges;
+  updateBadges = function () { const r = updateBadges1.apply(this, arguments); if (state.workAsk != null && workAway()) $('talkDot').hidden = false; return r; };
+  const openChat1 = openChat;
+  openChat = function () {
+    const first = workAway() && state.workChatHi !== state.work.at, r = openChat1.apply(this, arguments);
+    const q = workAway() ? workAskNow() : null;
+    if (q) {
+      state.workAsk = null; updateBadges();
+      let n = 0; const ask = () => { if (!$('chatBack').classList.contains('show')) return; if (chat.busy && n++ < 30) return setTimeout(ask, 400); askQuestion(q).then(() => { addLove(1, true); }); };
+      setTimeout(ask, first ? 2600 : 600);
+    }
+    return r;
+  };
+  // 돌아오면: 도시락 먹고 힘났다 / 방 바뀐 거 알아챈다
+  // 집에 오는 장면(playHome)은 workReturn 안에서 바로 시작하니까, 들어오기 전에 할 말을 붙여 둔다
+  let homeExtra = null;
+  const workReturn1 = workReturn;
+  workReturn = function (early) {
+    const w = state.work, lunch = w && w.lunch, changed = !!(w && w.room0 && JSON.stringify(state.room) !== w.room0);
+    homeExtra = lunch || changed ? { lunch, changed } : null;
+    const r = workReturn1.apply(this, arguments);
+    if (lunch) { state.full = clamp(state.full + 12 * lunch.length); state.fun = clamp(state.fun + 8); }
+    if (changed) addLove(2);
+    return r;
+  };
+  const playHome1 = playHome;
+  playHome = function () {
+    const H = state && state.workHome;
+    if (H && homeExtra && !H.extraDone) {
+      const e = homeExtra, extra = []; homeExtra = null; H.extraDone = true;
+      if (e.lunch) { extra.push(sty(lineOf('lunchThanks', ['도시락 고마워!! 덕분에 힘났어'])).replace(/\{menu\}/g, lunchName(e.lunch[0]))); H.msg += ', 도시락 먹고 힘냈어'; }
+      if (e.changed) { extra.push(sty(lineOf('roomNoticed', ['어?! 방 바뀌었다!!|{you}가 꾸며 줬어?']))); H.msg += ', 바뀐 방에 감동'; }
+      H.story = [extra.join('|') + (H.story ? '|' + H.story[0] : ''), 'love'];
+    }
+    return playHome1.apply(this, arguments);
+  };
+}
 
 
 // ---------- 시작 ----------
@@ -10601,12 +12023,12 @@ KyuppiWeb.afterBoot();
     mk('roomBack', '<div class="room-head"><h2 style="margin:0">엔딩 방</h2><small id="roomCount"></small></div><div class="room-wrap" id="roomWrap"><canvas id="roomCanvas" width="168" height="64"></canvas></div>' +
       '<p id="endHint"></p><div class="end-list" id="endList"></div><button class="close" data-close>닫기</button>');
     $('roomBack').querySelector('[data-close]').onclick = closeSheets;
-    $('endLater').onclick = () => { closeSheets(); toast('언제든 다이어리 → 엔딩에서 졸업시킬 수 있어'); };
+    $('endLater').onclick = () => { closeSheets(); toast('언제든 레벨 → 엔딩에서 졸업시킬 수 있어'); };
     $('endGo').onclick = graduate;
-    // 다이어리에 '엔딩' 탭
+    // 성장 창(레벨 배지)에 '엔딩' 탭
     const tabs = $('diaryTabs');
     if (tabs && !tabs.querySelector('[data-tab=ending]')) {
-      const b = document.createElement('button'); b.type = 'button'; b.setAttribute('role', 'tab'); b.dataset.tab = 'ending'; b.setAttribute('aria-selected', 'false'); b.textContent = '엔딩';
+      const b = document.createElement('button'); b.type = 'button'; b.setAttribute('role', 'tab'); b.dataset.tab = 'ending'; b.dataset.group = 'grow'; b.setAttribute('aria-selected', 'false'); b.textContent = '엔딩';
       tabs.appendChild(b);
       b.addEventListener('click', e => { e.stopPropagation(); closeSheets(); openRoom(); }, true);
     }
