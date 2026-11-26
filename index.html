@@ -4938,10 +4938,17 @@ function petKind(st) {
   for (const k of ['cat', 'dog', 'rabbit', 'hamster', 'bird', 'turtle', 'fish']) if (s.owned.includes(petId(k))) return k;
   return 'cat';
 }
+// 고양이가 아닌 동물의 소리: 기분 좋을 때(골골 대신)·화날 때(하악 대신). 병아리(새 기본 모습)는 삐약
+const PET_SOUNDS = {
+  dog: { purr: '헥헥', angry: '으르렁' }, rabbit: { purr: '킁킁', angry: '쿵쿵' }, hamster: { purr: '찍찍', angry: '찍!' },
+  bird: { purr: '짹짹', angry: '삐익', say: () => (typeof petLookOf === 'function' && petLookOf('bird') ? '짹짹' : '삐약') }, turtle: { purr: '...', angry: '...' }, fish: { purr: '뻐끔', angry: '뻐끔' },
+};
 function petText(t) {
   const k = petKind(); const K = PET_KINDS[k];
   if (!K || typeof t !== 'string') return t;
-  return t.replace(/냐+앙+|냐옹|야옹|냥+|먀+/g, K.sound).replace(/고양이/g, K.name).replace(/츄르/g, '간식').replace(/골골송/g, '좋아서 콩콩').replace(/꾹꾹이/g, '폴짝폴짝');
+  const S = PET_SOUNDS[k] || {};
+  return t.replace(/냐+앙+|냐옹|야옹|냥+|먀+/g, S.say ? S.say() : K.sound).replace(/고양이/g, K.name).replace(/츄르/g, '간식').replace(/골골송/g, '좋아서 콩콩').replace(/꾹꾹이/g, '폴짝폴짝')
+    .replace(/골골+|그르릉+/g, S.purr || K.sound).replace(/하악/g, S.angry || K.sound);
 }
 // 종에 맞는 격자: 머리 틀·코 색·몸 자세를 잠깐 그 종 것으로 바꿔서 원래 catGrid로 그린 뒤 색을 바꾼다
 function petGrid(kind, pose, face, acc, env) {
@@ -5169,8 +5176,8 @@ const LINES = {
   // 루이 (고양이 말풍선)
   catMeow: ['냥', '냐앙', '냥냥', '냐아', '먀', '냥!'],
   catPurr: ['골골골..', '골골골골', '그르릉..'],
-  catHeld: ['냥!?', '냐아앙..', '..냥', '냥냥!!', '(버둥버둥)', '놔 줘냥!!'],
-  catHungry: ['냐아앙..', '냥.. (배고픔)', '먀아..'],
+  catHeld: ['냥!?', '냐아앙..', '..냥', '냥냥!!', '냐앙!! 냐앙!!', '냐아아앙!!'],
+  catHungry: ['냐아앙..', '냥..', '먀아..', '냐앙.. 냐앙..'],
   // 루이를 보는 큐삐
   churu: ['{cat} 츄르 먹자!!', '{cat}야 츄르~', '츄르 타임 히히'],
   brush: ['{cat} 빗질하자~', '털 엄청 빠진다..', '{cat} 털 보송보송해졌오'],
@@ -11017,7 +11024,7 @@ function careInput(p, d) {
   if (petc.mode === 'brush') {
     petc.acc += d; petc.face = 'purr'; petc.faceUntil = now + 800;
     if (petc.acc > 5) { petc.acc = 0; const b = careBox(); petc.fur.push({ x: p.x, y: p.y, vx: rand(-6, 6), vy: -rand(4, 10), life: 900, c: furColor() }); }
-    careGain(d * 0.45, 'brush'); if (Math.random() < 0.01) careHint(petText('골골골.. 시원하다냥'), 1500); return;
+    careGain(d * 0.45, 'brush'); if (Math.random() < 0.01) careHint(petText('골골골.. 시원한가 봐'), 1500); return;
   }
   const likesBelly = petKind() === 'dog';
   if (z === 'belly' && !likesBelly) {
@@ -11382,7 +11389,8 @@ const TEMPERS = {
   shy: { name: '겁쟁이', desc: '놀라면 구석으로 도망가', petMax: 5, back: 0.8, swat: 0.1, hiss: 0.3 },
   free: { name: '자유로운 영혼', desc: '불러도 못 들은 척해', petMax: 6, back: 1, swat: 0.4, hiss: 0.1 },
 };
-const ANGRY = { cat: '하악!!', dog: '으르렁..', rabbit: '(발 쿵쿵!)', hamster: '찍!!', bird: '꽥!!' };
+// 반려동물은 사람 말을 안 한다: 말풍선엔 그 동물 소리만
+const ANGRY = { cat: '하악!!', dog: '으르렁..', rabbit: '쿵! 쿵!', hamster: '찍!!', bird: '삐익!!', turtle: '...', fish: '뻐끔!' };
 function temperOf() {
   const c = state.cat; if (!c) return TEMPERS.sweet;
   if (!c.temper || !TEMPERS[c.temper]) { const keys = Object.keys(TEMPERS); c.temper = keys[hashStr(String(state.catName || '') + (state.createdAt || 0) + petKind()) % keys.length]; }
@@ -11398,18 +11406,18 @@ function petTurnAway(ms, sulk) {
 function petSulk(why) {
   if (!petCanSulk()) return;
   const left = charPos.x + 16 > LW / 2, corner = left ? 0 : LW - 14; // 캐릭터에서 먼 구석
-  catGoTo(corner, () => { kitty.dir = left ? -1 : 1; catSet('back', rand(20000, 35000), { sulk: true }); catSay(petText('흥..'), 1600); });
+  catGoTo(corner, () => { kitty.dir = left ? -1 : 1; catSet('back', rand(20000, 35000), { sulk: true }); catSay(petText('..냥'), 1600); });
   ksay2('catSulk', 0.7, ['{cat} 삐졌나 봐..']);
   if (why) state.cat.sulkWhy = why;
 }
 function petSwat() {
   kitty.dir = kitty.x + 7 > charPos.x + 16 ? -1 : 1; // 사람 쪽을 보고 탁!
-  catSet('swat', 900); catSay(petText(petKind() === 'cat' ? '탁!' : '흥!'), 900); beep(330, 0.05, 'square', 0.04);
+  catSet('swat', 900); catSay(petText('냥!!'), 900); beep(330, 0.05, 'square', 0.04);
   setTimeout(() => ksay2('catSwat', 0.8, ['앗! {cat}한테 맞았다']), 400);
 }
 function petHiss(ms = 1600) {
   kitty.dir = kitty.x + 7 > charPos.x + 16 ? -1 : 1;
-  catSet('hiss', ms); catSay(ANGRY[petKind()] || '흥!!', ms); beep(180, 0.12, 'sawtooth', 0.03);
+  catSet('hiss', ms); catSay(ANGRY[petKind()] || petText('냥!!'), ms); beep(180, 0.12, 'sawtooth', 0.03);
   setTimeout(() => ksay2('catHiss', 0.7, ['헉 {cat} 화났다..']), 500);
 }
 {
@@ -11438,7 +11446,7 @@ function petHiss(ms = 1600) {
     if (!petCanSulk() || s.asleep || isNight()) return catThink1(now);
     const T = temperOf();
     if (c.mood < 30 && Math.random() < 0.35) return petSulk('mood');
-    if (Math.random() < 0.06 * T.back) { petTurnAway(rand(5000, 9000)); if (Math.random() < 0.4) catSay(petText('흥'), 1200); return; }
+    if (Math.random() < 0.06 * T.back) { petTurnAway(rand(5000, 9000)); if (Math.random() < 0.4) catSay(petText('..냥'), 1200); return; }
     return catThink1(now);
   };
   // 쓰다듬기: 너무 많이 하면 성격 따라 앞발 치기·하악·도망. 삐져 있을 땐 잘 안 받아 준다
@@ -11453,9 +11461,9 @@ function petHiss(ms = 1600) {
       const annoyed = now < (kitty.annoyedUntil || 0);
       if (kitty.sulk || annoyed) { // 삐짐·방금 귀찮아함: 쓰다듬어도 쉽게 안 풀린다 (간식·빗질·장난감이 잘 통한다)
         if (k < T.hiss * 0.5) return petHiss();
-        if (annoyed || k < 0.75) { catSay(petText('흥!'), 1000); kitty.heartUntil = 0; return; }
+        if (annoyed || k < 0.75) { catSay(petText('냥!'), 1000); kitty.heartUntil = 0; return; }
       } else if (k < T.swat * 0.4) return petSwat();
-      kitty.sulk = false; catSet('sit', 3000); catFace('content', 1800); catSay(petText(c.temper === 'tsun' ? '..이번만이다냥' : '냥..'), 1600);
+      kitty.sulk = false; catSet('sit', 3000); catFace('content', 1800); catSay(petText(c.temper === 'tsun' ? '..냥' : '냐앙..'), 1600);
       ksay2('catMakeUp', 0.6, ['{cat} 화 풀렸다!']);
       return patKitty1.apply(this, arguments);
     }
@@ -11466,7 +11474,7 @@ function petHiss(ms = 1600) {
       if (k < T.swat) return petSwat();
       if (k < T.swat + T.hiss) return petHiss();
       if (c.temper === 'shy') { kitty.zoomLeft = 2; catGoTo(kitty.x < 24 ? LW - 15 : 0); kitty.mode = 'zoom'; return catSay(petText('냥!?'), 1000); }
-      petTurnAway(rand(4000, 7000)); kitty.annoyedUntil = now + 3500; return catSay(petText('그만해라냥'), 1400);
+      petTurnAway(rand(4000, 7000)); kitty.annoyedUntil = now + 3500; return catSay(petText('냐앙!!'), 1400);
     }
     return patKitty1.apply(this, arguments);
   };
