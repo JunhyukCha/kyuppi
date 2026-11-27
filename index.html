@@ -6982,7 +6982,9 @@ function boredOf(k) {
   const t = Date.now() - 36 * HOUR;
   return (state.recentFood || []).filter(r => r.t > t).slice(-4).filter(r => r.k === k).length;
 }
-const craving = () => { const c = state.crave; return c && c.until > Date.now() ? c : null; };
+// 제철이 아닌 음식(겨울의 수박 등)은 해금도 못 하니까 조르지 않는다
+const craveOk = k => { const f = FOODS.find(x => x.key === k); return !!f && inSeason(f); };
+const craving = () => { const c = state.crave; return c && c.until > Date.now() && craveOk(c.k) ? c : null; };
 
 // ---------- 몸무게·운동 ----------
 // 50이 보통. 배부른데 또 먹이면·간식을 많이 주면 찌고, 운동·산책을 하면 빠지고, 오래 굶기면 마른다
@@ -7062,7 +7064,7 @@ function unlockFood(key) {
 // ---------- 먹고 싶은 것 ----------
 function maybeCrave(now) {
   const s = state;
-  if (s.crave && s.crave.until <= now) s.crave = null;
+  if (s.crave && (s.crave.until <= now || !craveOk(s.crave.k))) s.crave = null;
   if (s.crave || s.asleep || game.active || now < (s.nextCrave || 0) || s.full > 80 || s.sick) return;
   if (!s.nextCrave) { s.nextCrave = now + rand(1, 2) * HOUR; return; } // 처음 켠 날엔 조금 있다가
   const open = FOODS.filter(foodOpen), recent = new Set((s.recentFood || []).slice(-2).map(r => r.k));
@@ -7071,7 +7073,7 @@ function maybeCrave(now) {
   if (r < 0.2) pool = FOODS.filter(f => !foodOpen(f) && f.price && (!f.lv || has(f.lv))); // 아직 안 열린 것: 먹어 보고 싶어 한다
   else if (r < 0.65) pool = FOODS.filter(f => f.fav && (!f.lv || has(f.lv)));
   if (!pool || !pool.length) pool = open;
-  pool = pool.filter(f => !recent.has(f.key) && !f.hate);
+  pool = pool.filter(f => !recent.has(f.key) && !f.hate && inSeason(f));
   if (!pool.length) return;
   const f = pick(pool);
   s.crave = { k: f.key, until: now + 8 * HOUR }; s.nextCrave = now + rand(6, 10) * HOUR;
@@ -7111,7 +7113,7 @@ const sickBlock = () => { if (!state.sick || state.asleep) return false; startAn
 // 상태에 맞는 부탁(배고프면 밥, 더러우면 목욕)이 더 자주 나오고, 들어주면 애정도·코인, 시간이 지나면 시무룩
 const REQS = {
   feed: { label: '밥 주기', w: s => (s.full < 55 ? 4 : 0), go: () => openFood() },
-  crave: { label: '먹고 싶은 거 주기', w: () => (craving() ? 3 : 0), go: () => openFood(stock(craving().k) ? 'eat' : 'shop') },
+  crave: { label: '먹고 싶은 거 주기', w: () => (craving() ? 3 : 0), go: () => { const c = craving(); openFood(c && stock(c.k) ? 'eat' : 'shop'); } },
   bath: { label: '목욕시키기', w: s => (s.clean < 55 ? 4 : 0), go: () => bath() },
   sleep: { label: '재우기', w: s => (s.energy < 35 ? 4 : 0), go: () => toggleSleep() },
   play: { label: '같이 놀기', w: s => (s.energy > 25 && s.full > 15 ? (s.fun < 60 ? 3 : 1) : 0), go: () => { closeSheets(); renderGameList(); openSheet('gameBack'); } },
@@ -7131,6 +7133,7 @@ function reqLine(k) {
 }
 function maybeReq(now) {
   const s = state;
+  if (s.req && s.req.k === 'crave' && !craving()) { s.req = null; s.reqNext = now + rand(10, 20) * MIN; updateUI(); return; } // 먹고 싶던 게 없어지면(제철 끝 등) 부탁도 조용히 접는다
   if (s.req && s.req.until <= now) {
     s.req = null; s.reqNext = now + rand(20, 40) * MIN; s.fun = clamp(s.fun - 3);
     if (!s.asleep && !anim.type && !game.active) { startAnim('pout', 1400); say(pick(LINES.reqMissed), 2400); }
@@ -8365,7 +8368,7 @@ function startGift(quiet) {
 }
 function openGift() {
   const s = state; s.giftPending = false;
-  const r = Math.random(), foods = FOODS.filter(f => f.price && !s.owned.includes(f.key));
+  const r = Math.random(), foods = FOODS.filter(f => f.price && !s.owned.includes(f.key) && inSeason(f));
   let msg;
   if (r < 0.25 && foods.length) { const f = pick(foods); s.owned.push(f.key); msg = f.name + ' 들어있었어! 밥주기에서 먹일 수 있어'; }
   else if (r < 0.55) { addCoins(15); addLove(3); msg = '하트 코인 +15, 애정도 +3'; }
